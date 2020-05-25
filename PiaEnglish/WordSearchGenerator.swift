@@ -13,6 +13,7 @@ class WordSearchGenerator {
     var used_words: [String]
     var unused_words: [String]
     var grid = [[String]]()
+    var cur_grid_words: [String] = []
     
     init(used_words: [String],
          unused_words: [String]) {
@@ -48,6 +49,8 @@ class WordSearchGenerator {
         
         let orientations = ["lr", "rl", "ud", "du"] // left-right, up-down
         let max_tries = 100
+        
+        self.cur_grid_words = []
         
         for word in self.unused_words {
             var placed = false
@@ -99,6 +102,8 @@ class WordSearchGenerator {
                         self.grid[x_pos][y_pos] = char
                     }
                     placed = true
+                    
+                    self.cur_grid_words.append(word)
                     
                     if (!self.used_words.contains(word)) {
                         self.used_words.append(word)

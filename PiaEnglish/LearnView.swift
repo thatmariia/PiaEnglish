@@ -13,15 +13,16 @@ struct LearnView: View {
     let gw = WordSearchGenerator(used_words: [], unused_words: ["meow", "woof", "wow"])
     
     var body: some View {
-        
-        VStack {
+        self.gw.generate()
+        return NavigationView{
             
-            Button(action: {
-                self.gw.generate()
-            }) {
-                Text("button")
+            VStack {
+                
+                NavigationLink(destination: WordSearchView(grid: gw.grid, words: gw.cur_grid_words)){
+                    Text("go to word search")
+                }
+
             }
-            
         }
     }
 }
