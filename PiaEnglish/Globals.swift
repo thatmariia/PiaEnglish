@@ -18,3 +18,5 @@ let storage_bucket = "gs://piaenglish-915c2.appspot.com/"
 var player = AVAudioPlayer()
 
 let db = Firestore.firestore()
+
+let grid_size = 5

@@ -9,8 +9,20 @@
 import SwiftUI
 
 struct LearnView: View {
+    
+    let gw = WordSearchGenerator(used_words: [], unused_words: ["meow", "woof"])
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        VStack {
+            
+            Button(action: {
+                self.gw.generate()
+            }) {
+                Text("button")
+            }
+            
+        }
     }
 }
 
