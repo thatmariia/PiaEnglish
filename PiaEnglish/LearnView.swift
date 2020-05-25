@@ -10,7 +10,9 @@ import SwiftUI
 
 struct LearnView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        var ws = WordSearchGenerator(used_words: [], unused_words: ["meow", "woof"])
+        ws.generate()
+        return Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
