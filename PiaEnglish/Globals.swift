@@ -20,3 +20,5 @@ var player = AVAudioPlayer()
 let db = Firestore.firestore()
 
 let grid_size = 5
+
+let capital_letters = (65...90).map({String(UnicodeScalar($0))})

@@ -23,6 +23,18 @@ class WordSearchGenerator {
         }
         self.used_words = used_words
         self.unused_words = unused_words
+        
+        self.make_uppercase()
+        
+    }
+    
+    func make_uppercase() {
+        for i in 0..<self.used_words.count {
+            self.used_words[i] = self.used_words[i].uppercased()
+        }
+        for i in 0..<self.unused_words.count {
+            self.unused_words[i] = self.unused_words[i].uppercased()
+        }
     }
     
     func print_grid() {
@@ -35,11 +47,17 @@ class WordSearchGenerator {
         self.grid = self.empty_grid()
         
         let orientations = ["lr", "rl", "ud", "du"] // left-right, up-down
+        let max_tries = 100
         
         for word in self.unused_words {
             var placed = false
+            var tries_count = 0
             
             while (!placed) {
+                
+                if (tries_count >= max_tries){ break }
+                tries_count += 1
+                
                 let orientation = orientations.randomElement()!
                 
                 var x_step = 0
@@ -81,9 +99,26 @@ class WordSearchGenerator {
                         self.grid[x_pos][y_pos] = char
                     }
                     placed = true
+                    
+                    if (!self.used_words.contains(word)) {
+                        self.used_words.append(word)
+                    }
+                    
+                    if let index = self.unused_words.firstIndex(of: word) {
+                        self.unused_words.remove(at: index)
+                    }
                 }
             }
         }
+        
+        for i in 0..<grid_size {
+            for j in 0..<grid_size {
+                if (self.grid[i][j] == "_") {
+                    self.grid[i][j] = capital_letters.randomElement()!
+                }
+            }
+        }
+        
         self.print_grid()
     }
     
