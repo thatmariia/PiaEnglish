@@ -8,7 +8,7 @@ target 'PiaEnglish' do
   # Pods for PiaEnglish
 
   # add the Firebase pod for Google Analytics
-  pod 'Firebase', '~> 6.21.0'
+  pod 'Firebase'
   pod 'Firebase/Analytics'
   pod 'Firebase/Storage'
   pod 'Firebase/Firestore'

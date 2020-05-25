@@ -24,7 +24,7 @@
 		31A3B872247B4590002C0EC1 /* CollectionContentsObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A3B871247B4590002C0EC1 /* CollectionContentsObserver.swift */; };
 		31A3B874247B45C6002C0EC1 /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A3B873247B45C6002C0EC1 /* Word.swift */; };
 		31A3B876247B4B63002C0EC1 /* CollectionContentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A3B875247B4B63002C0EC1 /* CollectionContentsView.swift */; };
-		31A3B878247BDA6E002C0EC1 /* WordSearchGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A3B877247BDA6E002C0EC1 /* WordSearchGenerator.swift */; };
+		31A3B87A247BF8C6002C0EC1 /* WordSearchGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A3B879247BF8C6002C0EC1 /* WordSearchGenerator.swift */; };
 		9E8113770671313CB5D6838D /* Pods_PiaEnglish.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A97C06CEE9CCB95328B0D93A /* Pods_PiaEnglish.framework */; };
 /* End PBXBuildFile section */
 
@@ -48,7 +48,7 @@
 		31A3B871247B4590002C0EC1 /* CollectionContentsObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionContentsObserver.swift; sourceTree = "<group>"; };
 		31A3B873247B45C6002C0EC1 /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		31A3B875247B4B63002C0EC1 /* CollectionContentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionContentsView.swift; sourceTree = "<group>"; };
-		31A3B877247BDA6E002C0EC1 /* WordSearchGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSearchGenerator.swift; sourceTree = "<group>"; };
+		31A3B879247BF8C6002C0EC1 /* WordSearchGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSearchGenerator.swift; sourceTree = "<group>"; };
 		A97C06CEE9CCB95328B0D93A /* Pods_PiaEnglish.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PiaEnglish.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE6CA557D554861F0A9AC847 /* Pods-PiaEnglish.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PiaEnglish.debug.xcconfig"; path = "Target Support Files/Pods-PiaEnglish/Pods-PiaEnglish.debug.xcconfig"; sourceTree = "<group>"; };
 		FE5FB435E6584798805979D7 /* Pods-PiaEnglish.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PiaEnglish.release.xcconfig"; path = "Target Support Files/Pods-PiaEnglish/Pods-PiaEnglish.release.xcconfig"; sourceTree = "<group>"; };
@@ -101,7 +101,6 @@
 				31724DBE247B29AD0005A728 /* PiaEnglish.xcdatamodeld */,
 				31724DC5247B29B20005A728 /* Preview Content */,
 				31A3B86A247B3CC3002C0EC1 /* Globals.swift */,
-				31A3B877247BDA6E002C0EC1 /* WordSearchGenerator.swift */,
 			);
 			path = PiaEnglish;
 			sourceTree = "<group>";
@@ -263,7 +262,7 @@
 				31724DD2247B2A9D0005A728 /* AppTabView.swift in Sources */,
 				31A3B872247B4590002C0EC1 /* CollectionContentsObserver.swift in Sources */,
 				31A3B86F247B4214002C0EC1 /* Collection.swift in Sources */,
-				31A3B878247BDA6E002C0EC1 /* WordSearchGenerator.swift in Sources */,
+				31A3B87A247BF8C6002C0EC1 /* WordSearchGenerator.swift in Sources */,
 				31724DD6247B2B100005A728 /* CollectionsView.swift in Sources */,
 				31724DD4247B2AF70005A728 /* LearnView.swift in Sources */,
 				31A3B876247B4B63002C0EC1 /* CollectionContentsView.swift in Sources */,

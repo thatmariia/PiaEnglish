@@ -20,4 +20,3 @@ var player = AVAudioPlayer()
 let db = Firestore.firestore()
 
 let grid_size = 5
-

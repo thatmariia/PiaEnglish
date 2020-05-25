@@ -99,9 +99,9 @@ class WordSearchGenerator {
             if (pos_char != "_") {
                 if (pos_char == char) {
                     continue
+                } else {
+                    return true
                 }
-            } else {
-                return true
             }
         }
         return false

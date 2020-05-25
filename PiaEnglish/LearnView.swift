@@ -13,9 +13,16 @@ struct LearnView: View {
     let gw = WordSearchGenerator(used_words: [], unused_words: ["meow", "woof"])
     
     var body: some View {
-        var ws = WordSearchGenerator(used_words: [], unused_words: ["meow", "woof"])
-        ws.generate()
-        return Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        VStack {
+            
+            Button(action: {
+                self.gw.generate()
+            }) {
+                Text("button")
+            }
+            
+        }
     }
 }
 
