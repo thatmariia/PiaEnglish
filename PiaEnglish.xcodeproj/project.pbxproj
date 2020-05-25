@@ -92,6 +92,7 @@
 				31724DBC247B29AD0005A728 /* SceneDelegate.swift */,
 				31724DC1247B29AD0005A728 /* ContentView.swift */,
 				31724DD1247B2A9D0005A728 /* AppTabView.swift */,
+				31A3B879247BF8C6002C0EC1 /* WordSearchGenerator.swift */,
 				31A3B870247B43A7002C0EC1 /* Collections */,
 				31724DD3247B2AF70005A728 /* LearnView.swift */,
 				31724DC3247B29B20005A728 /* Assets.xcassets */,

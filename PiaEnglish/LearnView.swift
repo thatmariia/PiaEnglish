@@ -9,6 +9,9 @@
 import SwiftUI
 
 struct LearnView: View {
+    
+    let gw = WordSearchGenerator(used_words: [], unused_words: ["meow", "woof"])
+    
     var body: some View {
         var ws = WordSearchGenerator(used_words: [], unused_words: ["meow", "woof"])
         ws.generate()
