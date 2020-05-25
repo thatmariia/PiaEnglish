@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  LearnView.swift
 //  PiaEnglish
 //
 //  Created by Mariia Turchina on 25/05/2020.
@@ -8,14 +8,14 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct LearnView: View {
     var body: some View {
-        AppTabView()
+        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct LearnView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        LearnView()
     }
 }
