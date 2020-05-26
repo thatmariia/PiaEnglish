@@ -33,6 +33,11 @@ struct CollectionsView: View {
                 
                 // TODO:: add new collection
                 
+                NavigationLink(destination: AddCollectionView(collections: collections_observer.collections)) {
+                    Text("Add new collection")
+                }
+                
+                
             
                 scroll_collections()
             }

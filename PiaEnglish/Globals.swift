@@ -25,3 +25,17 @@ let capital_letters = (65...90).map({String(UnicodeScalar($0))})
 
 let rus_alphabet = "АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя"
 let eng_alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+func word_matching(db_word: String, comp_word: String) -> Bool {
+
+    let word_cap = comp_word.prefix(1).uppercased() + comp_word.dropFirst()
+    print(word_cap, " - word_cap")
+    if db_word.contains(comp_word) ||
+        db_word.contains(comp_word.uppercased()) ||
+        db_word.contains(comp_word.lowercased()) ||
+        db_word.contains(word_cap) {
+        return true
+    }
+    
+    return false
+}

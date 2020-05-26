@@ -25,6 +25,15 @@ struct AddWordView: View {
     @State var already_in_db_only = false
     
     fileprivate func word_entered() -> Bool {
+        
+        for char in new_word.english {
+            if !eng_alphabet.contains(char) { return false }
+        }
+        
+        for char in new_word.russian {
+            if !rus_alphabet.contains(char) {return false }
+        }
+        
         if new_word.english.count > 0 && new_word.russian.count > 0 {
             return true
         }
@@ -57,20 +66,6 @@ struct AddWordView: View {
             }
         }
         return words
-    }
-    
-    fileprivate func word_matching(db_word: String, comp_word: String) -> Bool {
-
-        let word_cap = comp_word.prefix(1).uppercased() + comp_word.dropFirst()
-        print(word_cap, " - word_cap")
-        if db_word.contains(comp_word) ||
-            db_word.contains(comp_word.uppercased()) ||
-            db_word.contains(comp_word.lowercased()) ||
-            db_word.contains(word_cap) {
-            return true
-        }
-        
-        return false
     }
     
     fileprivate func word_exists_in_db(word: Word) -> Bool {
@@ -109,12 +104,6 @@ struct AddWordView: View {
                 return
             }
         }
-    }
-    
-    fileprivate func in_collection_alert() -> Alert {
-        return Alert(title: Text(""),
-                     message: Text("The word is already in this collection"),
-                     dismissButton: .cancel())
     }
     
     fileprivate func suggested_word_button(_ i: Int) -> some View {
@@ -167,6 +156,12 @@ struct AddWordView: View {
                      message: Text("Do you want to add it to the collection?"), primaryButton: .cancel(), secondaryButton: .default(Text("Add"), action: {
                         self.add_existing_word(with: self.new_word.russian, and: self.new_word.english)
                      }))
+    }
+    
+    fileprivate func in_collection_alert() -> Alert {
+        return Alert(title: Text(""),
+                     message: Text("The word is already in this collection"),
+                     dismissButton: .cancel())
     }
     
     var body: some View {

@@ -33,26 +33,26 @@ struct CollectionContentsView: View {
     
     var body: some View {
         NavigationView{
-        ScrollView(.vertical, showsIndicators: true) {
-            Text("coll name = " + collection_name)
-            
-            // TODO:: add a new word
-            
-            NavigationLink(destination: AddWordView(collection_name: collection_name, collection_words: words_observer.words)) {
-                Text("Add new word")
+            ScrollView(.vertical, showsIndicators: true) {
+                Text("coll name = " + collection_name)
+                
+                NavigationLink(destination: AddWordView(collection_name: collection_name, collection_words: words_observer.words)) {
+                    Text("Add new word")
+                }
+                
+                // TODO:: fix not appearing after adding a word
+                if (words_observer.words.count > 0){
+                    collection_words()
+                }
             }
-            
-            // TODO:: only show when > 0
-            collection_words()
-        }
         }
     }
 }
 
 /*
-struct CollectionContentsView_Previews: PreviewProvider {
-    static var previews: some View {
-        CollectionContentsView()
-    }
-}
-*/
+ struct CollectionContentsView_Previews: PreviewProvider {
+ static var previews: some View {
+ CollectionContentsView()
+ }
+ }
+ */
