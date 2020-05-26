@@ -10,14 +10,15 @@ import Foundation
 import Firebase
 
 struct Collection : Hashable, Identifiable {
-    var id = UUID()
+    var id: String
     
     var name: String
     var english_words: [String]
 }
 
 func get_collection(from collection_snap: QueryDocumentSnapshot) -> Collection{
-    let collection = Collection(name: collection_snap.documentID,
+    let collection = Collection(id: collection_snap.documentID,
+                                name: collection_snap.documentID,
                                 english_words: collection_snap.get("english_words") as! [String])
     return collection
 }

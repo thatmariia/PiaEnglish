@@ -11,7 +11,7 @@ import Firebase
 import AVFoundation
 
 struct Word : Hashable, Identifiable {
-    var id = UUID()
+    var id: String
     
     var english: String
     var russian: String
@@ -19,7 +19,8 @@ struct Word : Hashable, Identifiable {
 }
 
 func get_word(from word_snap: QueryDocumentSnapshot) -> Word{
-    let word = Word(english:    word_snap.get("english")    as! String,
+    let word = Word(id:         word_snap.documentID,
+                    english:    word_snap.get("english")    as! String,
                     russian:    word_snap.get("russian")    as! String,
                     learned_by: word_snap.get("learned_by") as! [String])
     return word

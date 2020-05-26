@@ -24,10 +24,39 @@ class CollectionsObserver : ObservableObject {
                 return
             }
             
+            for change in snap!.documentChanges {
+                let doc = change.document
+                let collection = get_collection(from: doc)
+                
+                switch change.type {
+                case .added:
+                    self.collections.append(collection)
+                    
+                case .modified:
+                    for i in 0..<self.collections.count {
+                        if doc.documentID == self.collections[i].id {
+                            self.collections[i] = collection
+                        }
+                    }
+                    
+                case .removed:
+                    for i in 0..<self.collections.count {
+                        if doc.documentID == self.collections[i].id {
+                            self.collections.remove(at: i)
+                        }
+                    }
+                    
+                default:
+                    continue
+                }
+                
+            }
+            
+            /*
             for doc in snap!.documents {
                 let collection = get_collection(from: doc)
                 self.collections.append(collection)
-            }
+            } */
         }
     }
 }

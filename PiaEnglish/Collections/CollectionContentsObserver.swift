@@ -29,10 +29,38 @@ class CollectionContentsObserver : ObservableObject {
                 return
             }
             
-            for doc in snap!.documents {
+            for change in snap!.documentChanges {
+                let doc = change.document
+                let word = get_word(from: doc)
+                
+                switch change.type {
+                case .added:
+                    self.words.append(word)
+                
+                case .modified:
+                    for i in 0..<self.words.count {
+                        if doc.documentID == self.words[i].id {
+                            self.words[i] = word
+                            break
+                        }
+                    }
+                case .removed:
+                    for i in 0..<self.words.count {
+                        if doc.documentID == self.words[i].id {
+                            self.words.remove(at: i)
+                            break
+                        }
+                    }
+                    
+                default:
+                    continue
+                }
+            }
+            
+            /*for doc in snap!.documents {
                 let word = get_word(from: doc)
                 self.words.append(word)
-            }
+            }*/
             
             
         }

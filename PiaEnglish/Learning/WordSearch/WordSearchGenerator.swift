@@ -49,7 +49,7 @@ class WordSearchGenerator {
         self.grid = self.empty_grid()
         
         let orientations = ["lr", "rl", "ud", "du"] // left-right, up-down
-        let max_tries = 100
+        let max_tries = Int(pow(Double(grid_size), 2)) * orientations.count
         
         self.cur_grid_words = []
         
