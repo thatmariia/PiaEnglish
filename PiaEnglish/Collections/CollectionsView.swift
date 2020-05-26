@@ -10,7 +10,7 @@ import SwiftUI
 
 struct CollectionsView: View {
     
-    @ObservedObject var collections_observer = CollectionsObserver()
+    @ObservedObject var collections_observer: CollectionsObserver
     
     var body: some View {
         NavigationView {
@@ -30,8 +30,10 @@ struct CollectionsView: View {
     }
 }
 
+/*
 struct CollectionsView_Previews: PreviewProvider {
     static var previews: some View {
         CollectionsView()
     }
 }
+*/

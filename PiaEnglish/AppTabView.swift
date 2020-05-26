@@ -10,15 +10,18 @@ import SwiftUI
 import Foundation
 
 struct AppTabView: View {
+    
+    @ObservedObject var collections_observer = CollectionsObserver()
+    
     var body: some View {
         TabView{
             
-            LearnView()
+            LearnView(collections_observer: collections_observer)
                 .tabItem {
                     Text("learn")
             }
             
-            CollectionsView()
+            CollectionsView(collections_observer: collections_observer)
                 .tabItem {
                     Text("collection")
             }
