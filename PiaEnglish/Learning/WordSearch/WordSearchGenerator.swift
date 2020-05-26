@@ -8,6 +8,7 @@
 
 import Foundation
 
+// TODO:: if a word is longer than grid size, make a snake thingie
 class WordSearchGenerator {
     
     var used_words: [String]

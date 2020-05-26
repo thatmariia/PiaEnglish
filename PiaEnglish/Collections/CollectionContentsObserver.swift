@@ -17,6 +17,10 @@ class CollectionContentsObserver : ObservableObject {
     init(english_words: [String]) {
         self.english_words = english_words
         
+        if (self.english_words.count == 0) {
+            return
+        }
+        
         let query = db.collection("words").whereField("english", in: self.english_words)
         
         query.addSnapshotListener { (snap, err) in
