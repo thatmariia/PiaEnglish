@@ -30,32 +30,33 @@ struct LearnView: View {
                 
                 
                 ScrollView(.horizontal, showsIndicators: false){
-                    //HStack {
+                    HStack {
                         
-                    ForEach(0..<collections_observer.collections.count, id: \.self) { i in
+                        ForEach(0..<collections_observer.collections.count, id: \.self) { i in
                             
-                        Button(action: {
-                            
-                            let collection = self.collections_observer.collections[i]
-                            
-                            if (self.collections_chosen.contains(collection)) {
-                                if let index = self.collections_chosen.firstIndex(of: collection) {
-                                    self.collections_chosen.remove(at: index)
+                            Button(action: {
+                                
+                                let collection = self.collections_observer.collections[i]
+                                
+                                if (self.collections_chosen.contains(collection)) {
+                                    if let index = self.collections_chosen.firstIndex(of: collection) {
+                                        self.collections_chosen.remove(at: index)
+                                    }
+                                } else {
+                                    self.collections_chosen.append(collection)
                                 }
-                            } else {
-                                self.collections_chosen.append(collection)
+                                
+                                print("chosen collections = ", self.collections_chosen)
+                                
+                            }) {
+                                Text(self.collections_observer.collections[i].name).foregroundColor(self.get_color(collection: self.collections_observer.collections[i]))
                             }
                             
-                            print("chosen collections = ", self.collections_chosen)
-                            
-                        }) {
-                            Text(self.collections_observer.collections[i].name).foregroundColor(self.get_color(collection: self.collections_observer.collections[i]))
-                        }
-                            
                         }
                         
-                    //}
+                    }
                 }
+                Spacer()
                 
                 // testing
                 
@@ -69,6 +70,7 @@ struct LearnView: View {
                     Text("Train")
                 }.disabled(collections_chosen == [])
                 
+                Spacer()
                 
             }
         }
