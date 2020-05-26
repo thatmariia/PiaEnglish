@@ -17,8 +17,9 @@ struct WordSearchView: View {
     
     @State var curr_entry: [(Int, Int)] = []
     
-    @State var grid_state = [[Int]](repeating: [Int](repeating: -1, count: grid_size), count: grid_size)
+    @State var grid_state = [[Bool]](repeating: [Bool](repeating: false, count: grid_size), count: grid_size)
     // -1 : not filled, 0 : filled, 1 : contains found
+    @State var found_cells: [(Int, Int)] = []
     
     fileprivate func get_entry_str(entry: [(Int, Int)]) -> String {
         var entry_str = ""
@@ -34,7 +35,7 @@ struct WordSearchView: View {
         let entry_str = get_entry_str(entry: entry)
         
         for word in words {
-            if (word.contains(entry_str)) {
+            if (word.contains(entry_str)) && (!found_words.contains(word)){
                 return true
             }
         }
@@ -76,34 +77,55 @@ struct WordSearchView: View {
         var attempted_entry = self.curr_entry
         attempted_entry.append(curr_cell)
         
-        if (self.grid_state[i][j] == -1) &&
+        if (!self.grid_state[i][j]) &&
             self.is_adjacent(x: i, y: j) &&
-            self.contains_word(entry: attempted_entry) {
+            self.contains_word(entry: attempted_entry)
+        {
             
             self.curr_entry.append(curr_cell)
-            self.grid_state[i][j] = 0
+            self.grid_state[i][j] = true
             
-        } else if (self.grid_state[i][j] != -1) &&
+        } else if (self.grid_state[i][j]) &&
                   (self.curr_entry.count > 0) {
             
             if (self.curr_entry[self.curr_entry.count-1] == curr_cell){
                 // only allow to delete the last entered char
                 self.curr_entry = self.curr_entry.dropLast()
-                self.grid_state[i][j] = -1
+                self.grid_state[i][j] = false
             }
         }
         
-        // now check if the word mathes any in the words array
+        // now check if the word matches any in the words array
         let found_word = self.found_word()
         if found_word.0 {
             self.found_words.append(found_word.1)
             
             for cell in self.curr_entry {
-                self.grid_state[cell.0][cell.1] = 1
+                if (!cell_in_list(cell: cell, list: self.found_cells)) {
+                    self.found_cells.append(cell)
+                }
             }
             
             self.curr_entry = []
+            grid_state = [[Bool]](repeating: [Bool](repeating: false, count: grid_size), count: grid_size)
         }
+    }
+    
+    fileprivate func cell_in_list(cell: (Int, Int), list: [(Int, Int)]) -> Bool {
+        for entry_cell in list {
+            if entry_cell == cell {
+                return true
+            }
+        }
+        return false
+    }
+
+    fileprivate func get_color(i: Int, j: Int) -> Color{
+        let cell = (i,j)
+        if (cell_in_list(cell: cell, list: curr_entry)){
+            return .red
+        }
+        return .green
     }
     
     var body: some View {
@@ -140,13 +162,14 @@ struct WordSearchView: View {
                                             
                                             self.handle_attempt(i: i, j: j)
                                             
-                                            //print("hit " + self.grid[i][j])
+                                            print("hit " + self.grid[i][j])
                                         }) {
-                                            if (self.grid_state[i][j] == 0){
+                                            Text(self.grid[i][j]).foregroundColor(self.get_color(i: i, j: j)).fontWeight(.heavy)
+                                            /*if (self.grid_state[i][j] == 0){
                                                 Text(self.grid[i][j]).foregroundColor(.red).fontWeight(.heavy)
                                             } else {
                                                 Text(self.grid[i][j]).foregroundColor(.green).fontWeight(.heavy)
-                                            }
+                                            }*/
                                         }
                                     }
                                     Spacer()
