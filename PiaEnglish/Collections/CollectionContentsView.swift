@@ -38,10 +38,11 @@ struct CollectionContentsView: View {
             
             // TODO:: add a new word
             
-            NavigationLink(destination: AddWordView(collection_name: collection_name)) {
+            NavigationLink(destination: AddWordView(collection_name: collection_name, collection_words: words_observer.words)) {
                 Text("Add new word")
             }
             
+            // TODO:: only show when > 0
             collection_words()
         }
         }

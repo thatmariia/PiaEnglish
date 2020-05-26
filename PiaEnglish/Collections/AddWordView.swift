@@ -11,12 +11,18 @@ import SwiftUI
 struct AddWordView: View {
     
     let collection_name: String
+    let collection_words: [Word]
     
     @State var search_word = ""
     @ObservedObject var search_observer = SearchObserver()
     
     @State var adding = false
     @State var new_word = Word(id: "", english: "", russian: "", learned_by: [])
+    
+    @State var already_in_collection = false
+    @State var already_in_collection_db = false
+    @State var already_in_db = false
+    @State var already_in_db_only = false
     
     fileprivate func word_entered() -> Bool {
         if new_word.english.count > 0 && new_word.russian.count > 0 {
@@ -45,7 +51,7 @@ struct AddWordView: View {
                 str_db_word = db_word.russian
             }
             //print("comparing word = ", str_db_word)
-            if word_matching(db_word: str_db_word){
+            if word_matching(db_word: str_db_word, comp_word: search_word){
                 print("APPENDED")
                 words.append(db_word)
             }
@@ -53,13 +59,13 @@ struct AddWordView: View {
         return words
     }
     
-    fileprivate func word_matching(db_word: String) -> Bool {
-        print("search_word = ", search_word)
-        let word_cap = search_word.prefix(1).uppercased() + search_word.dropFirst()
+    fileprivate func word_matching(db_word: String, comp_word: String) -> Bool {
+
+        let word_cap = comp_word.prefix(1).uppercased() + comp_word.dropFirst()
         print(word_cap, " - word_cap")
-        if db_word.contains(search_word) ||
-            db_word.contains(search_word.uppercased()) ||
-            db_word.contains(search_word.lowercased()) ||
+        if db_word.contains(comp_word) ||
+            db_word.contains(comp_word.uppercased()) ||
+            db_word.contains(comp_word.lowercased()) ||
             db_word.contains(word_cap) {
             return true
         }
@@ -67,17 +73,100 @@ struct AddWordView: View {
         return false
     }
     
-    fileprivate func suggested_word_button(_ i: Int) -> Button<Text> {
+    fileprivate func word_exists_in_db(word: Word) -> Bool {
+        if (word.english.count == 0 || word.russian.count == 0){ return false }
+        for db_word in search_observer.all_words {
+            
+            if word_matching(db_word: db_word.russian, comp_word: word.russian) &&
+               word_matching(db_word: db_word.english, comp_word: word.english){
+                return true
+            }
+        }
+        return false
+    }
+    
+    fileprivate func word_exists_in_collection(word: Word) -> Bool {
+        if collection_words.contains(word){
+            return true
+        }
+        if (word.english.count == 0 || word.russian.count == 0){ return false }
+        for collection_word in collection_words {
+            
+            if word_matching(db_word: collection_word.russian, comp_word: word.russian) &&
+               word_matching(db_word: collection_word.english, comp_word: word.english){
+                return true
+            }
+        }
+        return false
+    }
+    
+    fileprivate func add_existing_word(with english: String, and russian: String) {
+        for word in search_observer.all_words {
+            if word.english == english &&
+               word.russian == russian {
+                let word_commiter =  NewWordCommiter(new_word: word, collection: self.collection_name)
+                word_commiter.add_word_to_collection()
+                return
+            }
+        }
+    }
+    
+    fileprivate func in_collection_alert() -> Alert {
+        return Alert(title: Text(""),
+                     message: Text("The word is already in this collection"),
+                     dismissButton: .cancel())
+    }
+    
+    fileprivate func suggested_word_button(_ i: Int) -> some View {
         let matching_words = select_matching()
         return Button(action: {
             let word = matching_words[i]
-            // TODO:: also check if the word is in the collection already
             
-            let word_commiter =  NewWordCommiter(new_word: word, collection: self.collection_name)
-            word_commiter.add_word_to_collection()
+            if (!self.word_exists_in_collection(word: word)){
+                self.already_in_collection = false
+                let word_commiter =  NewWordCommiter(new_word: word, collection: self.collection_name)
+                word_commiter.add_word_to_collection()
+            } else {
+                self.already_in_collection = true
+            }
         }) {
             Text(matching_words[i].english)
+        }.alert(isPresented: $already_in_collection) { () -> Alert in
+            in_collection_alert()
         }
+    }
+    
+    fileprivate func add_word_button() -> Button<Text> {
+        return Button(action: {
+            
+            let w = Word(id: "", english: self.new_word.english, russian: self.new_word.russian, learned_by: [])
+            
+            if !self.word_exists_in_db(word: w){
+                print("adding...")
+                self.already_in_db_only = false
+                self.already_in_collection_db = false
+                let word_commiter = NewWordCommiter(english: self.new_word.english,
+                                                    russian: self.new_word.russian,
+                                                    collection: self.collection_name)
+                word_commiter.commit_new_word()
+            } else {
+                self.already_in_db_only = true
+                
+                if self.word_exists_in_collection(word: w){
+                    self.already_in_collection_db = true
+                    self.already_in_db_only = false
+                }
+            }
+        }) {
+            Text("Add word")
+        }
+    }
+    
+    fileprivate func in_db_only_alert() -> Alert {
+        return Alert(title: Text("This word already exists."),
+                     message: Text("Do you want to add it to the collection?"), primaryButton: .cancel(), secondaryButton: .default(Text("Add"), action: {
+                        self.add_existing_word(with: self.new_word.russian, and: self.new_word.english)
+                     }))
     }
     
     var body: some View {
@@ -86,9 +175,7 @@ struct AddWordView: View {
             
             VStack {
 
-                TextField("word search", text: $search_word, onEditingChanged: { (changed) in
-                }) {
-                }
+                TextField("word search", text: $search_word)
                 
                 if (search_word.count > 0) && (select_matching().count > 0){
                     VStack{
@@ -113,19 +200,19 @@ struct AddWordView: View {
                     Text("russian:")
                     TextField("russian", text: $new_word.russian)
                     
-                    // TODO:: check if already exists and if yes just add the word from db
+                    add_word_button().disabled(!word_entered())
+                    .alert(isPresented: $already_in_collection_db) { () -> Alert in
+                        in_collection_alert()
+                    }
                     
-                    Button(action: {
-                        print("adding...")
-                        let word_commiter = NewWordCommiter(english: self.new_word.english,
-                                                            russian: self.new_word.russian,
-                                                            collection: self.collection_name)
-                        word_commiter.commit_new_word()
-                    }) {
-                        Text("Add word")
-                    }.disabled(!word_entered())
+                    Text("").alert(isPresented: $already_in_db_only) { () -> Alert in
+                        in_db_only_alert()
+                    }
+                    
                     
                 }
+                
+                Spacer()
                 
                 
                 
