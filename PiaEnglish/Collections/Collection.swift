@@ -17,6 +17,7 @@ struct Collection : Hashable, Identifiable {
 }
 
 func get_collection(from collection_snap: QueryDocumentSnapshot) -> Collection{
+    print("collection snap id = ", collection_snap.documentID, " ; ", collection_snap.get("english_words"))
     let collection = Collection(id: collection_snap.documentID,
                                 name: collection_snap.documentID,
                                 english_words: collection_snap.get("english_words") as! [String])

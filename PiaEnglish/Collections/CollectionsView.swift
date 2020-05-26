@@ -12,19 +12,29 @@ struct CollectionsView: View {
     
     @ObservedObject var collections_observer: CollectionsObserver
     
+    fileprivate func scroll_collections() -> ScrollView<ForEach<[Collection], String, NavigationLink<Text, CollectionContentsView>>> {
+        return ScrollView(.vertical, showsIndicators: true) {
+            
+            ForEach(collections_observer.collections) { collection in
+                
+                NavigationLink(destination: CollectionContentsView(collection_name: collection.name,
+                                                                   words_observer: CollectionContentsObserver(english_words: collection.english_words))) {
+                                                                    
+                                                                    Text(collection.name)
+                }
+            }
+        }
+    }
+    
     var body: some View {
         NavigationView {
-            ScrollView(.vertical, showsIndicators: true) {
+            
+            VStack {
                 
-                ForEach(collections_observer.collections) { collection in
-                    
-                    NavigationLink(destination: CollectionContentsView(collection_name: collection.name,
-                                                                       words_observer: CollectionContentsObserver(english_words: collection.english_words))) {
-                        
-                        Text(collection.name)
-                    }
-                }
+                // TODO:: add new collection
                 
+            
+                scroll_collections()
             }
         }
     }
