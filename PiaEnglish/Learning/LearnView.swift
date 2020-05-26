@@ -21,7 +21,6 @@ struct LearnView: View {
         return .red
     }
     
-    
     fileprivate func get_engliah_words() -> [String]{
         // get words associated with chosen collections
         var english_words: [String] = []
@@ -32,42 +31,49 @@ struct LearnView: View {
         return english_words
     }
     
+    fileprivate func collection_button(_ i: Int) -> Button<Text> {
+        return Button(action: {
+            
+            let collection = self.collections_observer.collections[i]
+            
+            if (self.chosen_collections.contains(collection)) {
+                if let index = self.chosen_collections.firstIndex(of: collection) {
+                    self.chosen_collections.remove(at: index)
+                }
+            } else {
+                self.chosen_collections.append(collection)
+            }
+            
+            print("chosen collections = ", self.chosen_collections)
+            
+        }) {
+            Text(self.collections_observer.collections[i].name).foregroundColor(self.get_color(collection: self.collections_observer.collections[i]))
+        }
+    }
+    
+    fileprivate func scroll_collections() -> ScrollView<HStack<ForEach<Range<Int>, Int, Button<Text>>>> {
+        return ScrollView(.horizontal, showsIndicators: false){
+            HStack {
+                ForEach(0..<collections_observer.collections.count, id: \.self) { i in
+                    
+                    self.collection_button(i)
+                    
+                }
+            }
+        }
+    }
     
     var body: some View {
         
         return NavigationView {
             VStack {
                 
-                Text("Choose collections")
+                Text("Choose collections:")
                 
                 if (collections_observer.collections.count > 0){
-                    ScrollView(.horizontal, showsIndicators: false){
-                        HStack {
-                            
-                            ForEach(0..<collections_observer.collections.count, id: \.self) { i in
-                                
-                                Button(action: {
-                                    
-                                    let collection = self.collections_observer.collections[i]
-                                    
-                                    if (self.chosen_collections.contains(collection)) {
-                                        if let index = self.chosen_collections.firstIndex(of: collection) {
-                                            self.chosen_collections.remove(at: index)
-                                        }
-                                    } else {
-                                        self.chosen_collections.append(collection)
-                                    }
-                                    
-                                    print("chosen collections = ", self.chosen_collections)
-                                    
-                                }) {
-                                    Text(self.collections_observer.collections[i].name).foregroundColor(self.get_color(collection: self.collections_observer.collections[i]))
-                                }
-                                
-                            }
-                            
-                        }
-                    }
+                    scroll_collections()
+                } else {
+                    Text("You have no collections :(")
                 }
                 Spacer()
                 
