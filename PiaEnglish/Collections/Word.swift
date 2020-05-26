@@ -18,6 +18,15 @@ struct Word : Hashable, Identifiable {
     var learned_by: [String]
 }
 
+func get_word_dict(from word: Word) -> [String : Any]{
+    let dict = [
+        "english" : word.english,
+        "russian" : word.russian,
+        "learned_by" : word.learned_by
+        ] as [String : Any]
+    return dict
+}
+
 func get_word(from word_snap: QueryDocumentSnapshot) -> Word{
     let word = Word(id:         word_snap.documentID,
                     english:    word_snap.get("english")    as! String,
