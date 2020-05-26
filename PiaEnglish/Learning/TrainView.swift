@@ -1,15 +1,14 @@
 //
-//  LearnView.swift
+//  TrainView.swift
 //  PiaEnglish
 //
-//  Created by Mariia Turchina on 25/05/2020.
+//  Created by Mariia Turchina on 26/05/2020.
 //  Copyright © 2020 Mariia Turchina. All rights reserved.
 //
 
 import SwiftUI
 
-struct LearnView: View {
-    
+struct TrainView: View {
     let gw = WordSearchGenerator(used_words: [], unused_words: ["meow", "woof", "wow"])
     
     var body: some View {
@@ -19,7 +18,7 @@ struct LearnView: View {
             VStack {
                 
                 NavigationLink(destination: WordSearchView(grid: gw.grid, words: gw.cur_grid_words)){
-                    Text("go to word search")
+                    Text("Go to word search")
                 }
 
             }
@@ -27,8 +26,8 @@ struct LearnView: View {
     }
 }
 
-struct LearnView_Previews: PreviewProvider {
+struct TrainView_Previews: PreviewProvider {
     static var previews: some View {
-        LearnView()
+        TrainView()
     }
 }

@@ -165,11 +165,6 @@ struct WordSearchView: View {
                                             print("hit " + self.grid[i][j])
                                         }) {
                                             Text(self.grid[i][j]).foregroundColor(self.get_color(i: i, j: j)).fontWeight(.heavy)
-                                            /*if (self.grid_state[i][j] == 0){
-                                                Text(self.grid[i][j]).foregroundColor(.red).fontWeight(.heavy)
-                                            } else {
-                                                Text(self.grid[i][j]).foregroundColor(.green).fontWeight(.heavy)
-                                            }*/
                                         }
                                     }
                                     Spacer()
