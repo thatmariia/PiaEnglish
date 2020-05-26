@@ -25,6 +25,7 @@
 		3178AF59247D4A0F00ADD92B /* SearchObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3178AF58247D4A0F00ADD92B /* SearchObserver.swift */; };
 		3178AF5B247D8E8E00ADD92B /* NewCollectionCommiter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3178AF5A247D8E8D00ADD92B /* NewCollectionCommiter.swift */; };
 		3178AF5D247D8F5D00ADD92B /* AddCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3178AF5C247D8F5D00ADD92B /* AddCollectionView.swift */; };
+		3178AF5F247D947400ADD92B /* LernedToggleCommiter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3178AF5E247D947400ADD92B /* LernedToggleCommiter.swift */; };
 		31A3B86B247B3CC3002C0EC1 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A3B86A247B3CC3002C0EC1 /* Globals.swift */; };
 		31A3B86D247B40DE002C0EC1 /* CollectionsObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A3B86C247B40DE002C0EC1 /* CollectionsObserver.swift */; };
 		31A3B86F247B4214002C0EC1 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A3B86E247B4214002C0EC1 /* Collection.swift */; };
@@ -57,6 +58,7 @@
 		3178AF58247D4A0F00ADD92B /* SearchObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchObserver.swift; sourceTree = "<group>"; };
 		3178AF5A247D8E8D00ADD92B /* NewCollectionCommiter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCollectionCommiter.swift; sourceTree = "<group>"; };
 		3178AF5C247D8F5D00ADD92B /* AddCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCollectionView.swift; sourceTree = "<group>"; };
+		3178AF5E247D947400ADD92B /* LernedToggleCommiter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LernedToggleCommiter.swift; sourceTree = "<group>"; };
 		31A3B86A247B3CC3002C0EC1 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		31A3B86C247B40DE002C0EC1 /* CollectionsObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsObserver.swift; sourceTree = "<group>"; };
 		31A3B86E247B4214002C0EC1 /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				31724DD5247B2B100005A728 /* CollectionsView.swift */,
 				3178AF5C247D8F5D00ADD92B /* AddCollectionView.swift */,
 				31A3B875247B4B63002C0EC1 /* CollectionContentsView.swift */,
+				3178AF5E247D947400ADD92B /* LernedToggleCommiter.swift */,
 				3178AF56247D448F00ADD92B /* AddWordView.swift */,
 				3178AF58247D4A0F00ADD92B /* SearchObserver.swift */,
 				3178AF54247D396500ADD92B /* NewWordCommiter.swift */,
@@ -305,6 +308,7 @@
 				31A3B87C247C10C9002C0EC1 /* WordSearchView.swift in Sources */,
 				3178AF5B247D8E8E00ADD92B /* NewCollectionCommiter.swift in Sources */,
 				31A3B86F247B4214002C0EC1 /* Collection.swift in Sources */,
+				3178AF5F247D947400ADD92B /* LernedToggleCommiter.swift in Sources */,
 				3178AF50247C9D2000ADD92B /* TestView.swift in Sources */,
 				3178AF59247D4A0F00ADD92B /* SearchObserver.swift in Sources */,
 				31A3B87A247BF8C6002C0EC1 /* WordSearchGenerator.swift in Sources */,

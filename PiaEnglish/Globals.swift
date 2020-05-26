@@ -39,3 +39,5 @@ func word_matching(db_word: String, comp_word: String) -> Bool {
     
     return false
 }
+
+let username = "piazok"
