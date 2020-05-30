@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Firebase
 
 
 struct CollectionContentsView: View {
@@ -26,9 +27,16 @@ struct CollectionContentsView: View {
         
     }
     
+    fileprivate func delete_word(word: Word) {
+        // TODO:: figure out why view disappears when deleting
+        let word_commiter = NewWordCommiter(new_word: word, collection: self.collection_name)
+        word_commiter.remove_word_from_collection()
+    }
+    
     fileprivate func collection_word(word: Word) -> some View{
         print("*** callled collection word with word = ", word)
         return HStack{
+            
             Button(action: {
                 /// super genious force refresh workaround
                 self.update += 1
@@ -37,9 +45,7 @@ struct CollectionContentsView: View {
                 
                 if word.learned_by.contains(username) {
                     // was learned, not anymore
-                    /*if let index = word.learned_by.firstIndex(of: username) {
-                        words_observer.words.learned_by.remove(at: index) // wtf
-                    }*/
+
                     if let word_index = self.words_observer.words.firstIndex(of: word) {
                         
                         if let user_index = self.words_observer.words[word_index].learned_by.firstIndex(of: username) {
@@ -49,7 +55,7 @@ struct CollectionContentsView: View {
                     learned_toggle_commiter = LearnedToggleCommiter(word: word, is_now_learned: false)
                 } else {
                     // the other way arounf
-                    //self.words_observer.words[i].learned_by.append(username)
+
                     if let word_index = self.words_observer.words.firstIndex(of: word) {
                         self.words_observer.words[word_index].learned_by.append(username)
                     }
@@ -65,21 +71,25 @@ struct CollectionContentsView: View {
                 
                 Text(learned_status(word: word))
             }.buttonStyle(BorderlessButtonStyle())
+                .frame(width: 10, height: 10)
             
             /// super genious force refresh workaround
             if (update >= 1) {
                 Text("")
             }
             
-            Spacer()
+            Spacer().frame(width: 10)
             
-            Text(word.english)
+            Text(word.english).frame(minWidth: 30)
+            
+            
             Button(action: {
                 print("hit play")
                 play_audio_of(word: word.english)
             }) {
                 Text("play")
             }.buttonStyle(BorderlessButtonStyle())
+            .frame(minWidth: 20)
         }
     }
     
@@ -103,11 +113,13 @@ struct CollectionContentsView: View {
                     }.onDelete { (index) in
                         
                         print("BEFORE DELETE = ", self.words_observer.words.count)
-                        
+
                         let i = index.first!
-                        //let word_commiter = NewWordCommiter(new_word: self.words_observer.words[i], collection: self.collection_name)
+                        let delete_word = self.words_observer.words[i]
+                        
+                        // TODO:: fix deleting whole thing when comitiing
+                        self.delete_word(word: delete_word)
                         self.words_observer.words.remove(at: i)
-                        //word_commiter.remove_word_from_collection()
                         self.update += 1
                         
                         print("AFTER DELETE = ", self.words_observer.words.count)

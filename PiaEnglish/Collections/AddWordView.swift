@@ -40,6 +40,7 @@ struct AddWordView: View {
         return false
     }
     
+    /// selects words from db that match the search word
     fileprivate func select_matching() -> [Word] {
         
         var language = "english"
@@ -106,6 +107,7 @@ struct AddWordView: View {
         }
     }
     
+    /// adds searched word to collection when pressed
     fileprivate func suggested_word_button(_ i: Int) -> some View {
         let matching_words = select_matching()
         return Button(action: {
@@ -115,6 +117,7 @@ struct AddWordView: View {
                 self.already_in_collection = false
                 let word_commiter =  NewWordCommiter(new_word: word, collection: self.collection_name)
                 word_commiter.add_word_to_collection()
+                self.search_word = ""
             } else {
                 self.already_in_collection = true
             }
@@ -172,6 +175,7 @@ struct AddWordView: View {
 
                 TextField("word search", text: $search_word)
                 
+                /// suggestion from db for the searched for word
                 if (search_word.count > 0) && (select_matching().count > 0){
                     VStack{
                         ForEach(0..<min(10, select_matching().count), id: \.self) { i in
