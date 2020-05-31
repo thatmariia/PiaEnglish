@@ -12,43 +12,74 @@ struct CollectionsView: View {
     
     @ObservedObject var collections_observer: CollectionsObserver
     
-    fileprivate func scroll_collections() -> ScrollView<ForEach<[Collection], String, NavigationLink<Text, CollectionContentsView>>> {
-        return ScrollView(.vertical, showsIndicators: true) {
+    fileprivate func scroll_collections() -> some View {
+        return VStack{
+            
+            //List{
             
             ForEach(collections_observer.collections) { collection in
                 
-                NavigationLink(destination: CollectionContentsView(collection_name: collection.name,
-                                                                   words_observer: CollectionContentsObserver(english_words: collection.english_words))) {
-                                                                    
-                                                                    Text(collection.name)
+                VStack{
+                    
+                    
+                    NavigationLink(destination: CollectionContentsView(collection_name: collection.name,
+                                                                       words_observer: CollectionContentsObserver(english_words: collection.english_words))) {
+                                                                        
+                                                                        HStack{
+                                                                            
+                                                                            Text(collection.name.lowercased())
+                                                                            Spacer()
+                                                                        }
+                    }
+                    Divider()
+                    
+                    
                 }
-            }
+            }//.listRowBackground(Color.red.opacity(0.5))
+            //}.background(Color.clear.opacity(0.0))
+            
         }
     }
     
     var body: some View {
         NavigationView {
-            
-            VStack {
+            ZStack(alignment: .top){
                 
-                // TODO:: add new collection
-                
-                NavigationLink(destination: AddCollectionView(collections: collections_observer.collections)) {
-                    Text("Add new collection")
+                PiaBackground().edgesIgnoringSafeArea(.all)
+                ScrollView(.vertical, showsIndicators: true){
+                    
+                    VStack {
+                        
+                        HStack {
+                            Text("Collections:").font(.title)
+                            Spacer()
+                        }
+                        
+                        NavigationLink(destination: AddCollectionView(collections: collections_observer.collections)) {
+                            VStack{
+                                HStack{
+                                    Image(systemName: "plus.circle").foregroundColor(.white)
+                                    Text("add a new collection")
+                                    Spacer()
+                                }
+                                Divider()
+                            }
+                        }
+                        
+                        
+                        
+                        scroll_collections()
+                    }.padding()
                 }
-                
-                
-            
-                scroll_collections()
-            }
-        }.buttonStyle(BigButtonStyle())
+            }.navigationBarTitle("").navigationBarHidden(true)
+        }
     }
 }
 
 /*
-struct CollectionsView_Previews: PreviewProvider {
-    static var previews: some View {
-        CollectionsView()
-    }
-}
-*/
+ struct CollectionsView_Previews: PreviewProvider {
+ static var previews: some View {
+ CollectionsView()
+ }
+ }
+ */

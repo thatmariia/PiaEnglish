@@ -70,7 +70,10 @@ struct LearnView: View {
         return VStack(spacing: 10) {
             
             // TODO:: why doesnt align to left?
-            Text("Choose collections:").font(.title).frame(alignment: .leading)
+            HStack {
+                Text("Select collections:").font(.title)
+                Spacer()
+            }
             
             if (collections_observer.collections.count > 0){
                 scroll_collections()

@@ -19,19 +19,32 @@ struct AppTabView: View {
     }
     
     var body: some View {
-        TabView{
-            
-            LearnView(collections_observer: collections_observer)
-                .tabItem {
-                    Text("learn")
-            }
-            
-            CollectionsView(collections_observer: collections_observer)
-                .tabItem {
-                    Text("collection")
-            }
-            
+        ZStack{
+                TabView{
+                    
+                    LearnView(collections_observer: self.collections_observer)
+                        .tabItem {
+                            VStack{
+                                Image(systemName: "book.circle")
+                                .font(.system(size: 30, weight: Font.Weight.ultraLight))
+                                Text("training")
+                               
+                            }
+                            
+                    }
+                    
+                    CollectionsView(collections_observer: self.collections_observer)
+                        .tabItem {
+                            VStack{
+                            Image(systemName: "paperclip.circle")
+                                .font(.system(size: 30, weight: Font.Weight.ultraLight))
+                            Text("collections")
+                            }
+                    }
+                    
+                }.accentColor(.white)
         }
+        
     }
 }
 
