@@ -110,56 +110,42 @@ struct CollectionContentsView: View {
     }
     
     var body: some View {
-        //NavigationView{
-            ZStack(alignment: .top){
-                PiaBackground().edgesIgnoringSafeArea(.all)
-                
-                ScrollView(.vertical, showsIndicators: true){
-                    VStack{
-                        
-                        /*HStack {
-                            Text(format_string(str: collection_name)+":").font(.title)
-                            Spacer()
-                            Button(action: {
-                                self.editing = !self.editing
-                                self.update += 1
-                            }) {
-                                Image(systemName: "ellipsis").foregroundColor(.white)
+        ZStack(alignment: .top){
+            PiaBackground().edgesIgnoringSafeArea(.all)
+            
+            ScrollView(.vertical, showsIndicators: true){
+                VStack{
+                    
+                    NavigationLink(destination: AddWordView(collection_name: collection_name, collection_words: words_observer.words)) {
+                        VStack{
+                            HStack{
+                                Image(systemName: "plus.circle").foregroundColor(.white)
+                                Text("Add a new word")
+                                Spacer()
                             }
-                        }*/
-                        
-                        NavigationLink(destination: AddWordView(collection_name: collection_name, collection_words: words_observer.words)) {
-                            VStack{
-                                HStack{
-                                    Image(systemName: "plus.circle").foregroundColor(.white)
-                                    Text("Add a new word")
-                                    Spacer()
-                                }
-                                Divider()
-                            }
+                            Divider()
                         }
-                        
-                        if (words_observer.words.count > 0){
-                            ForEach(words_observer.words){ word in
-                                self.collection_word(word: word)
-                            }
-                        } else {
-                            Text("No words in this collection")
+                    }
+                    
+                    if (words_observer.words.count > 0){
+                        ForEach(words_observer.words){ word in
+                            self.collection_word(word: word)
                         }
-                        Spacer()
-                    }.padding()
-                }.navigationBarTitle(format_string(str: collection_name))
+                    } else {
+                        Text("No words in this collection")
+                    }
+                    Spacer()
+                }.padding()
+            }.navigationBarTitle(format_string(str: collection_name))
                 .navigationBarItems(trailing:
-                Button(action: {
-                    self.editing = !self.editing
-                    self.update += 1
-                }) {
-                    Image(systemName: "ellipsis").foregroundColor(.white)
-                }
-                )
-            }
-        //}
-        
+                    Button(action: {
+                        self.editing = !self.editing
+                        self.update += 1
+                    }) {
+                        Image(systemName: "ellipsis").foregroundColor(.white)
+                    }
+            )
+        }
     }
 }
 
