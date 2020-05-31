@@ -27,9 +27,13 @@ struct AddWordView: View {
     @State var already_in_db = false
     @State var already_in_db_only = false
     
-    @State var keyboard_reponder = KeyboardResponder()
+    //@ObservedObject var keyboardResponder = KeyboardResponder()
     
     fileprivate func word_entered() -> Bool {
+        
+        // TODO:: check if the last char is space ??
+        
+        // TODO:: add space to alphabets and -'
         
         for char in new_word.english {
             if !eng_alphabet.contains(char) { return false }
@@ -74,39 +78,59 @@ struct AddWordView: View {
         return words
     }
     
+    /// checks whether new word already exists in db
     fileprivate func word_exists_in_db(word: Word) -> Bool {
         if (word.english.count == 0 || word.russian.count == 0){ return false }
+        // TODO:: strip spaces off
+        var word_copy = word
+        word_copy.english = word.english.trimmingCharacters(in: .whitespacesAndNewlines)
+        word_copy.russian = word.russian.trimmingCharacters(in: .whitespacesAndNewlines)
         for db_word in search_observer.all_words {
             
-            if word_matching(db_word: db_word.russian, comp_word: word.russian) &&
-                word_matching(db_word: db_word.english, comp_word: word.english){
+            if word_matching(db_word: db_word.russian, comp_word: word_copy.russian) &&
+                word_matching(db_word: db_word.english, comp_word: word_copy.english){
                 return true
             }
         }
         return false
     }
     
+    /// checks whether the word already exists in collection
     fileprivate func word_exists_in_collection(word: Word) -> Bool {
         if collection_words.contains(word){
             return true
         }
         if (word.english.count == 0 || word.russian.count == 0){ return false }
+        var word_copy = word
+        word_copy.english = word.english.trimmingCharacters(in: .whitespacesAndNewlines)
+        word_copy.russian = word.russian.trimmingCharacters(in: .whitespacesAndNewlines)
         for collection_word in collection_words {
             
-            if word_matching(db_word: collection_word.russian, comp_word: word.russian) &&
-                word_matching(db_word: collection_word.english, comp_word: word.english){
+            if word_matching(db_word: collection_word.russian, comp_word: word_copy.russian) &&
+                word_matching(db_word: collection_word.english, comp_word: word_copy.english){
                 return true
             }
         }
         return false
     }
     
+    /// resets new word after it being added to collection
+    fileprivate func reset_new_word() {
+        new_word = Word(id: "", english: "", russian: "", learned_by: [])
+    }
+    
+    /// adds a word from db to collection when entered as new word
     fileprivate func add_existing_word(with english: String, and russian: String) {
+        
+        let english_copy = english.trimmingCharacters(in: .whitespacesAndNewlines)
+        let russian_copy = russian.trimmingCharacters(in: .whitespacesAndNewlines)
+        
         for word in search_observer.all_words {
-            if word.english == english &&
-                word.russian == russian {
+            if word_matching(db_word: word.english, comp_word: english_copy) &&
+                word_matching(db_word: word.russian, comp_word: russian_copy) {
                 let word_commiter =  NewWordCommiter(new_word: word, collection: self.collection_name)
                 word_commiter.add_word_to_collection()
+                reset_new_word()
                 return
             }
         }
@@ -144,19 +168,24 @@ struct AddWordView: View {
         }
     }
     
-    fileprivate func add_word_button() -> Button<Text> {
+    fileprivate func add_word_button() -> some View {
         return Button(action: {
             
             let w = Word(id: "", english: self.new_word.english, russian: self.new_word.russian, learned_by: [])
             
             if !self.word_exists_in_db(word: w){
-                print("adding...")
                 self.already_in_db_only = false
                 self.already_in_collection_db = false
-                let word_commiter = NewWordCommiter(english: self.new_word.english,
-                                                    russian: self.new_word.russian,
+                
+                var new_word_copy = self.new_word
+                new_word_copy.english = self.new_word.english.trimmingCharacters(in: .whitespacesAndNewlines)
+                new_word_copy.russian = self.new_word.russian.trimmingCharacters(in: .whitespacesAndNewlines)
+                
+                let word_commiter = NewWordCommiter(english: new_word_copy.english,
+                                                    russian: new_word_copy.russian,
                                                     collection: self.collection_name)
                 word_commiter.commit_new_word()
+                self.reset_new_word()
             } else {
                 self.already_in_db_only = true
                 
@@ -166,14 +195,14 @@ struct AddWordView: View {
                 }
             }
         }) {
-            Text("Add word")
-        }
+            Text("Add the word")
+        }.buttonStyle(NormalButtonStyle())
     }
     
     fileprivate func in_db_only_alert() -> Alert {
         return Alert(title: Text("This word already exists."),
                      message: Text("Do you want to add it to the collection?"), primaryButton: .cancel(), secondaryButton: .default(Text("Add"), action: {
-                        self.add_existing_word(with: self.new_word.russian, and: self.new_word.english)
+                        self.add_existing_word(with: self.new_word.english, and: self.new_word.russian)
                      }))
     }
     
@@ -207,39 +236,39 @@ struct AddWordView: View {
         return ZStack(alignment: .top){
             
             PiaBackground().edgesIgnoringSafeArea(.all)
-            
+            //ScrollView(.vertical, showsIndicators: true){
             
             GeometryReader{ geom in
                 VStack {
                     
-                    
-                    ZStack(alignment: .leading) {
-                        if self.search_word.isEmpty { placeholder }
-                        TextField("", text: self.$search_word, onEditingChanged: {_ in
-                            self.now_searching = !self.now_searching
-                        }).textFieldStyle(NormalTextFieldStyle(is_focused: self.now_searching))
-                            .accentColor(Color("GradStart"))
-                    }
-                    
-                    /// suggestion from db for the searched for word
-                    if (self.search_word.count > 0) && (self.select_matching().count > 0){
-                        ScrollView(.vertical, showsIndicators: false) {
-                            VStack{
-                                ForEach(0..<min(10, self.select_matching().count), id: \.self) { i in
-                                    self.suggested_word_button(i)
+                    if !self.adding{
+                        ZStack(alignment: .leading) {
+                            if self.search_word.isEmpty { placeholder }
+                            TextField("", text: self.$search_word, onEditingChanged: {_ in
+                                self.now_searching = !self.now_searching
+                            }).textFieldStyle(NormalTextFieldStyle(is_focused: self.now_searching))
+                                .accentColor(Color("GradStart"))
+                        }
+                        
+                        /// suggestion from db for the searched for word
+                        if (self.search_word.count > 0) && (self.select_matching().count > 0){
+                            ScrollView(.vertical, showsIndicators: false) {
+                                VStack{
+                                    ForEach(0..<min(10, self.select_matching().count), id: \.self) { i in
+                                        self.suggested_word_button(i)
+                                    }
                                 }
-                            }
-                        }.frame(maxHeight: geom.size.height/2)
+                            }.frame(maxHeight: geom.size.height/2)
+                        }
+                        Spacer().frame(height: 16)
                     }
-                    
-                    Spacer()
-                    
                     Text("Didn't find what you were looking for?")
+                    Spacer().frame(height: 8)
                     Button(action: {
-                        self.adding = true
+                        self.adding = !self.adding
                     }) {
                         Text("Add a new word")
-                    }.buttonStyle(NormalButtonStyle())
+                    }.buttonStyle(NormalSelectionButtonStyle(is_selected: self.adding))
                     
                     if self.adding {
                         HStack{
@@ -247,16 +276,15 @@ struct AddWordView: View {
                             Spacer()
                         }
                         
-                        GeometryReader{ mingeom in
+                      
                         ZStack(alignment: .leading) {
-                            if self.search_word.isEmpty { placeholder_english }
+                            if self.new_word.english.isEmpty { placeholder_english }
                             TextField("", text: self.$new_word.english, onEditingChanged: {_ in
                                 self.adding_english = !self.adding_english
                             }).textFieldStyle(NormalTextFieldStyle(is_focused: self.adding_english))
                                 .accentColor(Color("GradStart"))
-                        }.padding(.bottom, self.keyboard_reponder.currentHeight > 0 ?
-                            self.keyboard_reponder.currentHeight - (geom.size.height -  mingeom.frame(in: .local).origin.y) : 0 /*- curr heaigh*/)
                         }
+                        
                         
                         //TextField("english", text: self.$new_word.english)
                         
@@ -265,7 +293,7 @@ struct AddWordView: View {
                             Spacer()
                         }
                         ZStack(alignment: .leading) {
-                            if self.search_word.isEmpty { placeholder_russian }
+                            if self.new_word.russian.isEmpty { placeholder_russian }
                             TextField("", text: self.$new_word.russian, onEditingChanged: {_ in
                                 self.adding_russian = !self.adding_russian
                             }).textFieldStyle(NormalTextFieldStyle(is_focused: self.adding_russian))
@@ -282,7 +310,9 @@ struct AddWordView: View {
                             self.in_db_only_alert()
                         }
                     }
+                    Spacer()
                 }.padding()
+                .keyboardAdaptive()
                
             }
             

@@ -25,6 +25,7 @@ class NewWordCommiter {
     }
     
     func add_word_to_collection() {
+        print("ADDING TO COLLECTION - ", self.commit_word.english)
         db.collection("collections").document(collection).setData(["english_words" : FieldValue.arrayUnion([self.commit_word.english])], merge: true) { (err) in
             if (err != nil) {
                 print("Error WordCommiter collection: \(err!.localizedDescription)")

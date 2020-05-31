@@ -36,6 +36,7 @@ class CollectionContentsObserver : ObservableObject {
                 switch change.type {
                 case .added:
                     self.words.append(word)
+                    break
                 
                 case .modified:
                     for i in 0..<self.words.count {
@@ -45,6 +46,7 @@ class CollectionContentsObserver : ObservableObject {
                         }
                     }
                 case .removed:
+                    //var remove_i = -1
                     for i in 0..<self.words.count {
                         if doc.documentID == self.words[i].id {
                             self.words.remove(at: i)

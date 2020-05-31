@@ -109,6 +109,28 @@ struct CollectionContentsView: View {
         }
     }
     
+    fileprivate func add_new_word() -> some View {
+        return NavigationLink(destination: AddWordView(collection_name: collection_name, collection_words: words_observer.words)) {
+            VStack{
+                HStack{
+                    Image(systemName: "plus.circle").foregroundColor(.white)
+                    Text("Add a new word")
+                    Spacer()
+                }
+                Divider()
+            }
+        }
+    }
+    
+    fileprivate func edit_button() -> some View {
+        return Button(action: {
+            self.editing = !self.editing
+            self.update += 1
+        }) {
+            Image(systemName: "ellipsis").foregroundColor(.white)
+        }
+    }
+    
     var body: some View {
         ZStack(alignment: .top){
             PiaBackground().edgesIgnoringSafeArea(.all)
@@ -116,18 +138,9 @@ struct CollectionContentsView: View {
             ScrollView(.vertical, showsIndicators: true){
                 VStack{
                     
-                    NavigationLink(destination: AddWordView(collection_name: collection_name, collection_words: words_observer.words)) {
-                        VStack{
-                            HStack{
-                                Image(systemName: "plus.circle").foregroundColor(.white)
-                                Text("Add a new word")
-                                Spacer()
-                            }
-                            Divider()
-                        }
-                    }
+                    add_new_word()
                     
-                    if (words_observer.words.count > 0){
+                    if (words_observer.words.count > 0 && update > 0){
                         ForEach(words_observer.words){ word in
                             self.collection_word(word: word)
                         }
@@ -136,15 +149,17 @@ struct CollectionContentsView: View {
                     }
                     Spacer()
                 }.padding()
+                
             }.navigationBarTitle(format_string(str: collection_name))
                 .navigationBarItems(trailing:
-                    Button(action: {
-                        self.editing = !self.editing
-                        self.update += 1
-                    }) {
-                        Image(systemName: "ellipsis").foregroundColor(.white)
-                    }
+                    edit_button()
             )
+        }.onAppear {
+            print("ON APPEAR")
+            // TODO:: add to english words
+            print(self.words_observer.words)
+            print(self.words_observer.english_words)
+            self.update = 5
         }
     }
 }

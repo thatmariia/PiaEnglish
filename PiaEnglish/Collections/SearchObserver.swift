@@ -29,9 +29,36 @@ class SearchObserver : ObservableObject {
                 return
             }
             
-            for doc in snap!.documents {
-                    let new_word = get_word(from: doc)
-                    self.all_words.append(new_word)
+            for change in snap!.documentChanges {
+                    //let new_word = get_word(from: doc)
+                    //self.all_words.append(new_word)
+                let doc = change.document
+                let word = get_word(from: doc)
+                
+                switch change.type {
+                case .added:
+                    self.all_words.append(word)
+                    break
+                
+                case .modified:
+                    for i in 0..<self.all_words.count {
+                        if doc.documentID == self.all_words[i].id {
+                            self.all_words[i] = word
+                            break
+                        }
+                    }
+                case .removed:
+                    //var remove_i = -1
+                    for i in 0..<self.all_words.count {
+                        if doc.documentID == self.all_words[i].id {
+                            self.all_words.remove(at: i)
+                            break
+                        }
+                    }
+                    
+                default:
+                    continue
+                }
             }
         }
         
