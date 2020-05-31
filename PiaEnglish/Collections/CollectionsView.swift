@@ -47,7 +47,7 @@ struct CollectionsView: View {
                     VStack {
                         
                         HStack {
-                            Text("Collections:").font(.title)
+                            Text("Collections").font(.largeTitle).fontWeight(.bold)
                             Spacer()
                         }
                         
@@ -66,7 +66,7 @@ struct CollectionsView: View {
                         
                         scroll_collections()
                     }.padding()
-                }.navigationBarTitle("").navigationBarHidden(true)
+                }.navigationBarTitle("Collections").navigationBarHidden(true)
             }
         }
     }

@@ -28,7 +28,6 @@ struct CollectionContentsView: View {
     }
     
     fileprivate func delete_word(word: Word) {
-        // TODO:: figure out why view disappears when deleting
         let word_commiter = NewWordCommiter(new_word: word, collection: self.collection_name)
         word_commiter.remove_word_from_collection()
     }
@@ -111,13 +110,14 @@ struct CollectionContentsView: View {
     }
     
     var body: some View {
-        NavigationView{
+        //NavigationView{
             ZStack(alignment: .top){
                 PiaBackground().edgesIgnoringSafeArea(.all)
+                
                 ScrollView(.vertical, showsIndicators: true){
                     VStack{
                         
-                        HStack {
+                        /*HStack {
                             Text(format_string(str: collection_name)+":").font(.title)
                             Spacer()
                             Button(action: {
@@ -126,7 +126,7 @@ struct CollectionContentsView: View {
                             }) {
                                 Image(systemName: "ellipsis").foregroundColor(.white)
                             }
-                        }
+                        }*/
                         
                         NavigationLink(destination: AddWordView(collection_name: collection_name, collection_words: words_observer.words)) {
                             VStack{
@@ -148,11 +148,17 @@ struct CollectionContentsView: View {
                         }
                         Spacer()
                     }.padding()
-                }.navigationBarTitle("").navigationBarHidden(true)
-                
-                
+                }.navigationBarTitle(format_string(str: collection_name))
+                .navigationBarItems(trailing:
+                Button(action: {
+                    self.editing = !self.editing
+                    self.update += 1
+                }) {
+                    Image(systemName: "ellipsis").foregroundColor(.white)
+                }
+                )
             }
-        }
+        //}
         
     }
 }
