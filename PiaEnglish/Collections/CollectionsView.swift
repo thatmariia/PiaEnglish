@@ -26,18 +26,14 @@ struct CollectionsView: View {
                                                                        words_observer: CollectionContentsObserver(english_words: collection.english_words))) {
                                                                         
                                                                         HStack{
-                                                                            
-                                                                            Text(collection.name.lowercased())
+                                                                            Text(format_string(str: collection.name))
                                                                             Spacer()
+                                                                            Image(systemName: "arrow.right").foregroundColor(.white)
                                                                         }
                     }
                     Divider()
-                    
-                    
                 }
-            }//.listRowBackground(Color.red.opacity(0.5))
-            //}.background(Color.clear.opacity(0.0))
-            
+            }
         }
     }
     
@@ -59,7 +55,7 @@ struct CollectionsView: View {
                             VStack{
                                 HStack{
                                     Image(systemName: "plus.circle").foregroundColor(.white)
-                                    Text("add a new collection")
+                                    Text("Add a new collection")
                                     Spacer()
                                 }
                                 Divider()
@@ -70,8 +66,8 @@ struct CollectionsView: View {
                         
                         scroll_collections()
                     }.padding()
-                }
-            }.navigationBarTitle("").navigationBarHidden(true)
+                }.navigationBarTitle("").navigationBarHidden(true)
+            }
         }
     }
 }

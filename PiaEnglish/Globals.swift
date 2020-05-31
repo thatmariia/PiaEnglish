@@ -41,3 +41,7 @@ func word_matching(db_word: String, comp_word: String) -> Bool {
 }
 
 let username = "piazok"
+
+func format_string(str: String) -> String {
+    return str.prefix(1).uppercased() + str.dropFirst().lowercased()
+}
