@@ -14,11 +14,11 @@ struct LearnView: View {
     
     @State var chosen_collections: [Collection] = []
     
-    fileprivate func get_color(collection: Collection) -> Color{
+    fileprivate func is_selected(collection: Collection) -> Bool{
         if (chosen_collections.contains(collection)) {
-            return .green
+            return true
         }
-        return .red
+        return false
     }
     
     fileprivate func get_engliah_words() -> [String]{
@@ -31,7 +31,7 @@ struct LearnView: View {
         return english_words
     }
     
-    fileprivate func collection_button(_ i: Int) -> Button<Text> {
+    fileprivate func collection_button(_ i: Int) -> some View {
         return Button(action: {
             
             let collection = self.collections_observer.collections[i]
@@ -44,54 +44,86 @@ struct LearnView: View {
                 self.chosen_collections.append(collection)
             }
             
-            print("chosen collections = ", self.chosen_collections)
-            
         }) {
-            Text(self.collections_observer.collections[i].name).foregroundColor(self.get_color(collection: self.collections_observer.collections[i]))
-        }
+            Text(self.collections_observer.collections[i].name)
+        }.buttonStyle(SelectionButtonStyle(is_active: self.is_selected(collection: self.collections_observer.collections[i])))
     }
     
-    fileprivate func scroll_collections() -> ScrollView<HStack<ForEach<Range<Int>, Int, Button<Text>>>> {
+    fileprivate func scroll_collections() -> some View {
         return ScrollView(.horizontal, showsIndicators: false){
             HStack {
                 ForEach(0..<collections_observer.collections.count, id: \.self) { i in
                     
-                    self.collection_button(i)
+                    HStack{
+                    VStack{
+                        self.collection_button(i)
+                    }
+                    Spacer().frame(width: 15)
+                    }
                     
                 }
             }
         }
     }
     
+    fileprivate func generate_LearnView(geom: GeometryProxy) -> some View {
+        return VStack(spacing: 10) {
+            
+            // TODO:: why doesnt align to left?
+            Text("Choose collections:").font(.title).frame(alignment: .leading)
+            
+            if (collections_observer.collections.count > 0){
+                scroll_collections()
+            } else {
+                Text("You have no collections :(")
+            }
+            
+            Spacer()
+            
+            // testing
+            NavigationLink(destination: TestView()) {
+                Text("Test")
+            }.disabled(chosen_collections == [])
+            .buttonStyle(BigButtonStyle())
+            
+            Spacer().frame(height: 15)
+            
+            // training
+            NavigationLink(destination: TrainView(words_observer: CollectionContentsObserver(english_words: get_engliah_words()),
+                                                  english_words: get_engliah_words())) {
+                                                    Text("Train")
+            }.disabled(chosen_collections == [])
+            .buttonStyle(BigButtonStyle())
+            
+            Spacer()
+            
+        }
+        .padding()
+        .frame(minHeight: geom.size.height)
+        //.background(PiaBackground())
+    }
+    
     var body: some View {
         
-        return NavigationView {
-            VStack {
-                
-                Text("Choose collections:")
-                
-                if (collections_observer.collections.count > 0){
-                    scroll_collections()
-                } else {
-                    Text("You have no collections :(")
+        return NavigationView{
+            ZStack(alignment: .top){
+                    
+                    PiaBackground().edgesIgnoringSafeArea(.all)
+                GeometryReader{geom in
+                    
+                    
+                    
+                    
+                        
+                    self.generate_LearnView(geom: geom)
                 }
-                Spacer()
                 
-                // testing
-                NavigationLink(destination: TestView()) {
-                    Text("Test")
-                }.disabled(chosen_collections == [])
-                
-                // training
-                NavigationLink(destination: TrainView(words_observer: CollectionContentsObserver(english_words: get_engliah_words()),
-                                                      english_words: get_engliah_words())) {
-                                                        Text("Train")
-                }.disabled(chosen_collections == [])
-                
-                Spacer()
-                
-            }
-        }
+                        
+                    
+                }.navigationBarTitle("").navigationBarHidden(true)
+    }
+            
+
     }
 }
 

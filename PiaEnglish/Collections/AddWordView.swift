@@ -215,7 +215,7 @@ struct AddWordView: View {
                 
                 
                 
-            }
+            }.buttonStyle(BigButtonStyle())
         }
     }
 }

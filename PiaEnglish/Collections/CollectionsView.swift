@@ -41,7 +41,7 @@ struct CollectionsView: View {
             
                 scroll_collections()
             }
-        }
+        }.buttonStyle(BigButtonStyle())
     }
 }
 

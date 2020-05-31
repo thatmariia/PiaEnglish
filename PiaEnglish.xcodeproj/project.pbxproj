@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3145ACF5248305A600F7F89A /* BigButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145ACF4248305A600F7F89A /* BigButtonStyle.swift */; };
+		3145ACF7248308F800F7F89A /* PiaBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145ACF6248308F800F7F89A /* PiaBackground.swift */; };
+		3145ACF92483239D00F7F89A /* SelectionButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145ACF82483239D00F7F89A /* SelectionButtonStyle.swift */; };
 		31724DBB247B29AD0005A728 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31724DBA247B29AD0005A728 /* AppDelegate.swift */; };
 		31724DBD247B29AD0005A728 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31724DBC247B29AD0005A728 /* SceneDelegate.swift */; };
 		31724DC0247B29AD0005A728 /* PiaEnglish.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 31724DBE247B29AD0005A728 /* PiaEnglish.xcdatamodeld */; };
@@ -38,6 +41,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3145ACF4248305A600F7F89A /* BigButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigButtonStyle.swift; sourceTree = "<group>"; };
+		3145ACF6248308F800F7F89A /* PiaBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PiaBackground.swift; sourceTree = "<group>"; };
+		3145ACF82483239D00F7F89A /* SelectionButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionButtonStyle.swift; sourceTree = "<group>"; };
 		31724DB7247B29AD0005A728 /* PiaEnglish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PiaEnglish.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31724DBA247B29AD0005A728 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		31724DBC247B29AD0005A728 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -118,6 +124,9 @@
 				31724DBE247B29AD0005A728 /* PiaEnglish.xcdatamodeld */,
 				31724DC5247B29B20005A728 /* Preview Content */,
 				31A3B86A247B3CC3002C0EC1 /* Globals.swift */,
+				3145ACF4248305A600F7F89A /* BigButtonStyle.swift */,
+				3145ACF82483239D00F7F89A /* SelectionButtonStyle.swift */,
+				3145ACF6248308F800F7F89A /* PiaBackground.swift */,
 			);
 			path = PiaEnglish;
 			sourceTree = "<group>";
@@ -308,7 +317,9 @@
 				31A3B87C247C10C9002C0EC1 /* WordSearchView.swift in Sources */,
 				3178AF5B247D8E8E00ADD92B /* NewCollectionCommiter.swift in Sources */,
 				31A3B86F247B4214002C0EC1 /* Collection.swift in Sources */,
+				3145ACF5248305A600F7F89A /* BigButtonStyle.swift in Sources */,
 				3178AF5F247D947400ADD92B /* LernedToggleCommiter.swift in Sources */,
+				3145ACF7248308F800F7F89A /* PiaBackground.swift in Sources */,
 				3178AF50247C9D2000ADD92B /* TestView.swift in Sources */,
 				3178AF59247D4A0F00ADD92B /* SearchObserver.swift in Sources */,
 				31A3B87A247BF8C6002C0EC1 /* WordSearchGenerator.swift in Sources */,
@@ -324,6 +335,7 @@
 				31A3B86B247B3CC3002C0EC1 /* Globals.swift in Sources */,
 				31724DBB247B29AD0005A728 /* AppDelegate.swift in Sources */,
 				31724DC2247B29AD0005A728 /* ContentView.swift in Sources */,
+				3145ACF92483239D00F7F89A /* SelectionButtonStyle.swift in Sources */,
 				31724DBD247B29AD0005A728 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

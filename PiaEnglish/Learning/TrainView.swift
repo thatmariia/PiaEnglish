@@ -38,7 +38,7 @@ struct TrainView: View {
                 }
 
             }
-        }
+        }.buttonStyle(BigButtonStyle())
     }
 }
 

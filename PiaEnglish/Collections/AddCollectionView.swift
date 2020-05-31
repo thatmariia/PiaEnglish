@@ -39,7 +39,7 @@ struct AddCollectionView: View {
             }.alert(isPresented: $exists) { () -> Alert in
                 Alert(title: Text(""), message: Text("Collection already exists"), dismissButton: .cancel())
             }
-        }
+        }.buttonStyle(BigButtonStyle())
     }
 }
 

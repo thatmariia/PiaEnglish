@@ -131,6 +131,7 @@ struct CollectionContentsView: View {
             //}
             }
         }.padding()
+        .buttonStyle(BigButtonStyle())
     }
 }
 
