@@ -13,7 +13,7 @@ import Firebase
 struct CollectionContentsView: View {
     
     var collection_name: String
-    var words_observer: CollectionContentsObserver
+    @ObservedObject var words_observer: CollectionContentsObserver
     
     @State var new_word = Word(id: "", english: "", russian: "", learned_by: [])
     @State var update = 1
@@ -24,7 +24,6 @@ struct CollectionContentsView: View {
             return true
         }
         return false
-        
     }
     
     fileprivate func delete_word(word: Word) {
@@ -32,8 +31,8 @@ struct CollectionContentsView: View {
         word_commiter.remove_word_from_collection()
     }
     
-    fileprivate func collection_word(word: Word) -> some View{
-        print("*** callled collection word with word = ", word)
+    fileprivate func collection_word(word: Word) -> some View {
+        print("WORDSSS = ", self.words_observer.words )
         return VStack{
             HStack{
                 
@@ -138,10 +137,17 @@ struct CollectionContentsView: View {
             ScrollView(.vertical, showsIndicators: true){
                 VStack{
                     
+                    Button(action: {
+                        self.update += 1
+                        print("REFRESHIHG -- ", self.words_observer.words)
+                    }) {
+                        Text("refresh this bitch")
+                    }
+                    
                     add_new_word()
                     
                     if (words_observer.words.count > 0 && update > 0){
-                        ForEach(words_observer.words){ word in
+                        ForEach(words_observer.words) { word in
                             self.collection_word(word: word)
                         }
                     } else {
@@ -156,9 +162,10 @@ struct CollectionContentsView: View {
             )
         }.onAppear {
             print("ON APPEAR")
-            // TODO:: add to english words
-            print(self.words_observer.words)
             print(self.words_observer.english_words)
+            // TODO:: add to english words
+            
+            //self.words_observer = CollectionContentsObserver(collection_name: self.collection_name)
             self.update = 5
         }
     }

@@ -23,7 +23,7 @@ struct CollectionsView: View {
                     
                     
                     NavigationLink(destination: CollectionContentsView(collection_name: collection.name,
-                                                                       words_observer: CollectionContentsObserver(english_words: collection.english_words))) {
+                                                                       words_observer: CollectionContentsObserver(collection_name: collection.name))) {
                                                                         
                                                                         HStack{
                                                                             Text(format_string(str: collection.name))

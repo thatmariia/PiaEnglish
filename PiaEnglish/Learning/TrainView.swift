@@ -28,24 +28,26 @@ struct TrainView: View {
         let wordsearch = WordSearchGenerator(used_words: [], unused_words: game_words)
         wordsearch.generate()
         
-        return NavigationView{
+        return  ZStack(alignment: .top){
             
+            PiaBackground().edgesIgnoringSafeArea(.all)
             VStack {
                 
                 NavigationLink(destination: WordSearchView(grid: wordsearch.grid,
                                                            words: wordsearch.cur_grid_words)){
-                    Text("Go to word search")
+                                                            Text("Go to word search")
                 }
-
-            }
-        }.buttonStyle(BigButtonStyle())
+                
+            }.padding()
+            }.navigationBarTitle("").navigationBarHidden(true)
+        
     }
 }
 
 /*
-struct TrainView_Previews: PreviewProvider {
-    static var previews: some View {
-        TrainView()
-    }
-}
-*/
+ struct TrainView_Previews: PreviewProvider {
+ static var previews: some View {
+ TrainView()
+ }
+ }
+ */

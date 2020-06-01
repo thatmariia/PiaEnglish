@@ -36,11 +36,11 @@ struct AddWordView: View {
         // TODO:: add space to alphabets and -'
         
         for char in new_word.english {
-            if !eng_alphabet.contains(char) { return false }
+            if !eng_allowed.contains(char) { return false }
         }
         
         for char in new_word.russian {
-            if !rus_alphabet.contains(char) {return false }
+            if !rus_allowed.contains(char) {return false }
         }
         
         if new_word.english.count > 0 && new_word.russian.count > 0 {
@@ -55,7 +55,7 @@ struct AddWordView: View {
         var language = "english"
         
         if (search_word.count > 0){
-            if (rus_alphabet.contains(search_word.prefix(1))){
+            if (rus_allowed.contains(search_word.prefix(1))){
                 language = "russian"
             }
         }

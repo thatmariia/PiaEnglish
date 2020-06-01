@@ -33,6 +33,7 @@
 		3178AF5B247D8E8E00ADD92B /* NewCollectionCommiter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3178AF5A247D8E8D00ADD92B /* NewCollectionCommiter.swift */; };
 		3178AF5D247D8F5D00ADD92B /* AddCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3178AF5C247D8F5D00ADD92B /* AddCollectionView.swift */; };
 		3178AF5F247D947400ADD92B /* LernedToggleCommiter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3178AF5E247D947400ADD92B /* LernedToggleCommiter.swift */; };
+		319933CE2484906400D9F6BC /* WordGridButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319933CD2484906400D9F6BC /* WordGridButtonStyle.swift */; };
 		31A3B86B247B3CC3002C0EC1 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A3B86A247B3CC3002C0EC1 /* Globals.swift */; };
 		31A3B86D247B40DE002C0EC1 /* CollectionsObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A3B86C247B40DE002C0EC1 /* CollectionsObserver.swift */; };
 		31A3B86F247B4214002C0EC1 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A3B86E247B4214002C0EC1 /* Collection.swift */; };
@@ -73,6 +74,7 @@
 		3178AF5A247D8E8D00ADD92B /* NewCollectionCommiter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCollectionCommiter.swift; sourceTree = "<group>"; };
 		3178AF5C247D8F5D00ADD92B /* AddCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCollectionView.swift; sourceTree = "<group>"; };
 		3178AF5E247D947400ADD92B /* LernedToggleCommiter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LernedToggleCommiter.swift; sourceTree = "<group>"; };
+		319933CD2484906400D9F6BC /* WordGridButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordGridButtonStyle.swift; sourceTree = "<group>"; };
 		31A3B86A247B3CC3002C0EC1 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		31A3B86C247B40DE002C0EC1 /* CollectionsObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsObserver.swift; sourceTree = "<group>"; };
 		31A3B86E247B4214002C0EC1 /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 			children = (
 				3145ACF4248305A600F7F89A /* BigButtonStyle.swift */,
 				3145ACFA2483FFBA00F7F89A /* NormalButtonStyle.swift */,
+				319933CD2484906400D9F6BC /* WordGridButtonStyle.swift */,
 				3145AD042484326900F7F89A /* NormalSelectionButtonStyle.swift */,
 				3145ACFC2484001200F7F89A /* NormalTextFieldStyle.swift */,
 				3145ACF82483239D00F7F89A /* SelectionButtonStyle.swift */,
@@ -337,6 +340,7 @@
 				3178AF5D247D8F5D00ADD92B /* AddCollectionView.swift in Sources */,
 				31A3B87C247C10C9002C0EC1 /* WordSearchView.swift in Sources */,
 				3178AF5B247D8E8E00ADD92B /* NewCollectionCommiter.swift in Sources */,
+				319933CE2484906400D9F6BC /* WordGridButtonStyle.swift in Sources */,
 				31A3B86F247B4214002C0EC1 /* Collection.swift in Sources */,
 				3145ACF5248305A600F7F89A /* BigButtonStyle.swift in Sources */,
 				3178AF5F247D947400ADD92B /* LernedToggleCommiter.swift in Sources */,

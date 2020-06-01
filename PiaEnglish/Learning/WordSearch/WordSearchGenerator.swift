@@ -120,7 +120,7 @@ class WordSearchGenerator {
         for i in 0..<grid_size {
             for j in 0..<grid_size {
                 if (self.grid[i][j] == "_") {
-                    self.grid[i][j] = capital_letters.randomElement()!
+                    self.grid[i][j] = eng_capital_letters.randomElement()!
                 }
             }
         }

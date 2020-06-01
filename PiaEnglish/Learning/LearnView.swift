@@ -71,7 +71,7 @@ struct LearnView: View {
             
             // TODO:: why doesnt align to left?
             HStack {
-                Text("Select collections:").font(.title)
+                Text("Select collections").font(.largeTitle).fontWeight(.bold)
                 Spacer()
             }
             

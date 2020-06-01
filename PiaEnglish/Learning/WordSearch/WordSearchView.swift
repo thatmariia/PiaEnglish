@@ -65,7 +65,7 @@ struct WordSearchView: View {
         
         /// if adjacent on x but now y or vice versa
         if (abs(x - x_last) == 1 && abs(y - y_last) == 0) ||
-           (abs(x - x_last) == 0 && abs(y - y_last) == 1) {
+            (abs(x - x_last) == 0 && abs(y - y_last) == 1) {
             return true
         }
         return false
@@ -86,7 +86,7 @@ struct WordSearchView: View {
             self.grid_state[i][j] = true
             
         } else if (self.grid_state[i][j]) &&
-                  (self.curr_entry.count > 0) {
+            (self.curr_entry.count > 0) {
             
             if (self.curr_entry[self.curr_entry.count-1] == curr_cell){
                 // only allow to delete the last entered char
@@ -119,7 +119,7 @@ struct WordSearchView: View {
         }
         return false
     }
-
+    
     fileprivate func get_color(i: Int, j: Int) -> Color{
         let cell = (i,j)
         if (cell_in_list(cell: cell, list: curr_entry)){
@@ -128,32 +128,53 @@ struct WordSearchView: View {
         return .green
     }
     
+    fileprivate func is_selected(i: Int, j: Int) -> Bool {
+        let cell = (i,j)
+        if (cell_in_list(cell: cell, list: curr_entry)){
+            return true
+        }
+        return false
+    }
+    
     var body: some View {
-        NavigationView{
+        ZStack(alignment: .top){
+            PiaBackground().edgesIgnoringSafeArea(.all)
             VStack {
                 
-                VStack{
-                    
-                    Text("Words to find:")
+                Text("Words to find:")
+                ScrollView(.horizontal, showsIndicators: false){
+                HStack{
                     ForEach(words, id: \.self) { word in
-                        VStack {
+                        HStack {
                             
                             if (self.found_words.contains(word)) {
-                                Text(word).italic()
+                                Text(word).padding(10)
+                                .background(
+                                    Color.white.opacity(1.0)
+                                ).cornerRadius(40)
+                                    .foregroundColor(Color("GradEnd").opacity(1.0))
+                                    .font(.subheadline)
                             } else {
-                                Text(word)
+                                Text(word).padding(10)
+                                .background(
+                                    Color.white.opacity(0.3)
+                                ).cornerRadius(40)
+                                    .foregroundColor(Color.white.opacity(1.0))
+                                    .font(.subheadline)
                             }
+                            Spacer().frame(width: 15)
                         }
                     }
+                }
                 }
                 
                 Spacer()
                 
                 // grid here
-                VStack {
+                VStack(alignment: .center, spacing: 8) {
                     ForEach(0..<grid_size, id: \.self) { i in
                         HStack(alignment: .center) {
-                            Spacer()
+                            //Spacer()
                             ForEach(0..<grid_size, id: \.self) { j in
                                 
                                 HStack{
@@ -164,10 +185,10 @@ struct WordSearchView: View {
                                             
                                             print("hit " + self.grid[i][j])
                                         }) {
-                                            Text(self.grid[i][j]).foregroundColor(self.get_color(i: i, j: j)).fontWeight(.heavy)
-                                        }
+                                            Text(self.grid[i][j])//.foregroundColor(self.get_color(i: i, j: j)).fontWeight(.heavy)
+                                        }.buttonStyle(WordGridButtonStyle(is_active: self.is_selected(i: i, j: j)))
                                     }
-                                    Spacer()
+                                    //Spacer()
                                 }
                                 
                             }
@@ -177,7 +198,7 @@ struct WordSearchView: View {
                 }
                 
                 Spacer()
-            }
+            }.padding()
         }
     }
 }
