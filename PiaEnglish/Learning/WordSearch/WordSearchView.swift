@@ -195,7 +195,7 @@ struct WordSearchView: View {
                 
                 Spacer()
             }.padding()
-        }
+        }.navigationBarTitle("").navigationBarHidden(true)
     }
 }
 

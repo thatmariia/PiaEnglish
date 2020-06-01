@@ -72,7 +72,7 @@ struct CardsView: View {
                 
                 
             }
-        }
+        }.navigationBarTitle("").navigationBarHidden(true)
     }
 }
 

@@ -25,6 +25,11 @@ struct TrainView: View {
         return game_words
     }
     
+    fileprivate func get_matchwords_words() -> ([Word], [Word]) {
+        let words = Array(get_game_words()[0..<min(5, get_game_words().count)])
+        return (words.shuffled(), words.shuffled())
+    }
+    
     var body: some View {
         // TODO:: check for same words
         let game_words = get_game_words()
@@ -38,6 +43,12 @@ struct TrainView: View {
                 ///cards
                 NavigationLink(destination: CardsView(words: get_game_words())) {
                     Text("Go to cards")
+                }
+                
+                /// words matching
+                NavigationLink(destination:
+                MatchWordsView(words: get_matchwords_words())) {
+                    Text("Go to words matching")
                 }
                 
                 
