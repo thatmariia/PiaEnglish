@@ -136,13 +136,6 @@ struct CollectionContentsView: View {
             ScrollView(.vertical, showsIndicators: true){
                 VStack{
                     
-                    Button(action: {
-                        self.update += 1
-                        print("REFRESHIHG -- ", self.words_observer.words)
-                    }) {
-                        Text("refresh this bitch")
-                    }
-                    
                     add_new_word()
                     
                     if (words_observer.words.count > 0 && update > 0){
@@ -160,8 +153,6 @@ struct CollectionContentsView: View {
                     edit_button()
             )
         }.onAppear {
-            print("ON APPEAR")
-            print(self.words_observer.english_words)
             // TODO:: add to english words
             
             //self.words_observer = CollectionContentsObserver(collection_name: self.collection_name)

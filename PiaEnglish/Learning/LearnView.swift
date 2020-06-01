@@ -9,10 +9,15 @@
 import SwiftUI
 
 struct LearnView: View {
+    @EnvironmentObject var training_state: TrainingState
+    // TODO:: check at least 4 words chosen
     
     @ObservedObject var collections_observer: CollectionsObserver
     
     @State var chosen_collections: [Collection] = []
+    
+    @State var time_selected = true
+    @State var chosen_time = default_training_time
     
     fileprivate func is_selected(collection: Collection) -> Bool{
         if (chosen_collections.contains(collection)) {
@@ -27,7 +32,6 @@ struct LearnView: View {
         for collection in chosen_collections {
             english_words += collection.english_words
         }
-        print("passing english words = ", english_words)
         return english_words
     }
     
@@ -47,6 +51,35 @@ struct LearnView: View {
         }) {
             Text(self.collections_observer.collections[i].name)
         }.buttonStyle(SelectionButtonStyle(is_active: self.is_selected(collection: self.collections_observer.collections[i])))
+    }
+    
+    fileprivate func time_button(timename: String, time: Int) -> some View {
+        return HStack{
+            VStack{
+                
+                Button(action: {
+                    self.time_selected = true
+                    self.chosen_time = time
+                }) {
+                    Text(timename)
+                }.buttonStyle(SelectionButtonStyle(is_active: chosen_time == time))
+                
+            }
+            Spacer().frame(width: 15)
+        }
+    }
+    
+    fileprivate func scroll_times() -> some View {
+        return ScrollView(.horizontal, showsIndicators: false){
+            HStack {
+                
+                time_button(timename: "Short", time: 5)
+                time_button(timename: "Medium", time: 7)
+                time_button(timename: "Long", time: 10)
+                
+            }
+            
+        }
     }
     
     fileprivate func scroll_collections() -> some View {
@@ -76,6 +109,17 @@ struct LearnView: View {
             
             if (collections_observer.collections.count > 0){
                 scroll_collections()
+                
+                Spacer().frame(height: 15)
+                
+                HStack {
+                    Text("Select training time").font(.largeTitle).fontWeight(.bold)
+                    Spacer()
+                }
+                
+                scroll_times()
+                
+                
             } else {
                 Text("You have no collections :(")
             }
@@ -91,13 +135,15 @@ struct LearnView: View {
                 .buttonStyle(BigButtonStyle())
             
             Spacer().frame(height: 15)
+
             
             // training
             NavigationLink(destination:
-                TrainView(words_observer: CollectionContentsObserver(english_words: get_engliah_words())
-            )) {
+                TrainView(words_observer: CollectionContentsObserver(english_words: get_engliah_words()),
+                          training_time: chosen_time)
+            ){
                     Text("Train")
-            }.disabled(chosen_collections == [])
+            }.disabled(chosen_collections == [] || !time_selected)
                 .buttonStyle(BigButtonStyle())
             
             Spacer()

@@ -47,3 +47,5 @@ let username = "piazok"
 func format_string(str: String) -> String {
     return str.prefix(1).uppercased() + str.dropFirst().lowercased()
 }
+
+var default_training_time = 5

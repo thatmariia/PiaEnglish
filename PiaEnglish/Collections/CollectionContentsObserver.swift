@@ -32,7 +32,6 @@ class CollectionContentsObserver : ObservableObject {
                 
                 self.english_words = doc!.get("english_words") as! [String]
                 self.query_english_words(english: self.english_words)
-                print("********** QUERYYYYYYYY with ", self.collection_name)
             } else {
                 self.english_words = []
             }

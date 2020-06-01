@@ -175,7 +175,6 @@ struct WordSearchView: View {
                                             
                                             self.handle_attempt(i: i, j: j)
                                             
-                                            print("hit " + self.grid[i][j])
                                         }) {
                                             Text(self.grid[i][j])
                                         }.buttonStyle(WordGridButtonStyle(is_active: self.is_selected(i: i, j: j)))

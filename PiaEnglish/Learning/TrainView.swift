@@ -10,14 +10,17 @@ import SwiftUI
 
 struct TrainView: View {
     
+    @EnvironmentObject var training_state: TrainingState
+    
     @ObservedObject var words_observer: CollectionContentsObserver
-    //var english_words: [String] /// the ones associated with chosen collections
+    
+    var training_time: Int
     
     fileprivate func get_game_words() -> [Word] {
         var game_words: [Word] = []
         
         for word in words_observer.words {
-            if !word.learned_by.contains(username){
+            if !word.learned_by.contains(username) && !game_words.contains(word){
                 game_words.append(word)
             }
         }
@@ -36,17 +39,25 @@ struct TrainView: View {
     }
     
     var body: some View {
-        // TODO:: check for same words
         let game_words = get_game_words()
         let wordsearch = WordSearchGenerator(used_words: [], unused_words: game_words)
         wordsearch.generate()
         
         let match_translation_words = get_match_translation_words()
         
-        return  ZStack(alignment: .top){
+        print("TRAINING STATE VIEW COUNT IN TRAIN VIEW = ", training_state.view_count)
+        
+        let train_flow = TrainFlow(game_words: game_words, training_time: training_time)
+        
+        return VStack { Text("Training...") }
+        
+        
+        /* MARK:: original code
+        return ZStack(alignment: .top){
             
             PiaBackground().edgesIgnoringSafeArea(.all)
             VStack {
+               
                 ///cards
                 NavigationLink(destination: CardsView(words: get_game_words())) {
                     Text("Go to cards")
@@ -72,9 +83,13 @@ struct TrainView: View {
                                                            words: wordsearch.cur_grid_words)){
                                                             Text("Go to word search")
                 }
+               
+               
+                
                 
             }.padding()
             }.navigationBarTitle("").navigationBarHidden(true)
+        */
         
     }
 }

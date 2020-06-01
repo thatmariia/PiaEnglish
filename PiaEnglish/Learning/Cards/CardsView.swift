@@ -10,6 +10,8 @@ import SwiftUI
 
 struct CardsView: View {
     
+    @EnvironmentObject var training_state: TrainingState
+    
     var words: [Word]
     
     @State var curr_i = 0
@@ -66,6 +68,13 @@ struct CardsView: View {
                     }) {
                         Text(self.done ? "Completed" : "Next")
                     }.buttonStyle(NormalButtonStyle())
+                    
+                    Button(action: {
+                        self.training_state.view_count += 1
+                        print("TRAINING STATE VIEW COUNT IN CARDS = ", self.training_state.view_count)
+                    }) {
+                        Text("ADD VIEW COUNT")
+                    }
                     
                     Spacer()
                 }

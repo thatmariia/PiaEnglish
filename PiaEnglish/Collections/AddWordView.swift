@@ -69,9 +69,7 @@ struct AddWordView: View {
             } else {
                 str_db_word = db_word.russian
             }
-            //print("comparing word = ", str_db_word)
             if word_matching(db_word: str_db_word, comp_word: search_word){
-                print("APPENDED")
                 words.append(db_word)
             }
         }
