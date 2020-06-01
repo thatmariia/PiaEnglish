@@ -21,7 +21,6 @@ struct TrainView: View {
                 game_words.append(word)
             }
         }
-        
         return game_words
     }
     
@@ -30,11 +29,19 @@ struct TrainView: View {
         return (words.shuffled(), words.shuffled())
     }
     
+    fileprivate func get_match_translation_words() -> (Word, [Word]) {
+        let all_words = get_game_words().shuffled()
+        return (all_words[0], Array(all_words[0..<min(4, all_words.count)]))
+        
+    }
+    
     var body: some View {
         // TODO:: check for same words
         let game_words = get_game_words()
         let wordsearch = WordSearchGenerator(used_words: [], unused_words: game_words)
         wordsearch.generate()
+        
+        let match_translation_words = get_match_translation_words()
         
         return  ZStack(alignment: .top){
             
@@ -49,6 +56,14 @@ struct TrainView: View {
                 NavigationLink(destination:
                 MatchWordsView(words: get_matchwords_words())) {
                     Text("Go to words matching")
+                }
+                
+                /// word tranlating
+                NavigationLink(destination:
+                    MatchTranslationView(true_word: match_translation_words.0,
+                                         all_words: match_translation_words.1)
+                ) {
+                    Text("Go to word translation")
                 }
                 
                 

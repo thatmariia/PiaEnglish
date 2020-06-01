@@ -43,10 +43,13 @@ struct MatchTranslationView: View {
                 self.curr_selection = word.english
             }) {
                 Text(format_string(str: word.english))
-            }.buttonStyle(NormalSelectionButtonStyle(is_selected: self.correct_selection()))
+            }.buttonStyle(NormalSelectionButtonStyle(is_selected:
+                self.correct_selection() && word.english == self.true_word.english))
             .disabled(correct_selection())
             
-        }
+            Spacer().frame(height: 10)
+            
+        }.padding(5)
     }
     
     var body: some View {
@@ -58,7 +61,7 @@ struct MatchTranslationView: View {
                 Text(format_string(str: true_word.russian))
                     .font(.title).fontWeight(.bold).foregroundColor(.white)
                 
-                Spacer()
+                Spacer().frame(height: 15)
                 
                 HStack {
                     
@@ -69,6 +72,8 @@ struct MatchTranslationView: View {
                         }
                     }
                     }
+                    
+                    Spacer().frame(minWidth: 8)
                     
                     ScrollView(.vertical){
                     VStack {
