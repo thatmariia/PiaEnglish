@@ -14,7 +14,15 @@ struct TrainView: View {
     //var english_words: [String] /// the ones associated with chosen collections
     
     fileprivate func get_game_words() -> [Word] {
-        return words_observer.words
+        var game_words: [Word] = []
+        
+        for word in words_observer.words {
+            if !word.learned_by.contains(username){
+                game_words.append(word)
+            }
+        }
+        
+        return game_words
     }
     
     var body: some View {
@@ -27,8 +35,13 @@ struct TrainView: View {
             
             PiaBackground().edgesIgnoringSafeArea(.all)
             VStack {
+                ///cards
+                NavigationLink(destination: CardsView(words: get_game_words())) {
+                    Text("Go to cards")
+                }
                 
                 
+                /// wordsearch
                 NavigationLink(destination: WordSearchView(grid: wordsearch.grid,
                                                            words: wordsearch.cur_grid_words)){
                                                             Text("Go to word search")
