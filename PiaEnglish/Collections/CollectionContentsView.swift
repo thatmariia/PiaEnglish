@@ -32,7 +32,6 @@ struct CollectionContentsView: View {
     }
     
     fileprivate func collection_word(word: Word) -> some View {
-        print("WORDSSS = ", self.words_observer.words )
         return VStack{
             HStack{
                 

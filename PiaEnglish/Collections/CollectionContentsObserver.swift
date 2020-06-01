@@ -28,12 +28,11 @@ class CollectionContentsObserver : ObservableObject {
                 return
             }
             
-            print("EXTRACTED FOR \(self.collection_name) : ", doc!.data()!["english_words"])
-            
             if doc!.exists{
                 
                 self.english_words = doc!.get("english_words") as! [String]
                 self.query_english_words(english: self.english_words)
+                print("********** QUERYYYYYYYY with ", self.collection_name)
             } else {
                 self.english_words = []
             }
@@ -43,17 +42,8 @@ class CollectionContentsObserver : ObservableObject {
     
     func query_english_words(english: [String]) {
         
-        /*let nr_ten_batches = Int(floor(Double(english.count / 10)))
-        
-        for batch_i in 0..<nr_ten_batches {
-            let start_i = batch_i * 10
-            let end_i = (batch_i == nr_ten_batches-1) ? english.count : (batch_i+1) * 10
-            if end_i != start_i {
-                let english_slice = Array(english[start_i..<end_i])*/
-        
         for eng in english{
-                   
-            
+
         let query = db.collection("words").whereField("english", isEqualTo: eng)
         
         query.addSnapshotListener { (snap, err) in
@@ -91,15 +81,6 @@ class CollectionContentsObserver : ObservableObject {
                     continue
                 }
             }
-            print("AFTER EXTRACTION: ")
-            print(self.words)
-            
-            /*for doc in snap!.documents {
-                let word = get_word(from: doc)
-                self.words.append(word)
-            }*/
-            
-            
         }
         }
         

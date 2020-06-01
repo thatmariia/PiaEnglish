@@ -55,10 +55,10 @@ struct LearnView: View {
                 ForEach(0..<collections_observer.collections.count, id: \.self) { i in
                     
                     HStack{
-                    VStack{
-                        self.collection_button(i)
-                    }
-                    Spacer().frame(width: 15)
+                        VStack{
+                            self.collection_button(i)
+                        }
+                        Spacer().frame(width: 15)
                     }
                     
                 }
@@ -69,7 +69,6 @@ struct LearnView: View {
     fileprivate func generate_LearnView(geom: GeometryProxy) -> some View {
         return VStack(spacing: 10) {
             
-            // TODO:: why doesnt align to left?
             HStack {
                 Text("Select collections").font(.largeTitle).fontWeight(.bold)
                 Spacer()
@@ -84,19 +83,22 @@ struct LearnView: View {
             Spacer()
             
             // testing
-            NavigationLink(destination: TestView()) {
+            NavigationLink(destination:
+                TestView()
+            ) {
                 Text("Test")
             }.disabled(chosen_collections == [])
-            .buttonStyle(BigButtonStyle())
+                .buttonStyle(BigButtonStyle())
             
             Spacer().frame(height: 15)
             
             // training
-            NavigationLink(destination: TrainView(words_observer: CollectionContentsObserver(english_words: get_engliah_words()),
-                                                  english_words: get_engliah_words())) {
-                                                    Text("Train")
+            NavigationLink(destination:
+                TrainView(words_observer: CollectionContentsObserver(english_words: get_engliah_words())
+            )) {
+                    Text("Train")
             }.disabled(chosen_collections == [])
-            .buttonStyle(BigButtonStyle())
+                .buttonStyle(BigButtonStyle())
             
             Spacer()
             
@@ -110,23 +112,13 @@ struct LearnView: View {
         
         return NavigationView{
             ZStack(alignment: .top){
-                    
-                    PiaBackground().edgesIgnoringSafeArea(.all)
+                
+                PiaBackground().edgesIgnoringSafeArea(.all)
                 GeometryReader{geom in
-                    
-                    
-                    
-                    
-                        
                     self.generate_LearnView(geom: geom)
                 }
-                
-                        
-                    
-                }.navigationBarTitle("").navigationBarHidden(true)
-    }
-            
-
+            }.navigationBarTitle("").navigationBarHidden(true)
+        }
     }
 }
 

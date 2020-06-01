@@ -11,13 +11,13 @@ import Foundation
 // TODO:: if a word is longer than grid size, make a snake thingie
 class WordSearchGenerator {
     
-    var used_words: [String]
-    var unused_words: [String]
+    var used_words: [Word]//[String]
+    var unused_words: [Word]//[String]
     var grid = [[String]]()
-    var cur_grid_words: [String] = []
+    var cur_grid_words: /*[String]*/ [Word] = []
     
-    init(used_words: [String],
-         unused_words: [String]) {
+    init(used_words: [Word],//[String],
+         unused_words: [Word]) {//[String]) {
         if (unused_words.count == 0 && used_words.count > 0) {
             // When cycle repeats
             self.unused_words = used_words
@@ -32,10 +32,12 @@ class WordSearchGenerator {
     
     func make_uppercase() {
         for i in 0..<self.used_words.count {
-            self.used_words[i] = self.used_words[i].uppercased()
+            self.used_words[i].english = self.used_words[i].english.uppercased()
+            self.used_words[i].russian = self.used_words[i].russian.uppercased()
         }
         for i in 0..<self.unused_words.count {
-            self.unused_words[i] = self.unused_words[i].uppercased()
+            self.unused_words[i].english = self.unused_words[i].english.uppercased()
+            self.unused_words[i].russian = self.unused_words[i].russian.uppercased()
         }
     }
     
@@ -54,6 +56,7 @@ class WordSearchGenerator {
         self.cur_grid_words = []
         
         for word in self.unused_words {
+            let eng_word = word.english
             var placed = false
             var tries_count = 0
             
@@ -82,20 +85,20 @@ class WordSearchGenerator {
                 }
                 
                 let x_start = Int.random(in: 0 ..< grid_size)
-                let x_end = x_start + word.count * x_step
+                let x_end = x_start + eng_word.count * x_step
                 
                 let y_start = Int.random(in: 0 ..< grid_size)
-                let y_end = y_start + word.count * y_step
+                let y_end = y_start + eng_word.count * y_step
                 
                 if !self.in_grid(x: x_end, y: y_end) { continue }
                 
-                if self.is_failed(word: word, x_start: x_start, x_step: x_step, y_start: y_start, y_step: y_step) {
+                if self.is_failed(word: eng_word, x_start: x_start, x_step: x_step, y_start: y_start, y_step: y_step) {
                     continue
                 } else {
                     
-                    for i in 0..<word.count {
-                        let ind = word.index(word.startIndex, offsetBy: i)
-                        let char = String(word[ind])
+                    for i in 0..<eng_word.count {
+                        let ind = eng_word.index(eng_word.startIndex, offsetBy: i)
+                        let char = String(eng_word[ind])
                         
                         let x_pos = x_start + i*x_step
                         let y_pos = y_start + i*y_step

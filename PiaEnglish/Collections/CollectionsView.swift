@@ -12,6 +12,8 @@ struct CollectionsView: View {
     
     @ObservedObject var collections_observer: CollectionsObserver
     
+    // TODO:: add option to delete collection
+    
     fileprivate func scroll_collections() -> some View {
         return VStack{
             
@@ -28,7 +30,7 @@ struct CollectionsView: View {
                                                                         HStack{
                                                                             Text(format_string(str: collection.name))
                                                                             Spacer()
-                                                                            Image(systemName: "arrow.right").foregroundColor(.white)
+                                                                            Image(systemName: "chevron.right").foregroundColor(.white)
                                                                         }
                     }
                     Divider()

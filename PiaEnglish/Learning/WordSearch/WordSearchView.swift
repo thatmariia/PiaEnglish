@@ -11,7 +11,7 @@ import SwiftUI
 struct WordSearchView: View {
     
     var grid: [[String]]
-    var words: [String]
+    var words: [Word]
     
     @State var found_words: [String] = []
     
@@ -35,7 +35,7 @@ struct WordSearchView: View {
         let entry_str = get_entry_str(entry: entry)
         
         for word in words {
-            if (word.contains(entry_str)) && (!found_words.contains(word)){
+            if (word.english.contains(entry_str)) && (!found_words.contains(word.english)){
                 return true
             }
         }
@@ -47,7 +47,7 @@ struct WordSearchView: View {
         let curr_entry_str = get_entry_str(entry: curr_entry)
         
         for i in 0..<words.count {
-            if (words[i] == curr_entry_str) {
+            if (words[i].english == curr_entry_str) {
                 return (true, curr_entry_str)
             }
         }
@@ -120,14 +120,6 @@ struct WordSearchView: View {
         return false
     }
     
-    fileprivate func get_color(i: Int, j: Int) -> Color{
-        let cell = (i,j)
-        if (cell_in_list(cell: cell, list: curr_entry)){
-            return .red
-        }
-        return .green
-    }
-    
     fileprivate func is_selected(i: Int, j: Int) -> Bool {
         let cell = (i,j)
         if (cell_in_list(cell: cell, list: curr_entry)){
@@ -147,15 +139,15 @@ struct WordSearchView: View {
                     ForEach(words, id: \.self) { word in
                         HStack {
                             
-                            if (self.found_words.contains(word)) {
-                                Text(word).padding(10)
+                            if (self.found_words.contains(word.english)) {
+                                Text(word.russian).padding(10)
                                 .background(
                                     Color.white.opacity(1.0)
                                 ).cornerRadius(40)
                                     .foregroundColor(Color("GradEnd").opacity(1.0))
                                     .font(.subheadline)
                             } else {
-                                Text(word).padding(10)
+                                Text(word.russian).padding(10)
                                 .background(
                                     Color.white.opacity(0.3)
                                 ).cornerRadius(40)
@@ -185,7 +177,7 @@ struct WordSearchView: View {
                                             
                                             print("hit " + self.grid[i][j])
                                         }) {
-                                            Text(self.grid[i][j])//.foregroundColor(self.get_color(i: i, j: j)).fontWeight(.heavy)
+                                            Text(self.grid[i][j])
                                         }.buttonStyle(WordGridButtonStyle(is_active: self.is_selected(i: i, j: j)))
                                     }
                                     //Spacer()
@@ -195,6 +187,10 @@ struct WordSearchView: View {
                             
                         }
                     }
+                }
+                
+                if found_words.count == words.count {
+                    Text("Completed")
                 }
                 
                 Spacer()
