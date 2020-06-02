@@ -25,11 +25,18 @@ struct AddCollectionView: View {
         return false
     }
     
+    fileprivate func is_english() -> Bool {
+        for char in new_collection {
+            if !eng_allowed.contains(char) { return false }
+        }
+        return true
+    }
+    
     var body: some View {
         
         let placeholder = HStack {
             Spacer().frame(width: 10)
-            Text("New collection name").foregroundColor(.white)
+            Text("New collection name (english)").foregroundColor(.white)
             Spacer()
         }
         
@@ -56,7 +63,7 @@ struct AddCollectionView: View {
                 
                 Button(action: {
                     self.exists = self.collection_exists()
-                    if !self.exists {
+                    if !self.exists && self.is_english() {
                         let collection_commiter = NewCollectionCommiter(collection_name: self.new_collection)
                         collection_commiter.commit_collection()
                         self.new_collection = ""
@@ -71,7 +78,7 @@ struct AddCollectionView: View {
                         Alert(title: Text(""), message: Text("Collection with this name already exists"), dismissButton: .cancel())
                     
                 }
-                .disabled(self.new_collection == "")
+                .disabled(self.new_collection == "" || !self.is_english())
                 
                 Spacer()
                 

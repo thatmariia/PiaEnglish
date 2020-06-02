@@ -67,6 +67,11 @@ struct LearnView: View {
                                 MatchTranslationView(true_word: testing_match_translation_true_word(ts: self.testing_state),
                                                      all_words: testing_match_translation_all_words(ts: self.testing_state))
                                 
+                            } else if self.testing_next_is(game_name: "check_correctness") {
+                                
+                                CheckCorrectnessView(true_word: testing_check_correctness_true_word(ts: self.testing_state),
+                                                     wrong_word: testing_check_correctness_wrong_word(ts: self.testing_state))
+                                
                             } else {
                                 FinishTestView()
                             }

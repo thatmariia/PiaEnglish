@@ -30,7 +30,7 @@ struct MatchTranslationView: View {
             return Array(all_words[0..<end_half])
             
         } else {
-
+            
             let start_half = Int(floor(Double(all_words.count) / 2.0))
             return Array(all_words[start_half..<all_words.count])
             
@@ -59,6 +59,9 @@ struct MatchTranslationView: View {
                     }
                     self.curr_selection = self.true_word.english
                     self.done = true
+                    play_audio_of(word: self.true_word.english)
+                } else {
+                    play_audio_of(word: word.english)
                 }
                 
             }) {
@@ -70,7 +73,7 @@ struct MatchTranslationView: View {
             }.buttonStyle(NormalSelectionButtonStyle(is_selected:
                 (self.correct_selection() && word.english == self.true_word.english))
             )
-            .disabled(correct_selection() || (self.clicked && self.testing_state.now_testing))
+                .disabled(correct_selection() || (self.clicked && self.testing_state.now_testing))
             
             Spacer().frame(height: 10)
             
@@ -79,7 +82,7 @@ struct MatchTranslationView: View {
     
     var body: some View {
         return  ZStack(alignment: .top){
-        PiaBackground().edgesIgnoringSafeArea(.all)
+            PiaBackground().edgesIgnoringSafeArea(.all)
             VStack{
                 
                 Text("Choose a correct translation for").foregroundColor(.white)
@@ -91,46 +94,47 @@ struct MatchTranslationView: View {
                 HStack {
                     
                     ScrollView(.vertical, showsIndicators: false){
-                    VStack {
-                        ForEach(half_words(half: 1)) { word in
-                            self.eng_words(word)
+                        VStack {
+                            ForEach(half_words(half: 1)) { word in
+                                self.eng_words(word)
+                            }
                         }
-                    }
                     }
                     
                     Spacer().frame(width: 8)
                     
                     ScrollView(.vertical, showsIndicators: false){
-                    VStack {
-                        ForEach(half_words(half: 2)) { word in
-                            self.eng_words(word)
+                        VStack {
+                            ForEach(half_words(half: 2)) { word in
+                                self.eng_words(word)
+                            }
                         }
-                    }
                     }
                     
                 }
                 
                 Spacer()
                 
-                if done {
-                    Button(action: {
-                        if self.training_state.now_training{
-                            self.training_state.view_count += 1
-                            
-                        } else if self.testing_state.now_testing{
-                            if self.correct_answer {
-                                self.testing_state.curr_total_score += 1
-                                self.testing_state.cur_score_word[self.true_word]! += 1
-                            }
-                            self.correct_answer = false
-                            self.clicked = false
-                            self.testing_state.view_count += 1
+                //if done {
+                Button(action: {
+                    if self.training_state.now_training{
+                        self.training_state.view_count += 1
+                        
+                    } else if self.testing_state.now_testing{
+                        if self.correct_answer {
+                            self.testing_state.curr_total_score += 1
+                            self.testing_state.cur_score_word[self.true_word]! += 1
                         }
-                        self.done = false
-                    }) {
-                        Text("Next game")
-                    }.buttonStyle(NormalButtonStyle())
-                }
+                        self.correct_answer = false
+                        self.clicked = false
+                        self.testing_state.view_count += 1
+                    }
+                    self.done = false
+                }) {
+                    Text("Next game")
+                }.buttonStyle(NormalButtonStyle())
+                    .disabled(!done)
+                //}
                 
                 Spacer().frame(height: 8)
             }.padding()

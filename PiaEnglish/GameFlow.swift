@@ -31,13 +31,17 @@ class GameFlow {
         let spoken_matches = smt.0
         let smt_usage = smt.1
         
-        var games = match_translations + spoken_matches
+        let cc = get_check_correctness()
+        let check_correctness = cc.0
+        let ss_usage = cc.1
+        
+        var games = match_translations + spoken_matches + check_correctness
         games = games.shuffled()
         games = games.shuffled()
         
         self.games = games
         
-        let total_usages = _get_total_usages(from: [mt_usage, smt_usage])
+        let total_usages = _get_total_usages(from: [mt_usage, smt_usage, ss_usage])
         self.usages = total_usages.0
         self.init_usages = total_usages.1
         self.max_score = total_usages.2
@@ -54,7 +58,7 @@ class GameFlow {
             
             for usage in usages {
                 total_usages[game_words[i]]! += usage[i]
-                sum += 1
+                sum += usage[i]
             }
         }
         
@@ -86,6 +90,41 @@ class GameFlow {
         return usage.firstIndex(of: usage.min()!)!
     }
     
+    func get_check_correctness() -> ([[String : [String : Any]]], [Int]) {
+        var usage = [Int](repeating: 0, count: self.game_words.count)
+        var check_correctnesses: [[String : [String : Any]]] = []
+        
+        while !self._exhausted(usage: usage) {
+            let li = _get_least_exhausted(from: usage)
+            let true_word = self.game_words[li]
+            usage[li] += 1
+            
+            let check_correctness1 = ["check_correctness" : [
+                "true_word" : true_word,
+                "wrong_word" : true_word
+            ]]
+            check_correctnesses.append(check_correctness1)
+            
+            var wrong_word = true_word
+            while wrong_word == true_word {
+                let i = Int.random(in: 0..<usage.count)
+                let word = self.game_words[i]
+                if true_word != word {
+                    wrong_word = word
+                    break
+                }
+            }
+            
+            usage[li] += 1
+            let check_correctness2 = ["check_correctness" : [
+                "true_word" : true_word,
+                "wrong_word" : wrong_word
+            ]]
+            check_correctnesses.append(check_correctness2)
+        }
+        return (check_correctnesses, usage)
+    }
+    
     func get_spoken_match_translations() -> ([[String : [String : Any]]], [Int]) {
         var usage = [Int](repeating: 0, count: self.game_words.count)
         var spoken_matches: [[String : [String : Any]]] = []
@@ -103,7 +142,6 @@ class GameFlow {
                 let word = self.game_words[i]
                 if  !all_words.contains(word){
                     all_words.append(word)
-                    //usage[i] += 1
                 }
             }
             

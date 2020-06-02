@@ -22,6 +22,8 @@ struct CardsView: View {
         return  ZStack(alignment: .top){
             PiaBackground().edgesIgnoringSafeArea(.all)
             
+            VStack{
+            
             GeometryReader { geom in
                 VStack{
                     
@@ -49,8 +51,8 @@ struct CardsView: View {
                         
                     }
                     .foregroundColor(.white)
-                    .padding()
-                    .frame(width: geom.size.width*0.8, height: geom.size.height*2/3, alignment: .center)
+                    //.padding()
+                    .frame(width: geom.size.width, height: geom.size.height*2/3, alignment: .center)
                     .background(Color.white.opacity(0.3)).cornerRadius(40)
                     .overlay(RoundedRectangle(cornerRadius: 40)
                     .stroke(Color.white, lineWidth: 2)
@@ -76,7 +78,7 @@ struct CardsView: View {
                     
                     Spacer()
                     
-                    if self.done {
+                    //if self.done {
                         Button(action: {
                             if self.training_state.now_training{
                                 self.training_state.view_count += 1
@@ -87,11 +89,12 @@ struct CardsView: View {
                         }) {
                             Text("Next game")
                         }.buttonStyle(NormalButtonStyle())
-                    }
+                            .disabled(!self.done)
+                    //}
                     
                     Spacer().frame(height: 8)
                 }
-                
+                }.padding()
                 
             }
         }.navigationBarTitle("").navigationBarHidden(true)

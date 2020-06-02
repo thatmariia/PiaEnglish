@@ -51,4 +51,5 @@ func format_string(str: String) -> String {
     return trimmed_str.prefix(1).uppercased() + trimmed_str.dropFirst().lowercased()
 }
 
-var default_training_time = 1
+var default_training_time = 3
+var min_game_words = 2

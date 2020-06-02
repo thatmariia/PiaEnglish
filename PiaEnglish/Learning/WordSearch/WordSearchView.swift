@@ -103,6 +103,7 @@ struct WordSearchView: View {
         let found_word = self.found_word()
         if found_word.0 {
             self.found_words.append(found_word.1)
+            play_audio_of(word: found_word.1)
             
             for cell in self.curr_entry {
                 if (!cell_in_list(cell: cell, list: self.found_cells)) {
@@ -139,29 +140,29 @@ struct WordSearchView: View {
                 
                 Text("Words to find:").foregroundColor(.white)
                 ScrollView(.horizontal, showsIndicators: false){
-                HStack{
-                    ForEach(words, id: \.self) { word in
-                        HStack {
-                            
-                            if (self.found_words.contains(word.english)) {
-                                Text(word.russian).padding(10)
-                                .background(
-                                    Color.white.opacity(1.0)
-                                ).cornerRadius(40)
-                                    .foregroundColor(Color("GradEnd").opacity(1.0))
-                                    .font(.subheadline)
-                            } else {
-                                Text(word.russian).padding(10)
-                                .background(
-                                    Color.white.opacity(0.3)
-                                ).cornerRadius(40)
-                                    .foregroundColor(Color.white.opacity(1.0))
-                                    .font(.subheadline)
+                    HStack{
+                        ForEach(words, id: \.self) { word in
+                            HStack {
+                                
+                                if (self.found_words.contains(word.english)) {
+                                    Text(word.russian).padding(10)
+                                        .background(
+                                            Color.white.opacity(1.0)
+                                    ).cornerRadius(40)
+                                        .foregroundColor(Color("GradEnd").opacity(1.0))
+                                        .font(.subheadline)
+                                } else {
+                                    Text(word.russian).padding(10)
+                                        .background(
+                                            Color.white.opacity(0.3)
+                                    ).cornerRadius(40)
+                                        .foregroundColor(Color.white.opacity(1.0))
+                                        .font(.subheadline)
+                                }
+                                Spacer().frame(width: 15)
                             }
-                            Spacer().frame(width: 15)
                         }
                     }
-                }
                 }
                 
                 Spacer()
@@ -195,13 +196,14 @@ struct WordSearchView: View {
                 
                 Spacer()
                 
-                if done {
-                    Button(action: {
-                        self.training_state.view_count += 1
-                    }) {
-                        Text("Next game")
-                    }.buttonStyle(NormalButtonStyle())
-                }
+                //if done {
+                Button(action: {
+                    self.training_state.view_count += 1
+                }) {
+                    Text("Next game")
+                }.buttonStyle(NormalButtonStyle())
+                    .disabled(!done)
+                //}
                 
                 Spacer().frame(height: 8)
             }.padding()

@@ -77,7 +77,7 @@ struct MatchWordsView: View {
         return VStack{
             
             Button(action: {
-                
+                play_audio_of(word: word.english)
                 if self.curr_selection_eng == word.english {
                     self.curr_selection_eng = ""
                 } else {
@@ -163,7 +163,7 @@ struct MatchWordsView: View {
             }
                 Spacer()
                 
-                if done {
+                //if done {
                     Button(action: {
                         if self.training_state.now_training{
                             self.training_state.view_count += 1
@@ -174,7 +174,8 @@ struct MatchWordsView: View {
                     }) {
                         Text("Next game")
                     }.buttonStyle(NormalButtonStyle())
-                }
+                        .disabled(!done)
+                //}
                 
                 Spacer().frame(height: 8)
         

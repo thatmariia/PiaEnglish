@@ -154,7 +154,7 @@ struct LearnSettingsView: View {
                 self.acrivity_attempted = true
                 self.game_words = []
                 self.get_game_words()
-                if self.game_words.count > 0 {
+                if self.game_words.count >= min_game_words {
                     self.enough_words_selected = true
                     self.testing_state.game_words = self.game_words
                     self.training_state.now_training = false
@@ -176,7 +176,7 @@ struct LearnSettingsView: View {
                 self.acrivity_attempted = true
                 self.game_words = []
                 self.get_game_words()
-                if self.game_words.count > 0 {
+                if self.game_words.count >= min_game_words {
                     self.enough_words_selected = true
                     self.training_state.game_words = self.game_words
                     self.training_state.training_time = self.chosen_time
@@ -195,9 +195,10 @@ struct LearnSettingsView: View {
             
             Spacer()
             
-            if !enough_words_selected && acrivity_attempted {
-                Text("No words selected").foregroundColor(.white)
-            }
+            Text("Nothing to learn, select more")
+                .foregroundColor(Color.white.opacity(
+                    (!enough_words_selected && acrivity_attempted) ? 1.0 : 0.0)
+                )
             
         }
         .padding()

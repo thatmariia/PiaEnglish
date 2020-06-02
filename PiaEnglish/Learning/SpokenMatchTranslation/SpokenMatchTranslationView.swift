@@ -115,7 +115,7 @@ struct SpokenMatchTranslationView: View {
                 
                 Spacer()
                 
-                if done {
+                //if done {
                     Button(action: {
                         if self.training_state.now_training{
                             self.training_state.view_count += 1
@@ -133,7 +133,8 @@ struct SpokenMatchTranslationView: View {
                     }) {
                         Text("Next game")
                     }.buttonStyle(NormalButtonStyle())
-                }
+                        .disabled(!done)
+                //}
                 
                 Spacer().frame(height: 8)
 

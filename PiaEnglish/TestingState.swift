@@ -22,6 +22,17 @@ class TestingState : ObservableObject {
     @Published var max_score_word: [Word: Int] = [:]
 }
 
+
+func testing_check_correctness_true_word(ts: TestingState) -> Word {
+    let dict = ts.testing_flow[ts.view_count]["check_correctness"]!
+    return dict["true_word"] as! Word
+}
+
+func testing_check_correctness_wrong_word(ts: TestingState) -> Word {
+    let dict = ts.testing_flow[ts.view_count]["check_correctness"]!
+    return dict["wrong_word"] as! Word
+}
+
 func testing_match_translation_true_word(ts: TestingState) -> Word {
     let dict = ts.testing_flow[ts.view_count]["match_translation"]!
     return dict["true_word"] as! Word
