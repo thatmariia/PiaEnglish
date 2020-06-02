@@ -39,6 +39,26 @@ class CollectionContentsObserver : ObservableObject {
         
     }
     
+    func start_listening_collection() {
+        print("LISTENING")
+        let collections_ref = db.collection("collections").document(collection_name)
+        
+        collections_ref.getDocument { (doc, err) in
+            if (err != nil) {
+                print("Error CollectionContentsObserver get doc: \(err!.localizedDescription)")
+                return
+            }
+            
+            if doc!.exists{
+                print("doc exists")
+                self.english_words = doc!.get("english_words") as! [String]
+                self.query_english_words(english: self.english_words)
+            } else {
+                self.english_words = []
+            }
+        }
+    }
+    
     func query_english_words(english: [String]) {
         
         for eng in english{

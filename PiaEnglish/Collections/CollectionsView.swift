@@ -10,6 +10,7 @@ import SwiftUI
 
 struct CollectionsView: View {
     
+    //@EnvironmentObject var words_observer: CollectionContentsObserver
     @ObservedObject var collections_observer: CollectionsObserver
     
     // TODO:: add option to delete collection
@@ -24,14 +25,20 @@ struct CollectionsView: View {
                 VStack{
                     
                     
-                    NavigationLink(destination: CollectionContentsView(collection_name: collection.name,
-                                                                       words_observer: CollectionContentsObserver(collection_name: collection.name))) {
+                    NavigationLink(destination:
+                        CollectionContentsView(collection_name: collection.name
+                                                                       /*words_observer: CollectionContentsObserver(collection_name: collection.name))*/ )) {
                                                                         
                                                                         HStack{
                                                                             Text(format_string(str: collection.name))
                                                                             Spacer()
                                                                             Image(systemName: "chevron.right").foregroundColor(.white)
                                                                         }
+                    }.onTapGesture {
+                        /*print("ON TAP")
+                        self.words_observer.english_words = []
+                        self.words_observer.collection_name = collection.name
+                        self.words_observer.start_listening_collection()*/
                     }
                     Divider()
                 }
@@ -70,6 +77,11 @@ struct CollectionsView: View {
                     }.padding()
                 }.navigationBarTitle("Collections").navigationBarHidden(true)
             }
+        }.onAppear {
+            /*"ON APPEAR COLL"
+            self.words_observer.collection_name = ""
+            self.words_observer.english_words = []
+            self.words_observer.words = []*/
         }
     }
 }

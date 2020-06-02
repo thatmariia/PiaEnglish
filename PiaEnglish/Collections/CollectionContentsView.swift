@@ -13,7 +13,7 @@ import Firebase
 struct CollectionContentsView: View {
     
     var collection_name: String
-    @ObservedObject var words_observer: CollectionContentsObserver
+    @EnvironmentObject var words_observer: CollectionContentsObserver
     
     @State var new_word = Word(id: "", english: "", russian: "", learned_by: [])
     @State var update = 1
@@ -29,6 +29,11 @@ struct CollectionContentsView: View {
     fileprivate func delete_word(word: Word) {
         let word_commiter = NewWordCommiter(new_word: word, collection: self.collection_name)
         word_commiter.remove_word_from_collection()
+        
+        self.words_observer.words = []
+        self.words_observer.english_words = []
+        self.words_observer.collection_name = self.collection_name
+        self.words_observer.start_listening_collection()
     }
     
     fileprivate func collection_word(word: Word) -> some View {
@@ -154,6 +159,11 @@ struct CollectionContentsView: View {
             )
         }.onAppear {
             // TODO:: add to english words
+            print("ON APPEAR")
+            self.words_observer.words = []
+            self.words_observer.english_words = []
+            self.words_observer.collection_name = self.collection_name
+            self.words_observer.start_listening_collection()
             
             //self.words_observer = CollectionContentsObserver(collection_name: self.collection_name)
             self.update = 5
