@@ -89,7 +89,7 @@ struct SpokenMatchTranslationView: View {
                 
                 HStack {
                     
-                    ScrollView(.vertical){
+                    ScrollView(.vertical, showsIndicators: false){
                     VStack {
                         ForEach(half_words(half: 1)) { word in
                             self.rus_words(word)

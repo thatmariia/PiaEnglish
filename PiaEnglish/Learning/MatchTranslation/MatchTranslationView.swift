@@ -86,7 +86,7 @@ struct MatchTranslationView: View {
                 
                 HStack {
                     
-                    ScrollView(.vertical){
+                    ScrollView(.vertical, showsIndicators: false){
                     VStack {
                         ForEach(half_words(half: 1)) { word in
                             self.eng_words(word)
@@ -96,7 +96,7 @@ struct MatchTranslationView: View {
                     
                     Spacer().frame(minWidth: 8)
                     
-                    ScrollView(.vertical){
+                    ScrollView(.vertical, showsIndicators: false){
                     VStack {
                         ForEach(half_words(half: 2)) { word in
                             self.eng_words(word)

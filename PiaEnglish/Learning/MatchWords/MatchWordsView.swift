@@ -133,7 +133,7 @@ struct MatchWordsView: View {
             HStack{
                  
                 /// english words
-                ScrollView(.vertical){
+                ScrollView(.vertical, showsIndicators: false){
                 VStack {
                     ForEach(words.0) { word in
                         self.words_eng(word: word)
@@ -144,7 +144,7 @@ struct MatchWordsView: View {
                 Spacer().frame(minWidth: 8)
                 
                 /// russian words
-                ScrollView(.vertical){
+                ScrollView(.vertical, showsIndicators: false){
                 VStack {
                     ForEach(words.1) { word in
                         self.words_rus(word: word)

@@ -6,10 +6,22 @@
 //  Copyright © 2020 Mariia Turchina. All rights reserved.
 //
 
+import Foundation
 import SwiftUI
 
 struct FinishTestView: View {
     @EnvironmentObject var testing_state: TestingState
+    
+    fileprivate func get_percetange_str(of num: Int, out_of denum: Int) -> String {
+        if denum != 0 {
+            let percentage = Int(round(100 * Double(num) / Double(denum)))
+            return "\(percentage)%"
+        } else {
+            return "error"
+        }
+    }
+    
+    
     var body: some View {
         
         print("FINISH TEST \n")
@@ -22,15 +34,43 @@ struct FinishTestView: View {
             
             PiaBackground().edgesIgnoringSafeArea(.all)
             
+            
+            
             VStack {
-                Spacer()
-                Image(systemName: "hand.thumbsup").foregroundColor(.white).font(.system(size: 40))
-                
-                Spacer().frame(height: 40)
-                
-                Text("Congratulations, you're").font(.title).fontWeight(.bold).foregroundColor(.white)
                 
                 Spacer().frame(height: 20)
+                
+                HStack{
+                    Spacer()
+                    Image(systemName: "rosette").foregroundColor(.white).font(.system(size: 40))
+                    Text(get_percetange_str(of: testing_state.curr_total_score, out_of: testing_state.max_total_score))
+                        .font(.system(size: 40)).fontWeight(.heavy).foregroundColor(.white)
+                    Spacer()
+                }
+                
+                Spacer().frame(height: 20)
+                
+                if (testing_state.cur_score_word != [:]) {
+                    ScrollView(.vertical, showsIndicators: false){
+                        Divider()
+                        ForEach(testing_state.game_words, id: \.self) { word in
+                            VStack{
+                                HStack{
+                                    
+                                    Text(format_string(str: word.english))
+                                    Spacer()
+                                    Text(self.get_percetange_str(of:     self.testing_state.cur_score_word[word]!,
+                                                                 out_of: self.testing_state.max_score_word[word]!))
+                                    
+                                }
+                                
+                                Divider()
+                            }
+                        }
+                    }
+                }
+                
+                Spacer()
                 
                 Button(action: {
                     self.testing_state.now_testing = false
@@ -46,7 +86,8 @@ struct FinishTestView: View {
                     Text("Done!")
                 }.buttonStyle(BigButtonStyle())
                 
-                Spacer()
+                Spacer().frame(height: 20)
+                
             }.padding()
             
         }.navigationBarTitle("").navigationBarHidden(true)
