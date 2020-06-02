@@ -92,11 +92,10 @@ struct CardsView: View {
                             self.training_state.view_count += 1
                         }) {
                             Text("Next game")
-                        }
+                        }.buttonStyle(NormalButtonStyle())
                     }
                     
-                    
-                    Spacer()
+                    Spacer().frame(height: 8)
                 }
                 
                 

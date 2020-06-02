@@ -18,16 +18,6 @@ struct MatchTranslationView: View {
     @State var curr_selection = ""
     @State var done = false
     
-    /*fileprivate func next_is(game_name: String) -> Bool {
-        if self.training_state.view_count > self.training_state.training_flow.count-1 {
-            return false
-        }
-        if let next_state = self.training_state.training_flow[self.training_state.view_count].keys.first {
-            return next_state == game_name
-        }
-        return false
-    }*/
-    
     fileprivate func half_words(half: Int) -> [Word]{
         if all_words.count == 0 { return [] }
         if half == 1 {
@@ -103,49 +93,15 @@ struct MatchTranslationView: View {
                 
                 Spacer()
                 
-                if self.done {
+                if done {
                     Button(action: {
                         self.training_state.view_count += 1
                     }) {
                         Text("Next game")
-                    }
+                    }.buttonStyle(NormalButtonStyle())
                 }
                 
-                /*if done {
-
-                    if next_is(game_name: "match_translation") {
-                        NavigationLink(destination:
-                
-                            MatchTranslationView(true_word: match_translation_true_word(ts: training_state),
-                                                 all_words: match_translation_all_words(ts: training_state))
-                        ) { Text("Next game") }.buttonStyle(NormalButtonStyle())
-                        
-                    } else if next_is(game_name: "match_word") {
-                        NavigationLink(destination:
-                            
-                            MatchWordsView(words: match_word_words(ts: training_state))
-                            
-                        ) { Text("Next game") }.buttonStyle(NormalButtonStyle())
-                    
-                    } else if next_is(game_name: "word_search") {
-                        
-                        NavigationLink(destination:
-                            
-                            WordSearchView(grid: word_search_grid(ts: training_state),
-                                           words: word_search_words(ts: training_state))
-                            
-                        ) { Text("Next game") }.buttonStyle(NormalButtonStyle())
-                        
-                    } else {
-                        NavigationLink(destination:
-                            
-                            FinishTrainView()
-                        ) { Text("Finish") }.buttonStyle(NormalButtonStyle())
-                            
-                    }
-                }*/
-                
-                Spacer()
+                Spacer().frame(height: 8)
             }.padding()
         }.navigationBarTitle("").navigationBarHidden(true)
         
@@ -153,10 +109,3 @@ struct MatchTranslationView: View {
         
     }
 }
-
-/*
-struct MatchTranslation_Previews: PreviewProvider {
-    static var previews: some View {
-        MatchTranslation()
-    }
-}*/
