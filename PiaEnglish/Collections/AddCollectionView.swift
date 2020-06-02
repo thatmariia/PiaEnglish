@@ -73,7 +73,7 @@ struct AddCollectionView: View {
                     }
                 }) {
                     Text("Add the collection")
-                }.buttonStyle(NormalButtonStyle())
+                }.buttonStyle(NormalButtonStyle(is_disabled: self.new_collection == "" || !self.is_english()))
                     .alert(isPresented: $exists) { () -> Alert in
                         Alert(title: Text(""), message: Text("Collection with this name already exists"), dismissButton: .cancel())
                     

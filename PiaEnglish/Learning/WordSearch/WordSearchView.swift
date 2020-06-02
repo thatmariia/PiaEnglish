@@ -201,7 +201,7 @@ struct WordSearchView: View {
                     self.training_state.view_count += 1
                 }) {
                     Text("Next game")
-                }.buttonStyle(NormalButtonStyle())
+                }.buttonStyle(NormalButtonStyle(is_disabled: !done))
                     .disabled(!done)
                 //}
                 

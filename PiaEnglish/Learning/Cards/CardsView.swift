@@ -74,7 +74,7 @@ struct CardsView: View {
                         
                     }) {
                         Text("Next word")
-                    }.buttonStyle(NormalButtonStyle())
+                    }.buttonStyle(NormalButtonStyle(is_disabled: false))
                     
                     Spacer()
                     
@@ -88,7 +88,7 @@ struct CardsView: View {
                             }
                         }) {
                             Text("Next game")
-                        }.buttonStyle(NormalButtonStyle())
+                        }.buttonStyle(NormalButtonStyle(is_disabled: !self.done))
                             .disabled(!self.done)
                     //}
                     

@@ -11,12 +11,15 @@ import SwiftUI
 
 struct NormalButtonStyle: ButtonStyle {
     
+    var is_disabled: Bool
+    
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .padding(10)
             
             .foregroundColor(
-                configuration.isPressed ? Color("GradEnd").opacity(1.0) : Color.white.opacity(1.0)
+                configuration.isPressed ? Color("GradEnd").opacity(1.0) :
+                    (is_disabled ? Color.white.opacity(0.5) : Color.white.opacity(1.0))
             )
             .background(Color.white.opacity(configuration.isPressed ? 1.0 : 0.3)).cornerRadius(40)
             

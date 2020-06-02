@@ -61,10 +61,11 @@ struct FinishTestView: View {
                             VStack{
                                 HStack{
                                     
-                                    Text(format_string(str: word.english))
+                                    Text(format_string(str: word.english)).foregroundColor(.white)
                                     Spacer()
                                     Text(self.get_percetange_str(of:     self.testing_state.cur_score_word[word]!,
                                                                  out_of: self.testing_state.max_score_word[word]!))
+                                        .foregroundColor(.white)
                                     
                                 }
                                 
@@ -98,7 +99,7 @@ struct FinishTestView: View {
                     self.testing_state.max_score_word = [:]
                 }) {
                     Text("Done!")
-                }.buttonStyle(BigButtonStyle())
+                }.buttonStyle(BigButtonStyle(is_disabled: false))
                 
                 Spacer().frame(height: 20)
                 

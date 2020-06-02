@@ -115,7 +115,7 @@ struct CollectionsView: View {
                         
                         scroll_collections()
                     }.padding()
-                }.navigationBarTitle("Collections").navigationBarHidden(true)
+                }.navigationBarTitle("Collections").navigationBarHidden(true).foregroundColor(.white)
                 
             }
         }

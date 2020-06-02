@@ -201,7 +201,7 @@ struct AddWordView: View {
             }
         }) {
             Text("Add the word")
-        }.buttonStyle(NormalButtonStyle())
+        }.buttonStyle(NormalButtonStyle(is_disabled: !self.word_entered()))
     }
     
     fileprivate func in_db_only_alert() -> Alert {

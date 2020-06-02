@@ -168,7 +168,7 @@ struct LearnSettingsView: View {
             }) {
                 Text("Test")
             }.disabled(chosen_collections == [] || chosen_training)
-                .buttonStyle(BigButtonStyle())
+                .buttonStyle(BigButtonStyle(is_disabled: chosen_collections == [] || chosen_training))
             
             Spacer().frame(height: 15)
             
@@ -191,7 +191,7 @@ struct LearnSettingsView: View {
             }) {
                 Text("Train")
             }.disabled(chosen_collections == [] || !time_selected || chosen_testing)
-                .buttonStyle(BigButtonStyle())
+                .buttonStyle(BigButtonStyle(is_disabled: chosen_collections == [] || !time_selected || chosen_testing))
             
             Spacer()
             

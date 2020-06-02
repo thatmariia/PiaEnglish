@@ -124,7 +124,7 @@ struct CheckCorrectnessView: View {
                         self.done = false
                     }) {
                         Text("Next game")
-                    }.buttonStyle(NormalButtonStyle())
+                    }.buttonStyle(NormalButtonStyle(is_disabled: !done))
                         .disabled(!done)
                 //}
                 

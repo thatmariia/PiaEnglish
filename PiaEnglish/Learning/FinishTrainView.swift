@@ -34,7 +34,7 @@ struct FinishTrainView: View {
                     self.training_state.training_flow = []
                 }) {
                     Text("Done!")
-                }.buttonStyle(BigButtonStyle())
+                }.buttonStyle(BigButtonStyle(is_disabled: false))
                 
                 Spacer()
             }.padding()

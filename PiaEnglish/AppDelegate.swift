@@ -21,6 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITableView.appearance().backgroundColor = UIColor.clear
         UITableView.appearance().tableFooterView = UIView()
         UITableView.appearance().separatorStyle = .none
+        
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor : UIColor.white]
+        UINavigationBar.appearance().largeTitleTextAttributes = [
+            .foregroundColor : UIColor.white,
+        ]
         return true
     }
 

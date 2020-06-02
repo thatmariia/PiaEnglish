@@ -81,7 +81,7 @@ struct SpokenMatchTranslationView: View {
         PiaBackground().edgesIgnoringSafeArea(.all)
             VStack{
                 
-                Text("Match the spoken word")
+                Text("Match the spoken word").foregroundColor(.white)
                 Spacer().frame(height: 8)
                 Button(action: {
                     play_audio_of(word: self.true_word.english)
@@ -132,7 +132,7 @@ struct SpokenMatchTranslationView: View {
                         self.done = false
                     }) {
                         Text("Next game")
-                    }.buttonStyle(NormalButtonStyle())
+                    }.buttonStyle(NormalButtonStyle(is_disabled: !done))
                         .disabled(!done)
                 //}
                 
