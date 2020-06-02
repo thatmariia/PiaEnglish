@@ -10,10 +10,9 @@ import SwiftUI
 
 struct LearnSettingsView: View {
     @EnvironmentObject var training_state: TrainingState
+    @EnvironmentObject var testing_state: TestingState
     // TODO:: check at least 1 word is chosen
     
-    //@ObservedObject var collections_observer: CollectionsObserver
-    //@ObservedObject var all_words_observer: AllWordsObserver
     @EnvironmentObject var all_words_observer: AllWordsObserver
     @EnvironmentObject var collections_observer: CollectionsObserver
     
@@ -148,6 +147,12 @@ struct LearnSettingsView: View {
 
             
             Button(action: {
+                self.game_words = []
+                self.get_game_words()
+                self.testing_state.game_words = self.game_words
+                self.training_state.now_training = false
+                self.testing_state.now_testing = true
+                
                 self.chosen_training = false
                 self.chosen_training = true
             }) {
@@ -162,6 +167,7 @@ struct LearnSettingsView: View {
                 self.get_game_words()
                 self.training_state.game_words = self.game_words
                 self.training_state.training_time = self.chosen_time
+                self.testing_state.now_testing = false
                 self.training_state.now_training = true
                 
                 

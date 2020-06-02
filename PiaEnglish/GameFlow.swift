@@ -13,18 +13,56 @@ class GameFlow {
     var game_words: [Word]
     var training_time: Int
     var games: [[String : [String : Any]]] = []
+    var usages: [Word: Int] = [:]
+    var max_score = 0
     
     init(game_words: [Word], training_time: Int) {
         self.game_words = game_words
         self.training_time = training_time
     }
     
-    func construct_training(){
-        let cards = get_cards()
-        let match_translations = get_match_translation()
-        let match_words = get_match_words()
-        let word_searches = get_word_search()
-        let spoken_matches = get_spoken_matches()
+    func construct_testing() {
+        let mt = get_match_translation()
+        let match_translations = mt.0
+        let mt_usage = mt.1
+        
+        let sm = get_spoken_matches()
+        let spoken_matches = sm.0
+        let sm_usage = sm.1
+        
+        var games = match_translations + spoken_matches
+        games = games.shuffled()
+        games = games.shuffled()
+        
+        self.games = games
+        
+        let total_usages = _get_total_usages(from: [mt_usage, sm_usage])
+        self.usages = total_usages.0
+        self.max_score = total_usages.1
+    }
+    
+    func _get_total_usages(from usages: [[Int]]) -> ([Word : Int], Int) {
+        var total_usages: [Word : Int] = [:]
+        var sum = 0
+        
+        for i in 0..<self.game_words.count {
+            total_usages[game_words[i]] = 0
+            
+            for usage in usages {
+                total_usages[game_words[i]]! += usage[i]
+                sum += 1
+            }
+        }
+        
+        return (total_usages, sum)
+    }
+    
+    func construct_training() {
+        let cards = get_cards().0
+        let match_translations = get_match_translation().0
+        let match_words = get_match_words().0
+        let word_searches = get_word_search().0
+        let spoken_matches = get_spoken_matches().0
         
         var games = match_translations + match_words + word_searches + spoken_matches
         games = games.shuffled()
@@ -44,7 +82,7 @@ class GameFlow {
         return usage.firstIndex(of: usage.min()!)!
     }
     
-    func get_spoken_matches() -> [[String : [String : Any]]] {
+    func get_spoken_matches() -> ([[String : [String : Any]]], [Int]) {
         var usage = [Int](repeating: 0, count: self.game_words.count)
         var spoken_matches: [[String : [String : Any]]] = []
         
@@ -71,10 +109,10 @@ class GameFlow {
             ]]
             spoken_matches.append(spoken_match)
         }
-        return spoken_matches
+        return (spoken_matches, usage)
     }
     
-    func get_cards() -> [[String : [String : Any]]] {
+    func get_cards() -> ([[String : [String : Any]]], [Int]) {
         var cards: [[String : [String : Any]]] = []
         for _ in 0..<1/*self.training_time*/ {
             let card = ["cards" : [
@@ -82,10 +120,10 @@ class GameFlow {
                 ]]
             cards.append(card)
         }
-        return cards
+        return (cards, [])
     }
     
-    func get_match_translation() -> [[String : [String : Any]]] {
+    func get_match_translation() -> ([[String : [String : Any]]], [Int]) {
         var usage = [Int](repeating: 0, count: self.game_words.count)
         var match_translations: [[String : [String : Any]]] = []
         
@@ -114,10 +152,10 @@ class GameFlow {
             match_translations.append(match_translation)
         }
         
-        return match_translations
+        return (match_translations, usage)
     }
     
-    func get_match_words() -> [[String : [String : Any]]] {
+    func get_match_words() -> ([[String : [String : Any]]], [Int]) {
         var usage = [Int](repeating: 0, count: self.game_words.count)
         var match_words: [[String : [String : Any]]] = []
         
@@ -140,10 +178,10 @@ class GameFlow {
             ]]
             match_words.append(match_word)
         }
-        return match_words
+        return (match_words, usage)
     }
     
-    func get_word_search() -> [[String : [String : Any]]] {
+    func get_word_search() -> ([[String : [String : Any]]], [Int]) {
         /// select all the words that are <= the size of the grid
         var allowed_words: [Word] = []
         for word in self.game_words {
@@ -188,7 +226,7 @@ class GameFlow {
             ]]
             word_searches.append(word_search)
         }
-        return word_searches
+        return (word_searches, usage)
     }
     
 }

@@ -156,7 +156,10 @@ struct MatchWordsView: View {
                 
                 if done {
                     Button(action: {
-                        self.training_state.view_count += 1
+                        if self.training_state.now_training{
+                            self.training_state.view_count += 1
+                            
+                        }
                     }) {
                         Text("Next game")
                     }.buttonStyle(NormalButtonStyle())

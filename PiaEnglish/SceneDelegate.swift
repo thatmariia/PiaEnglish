@@ -13,6 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     var training_state = TrainingState()
+    var testing_state = TestingState()
     var words_observer = CollectionContentsObserver(english_words: [])
     var all_words_observer = AllWordsObserver()
     var collections_observer = CollectionsObserver()
@@ -30,6 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
         let contentView = ContentView().environment(\.managedObjectContext, context)
             .environmentObject(training_state)
+            .environmentObject(testing_state)
             .environmentObject(words_observer)
             .environmentObject(all_words_observer)
             .environmentObject(collections_observer)
