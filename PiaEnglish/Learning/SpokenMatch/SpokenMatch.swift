@@ -49,7 +49,11 @@ struct SpokenMatchView: View {
                     self.done = true
                 }
             }) {
-                Text(format_string(str: word.english))
+                HStack{
+                    Spacer()
+                    Text(format_string(str: word.english))
+                    Spacer()
+                }
             }.buttonStyle(NormalSelectionButtonStyle(is_selected:
                 self.correct_selection() && word.english == self.true_word.english))
             .disabled(correct_selection())
@@ -84,7 +88,7 @@ struct SpokenMatchView: View {
                     }
                     }
                     
-                    Spacer().frame(minWidth: 8)
+                    Spacer().frame(width: 8)
                     
                     ScrollView(.vertical, showsIndicators: false){
                     VStack {

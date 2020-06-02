@@ -53,6 +53,7 @@
 		31EEDDB72486A93A0056EBBD /* TestingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EEDDB62486A93A0056EBBD /* TestingState.swift */; };
 		31EEDDB92486AF9B0056EBBD /* FinishTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EEDDB82486AF9B0056EBBD /* FinishTestView.swift */; };
 		31EEDDBB2486BA950056EBBD /* SpokenMatchTranslationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EEDDBA2486BA950056EBBD /* SpokenMatchTranslationView.swift */; };
+		31EEDDBE2486D55B0056EBBD /* GameNormalSelectionButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EEDDBD2486D55B0056EBBD /* GameNormalSelectionButtonStyle.swift */; };
 		9E8113770671313CB5D6838D /* Pods_PiaEnglish.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A97C06CEE9CCB95328B0D93A /* Pods_PiaEnglish.framework */; };
 /* End PBXBuildFile section */
 
@@ -105,6 +106,7 @@
 		31EEDDB62486A93A0056EBBD /* TestingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingState.swift; sourceTree = "<group>"; };
 		31EEDDB82486AF9B0056EBBD /* FinishTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishTestView.swift; sourceTree = "<group>"; };
 		31EEDDBA2486BA950056EBBD /* SpokenMatchTranslationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpokenMatchTranslationView.swift; sourceTree = "<group>"; };
+		31EEDDBD2486D55B0056EBBD /* GameNormalSelectionButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameNormalSelectionButtonStyle.swift; sourceTree = "<group>"; };
 		A97C06CEE9CCB95328B0D93A /* Pods_PiaEnglish.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PiaEnglish.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE6CA557D554861F0A9AC847 /* Pods-PiaEnglish.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PiaEnglish.debug.xcconfig"; path = "Target Support Files/Pods-PiaEnglish/Pods-PiaEnglish.debug.xcconfig"; sourceTree = "<group>"; };
 		FE5FB435E6584798805979D7 /* Pods-PiaEnglish.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PiaEnglish.release.xcconfig"; path = "Target Support Files/Pods-PiaEnglish/Pods-PiaEnglish.release.xcconfig"; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 				3145ACFA2483FFBA00F7F89A /* NormalButtonStyle.swift */,
 				319933CD2484906400D9F6BC /* WordGridButtonStyle.swift */,
 				3145AD042484326900F7F89A /* NormalSelectionButtonStyle.swift */,
+				31EEDDBD2486D55B0056EBBD /* GameNormalSelectionButtonStyle.swift */,
 				3145ACFC2484001200F7F89A /* NormalTextFieldStyle.swift */,
 				3145ACF82483239D00F7F89A /* SelectionButtonStyle.swift */,
 				3145ACF6248308F800F7F89A /* PiaBackground.swift */,
@@ -416,6 +419,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				31EEDDB0248601BC0056EBBD /* LearnSettingsView.swift in Sources */,
+				31EEDDBE2486D55B0056EBBD /* GameNormalSelectionButtonStyle.swift in Sources */,
 				3145ACFD2484001200F7F89A /* NormalTextFieldStyle.swift in Sources */,
 				31023F212485A1EF00B96ED9 /* PronounceView.swift in Sources */,
 				31023F1E24859A0700B96ED9 /* MatchTranslationView.swift in Sources */,

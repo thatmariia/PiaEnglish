@@ -17,20 +17,8 @@ struct CardsView: View {
     
     @State var curr_i = 0
     @State var done = false
-    //@State var finalized = false
-    
-    /*fileprivate func next_is(game_name: String) -> Bool {
-        if self.training_state.view_count > self.training_state.training_flow.count-1 {
-            return false
-        }
-        if let next_state = self.training_state.training_flow[self.training_state.view_count].keys.first {
-            return next_state == game_name
-        }
-        return false
-    }*/
     
     var body: some View {
-        print(" CARDS: ", self.words)
         return  ZStack(alignment: .top){
             PiaBackground().edgesIgnoringSafeArea(.all)
             

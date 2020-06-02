@@ -88,7 +88,11 @@ struct MatchWordsView: View {
                     }
                 }
             }) {
-                Text(format_string(str: word.english))
+                HStack{
+                    Spacer()
+                    Text(format_string(str: word.english))
+                    Spacer()
+                }
             }.buttonStyle(SelectionButtonStyle(is_active: is_active_eng(eng: word.english)))
             .disabled(!is_enabled_eng(eng: word.english))
             
@@ -111,7 +115,11 @@ struct MatchWordsView: View {
                     }
                 }
             }) {
-                Text(format_string(str: word.russian))
+                HStack(){
+                    Spacer()
+                    Text(format_string(str: word.russian))
+                    Spacer()
+                }
             }.buttonStyle(SelectionButtonStyle(is_active: is_active_rus(rus: word.russian)))
                 .disabled(!is_enabled_rus(rus: word.russian))
             
@@ -141,7 +149,7 @@ struct MatchWordsView: View {
                 }
                 }
                 
-                Spacer().frame(minWidth: 8)
+                Spacer().frame(width: 8)
                 
                 /// russian words
                 ScrollView(.vertical, showsIndicators: false){

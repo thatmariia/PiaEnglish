@@ -62,7 +62,11 @@ struct MatchTranslationView: View {
                 }
                 
             }) {
-                Text(format_string(str: word.english))
+                HStack{
+                    Spacer()
+                    Text(format_string(str: word.english))
+                    Spacer()
+                }
             }.buttonStyle(NormalSelectionButtonStyle(is_selected:
                 (self.correct_selection() && word.english == self.true_word.english))
             )
@@ -94,7 +98,7 @@ struct MatchTranslationView: View {
                     }
                     }
                     
-                    Spacer().frame(minWidth: 8)
+                    Spacer().frame(width: 8)
                     
                     ScrollView(.vertical, showsIndicators: false){
                     VStack {
