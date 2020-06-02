@@ -48,6 +48,7 @@
 		31A3B876247B4B63002C0EC1 /* CollectionContentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A3B875247B4B63002C0EC1 /* CollectionContentsView.swift */; };
 		31A3B87A247BF8C6002C0EC1 /* WordSearchGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A3B879247BF8C6002C0EC1 /* WordSearchGenerator.swift */; };
 		31A3B87C247C10C9002C0EC1 /* WordSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A3B87B247C10C9002C0EC1 /* WordSearchView.swift */; };
+		31EEDDAA2485E6BF0056EBBD /* FinishTrainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EEDDA92485E6BF0056EBBD /* FinishTrainView.swift */; };
 		9E8113770671313CB5D6838D /* Pods_PiaEnglish.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A97C06CEE9CCB95328B0D93A /* Pods_PiaEnglish.framework */; };
 /* End PBXBuildFile section */
 
@@ -95,6 +96,7 @@
 		31A3B875247B4B63002C0EC1 /* CollectionContentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionContentsView.swift; sourceTree = "<group>"; };
 		31A3B879247BF8C6002C0EC1 /* WordSearchGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSearchGenerator.swift; sourceTree = "<group>"; };
 		31A3B87B247C10C9002C0EC1 /* WordSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSearchView.swift; sourceTree = "<group>"; };
+		31EEDDA92485E6BF0056EBBD /* FinishTrainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishTrainView.swift; sourceTree = "<group>"; };
 		A97C06CEE9CCB95328B0D93A /* Pods_PiaEnglish.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PiaEnglish.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE6CA557D554861F0A9AC847 /* Pods-PiaEnglish.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PiaEnglish.debug.xcconfig"; path = "Target Support Files/Pods-PiaEnglish/Pods-PiaEnglish.debug.xcconfig"; sourceTree = "<group>"; };
 		FE5FB435E6584798805979D7 /* Pods-PiaEnglish.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PiaEnglish.release.xcconfig"; path = "Target Support Files/Pods-PiaEnglish/Pods-PiaEnglish.release.xcconfig"; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				31724DD3247B2AF70005A728 /* LearnView.swift */,
 				3178AF4F247C9D2000ADD92B /* TestView.swift */,
 				3178AF51247C9D3000ADD92B /* TrainView.swift */,
+				31EEDDA92485E6BF0056EBBD /* FinishTrainView.swift */,
 				31023F222485A1F800B96ED9 /* Pronounce */,
 				31023F1F24859A3D00B96ED9 /* MatchTranslation */,
 				31023F1C24858AD800B96ED9 /* MatchWords */,
@@ -392,6 +395,7 @@
 				3178AF5D247D8F5D00ADD92B /* AddCollectionView.swift in Sources */,
 				31A3B87C247C10C9002C0EC1 /* WordSearchView.swift in Sources */,
 				3178AF5B247D8E8E00ADD92B /* NewCollectionCommiter.swift in Sources */,
+				31EEDDAA2485E6BF0056EBBD /* FinishTrainView.swift in Sources */,
 				31023F262485BC9E00B96ED9 /* TrainFlow.swift in Sources */,
 				319933CE2484906400D9F6BC /* WordGridButtonStyle.swift in Sources */,
 				31A3B86F247B4214002C0EC1 /* Collection.swift in Sources */,

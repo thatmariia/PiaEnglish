@@ -10,6 +10,9 @@ import SwiftUI
 
 struct WordSearchView: View {
     
+    @EnvironmentObject var training_state: TrainingState
+    @State var done = false
+    
     var grid: [[String]]
     var words: [Word]
     
@@ -20,6 +23,13 @@ struct WordSearchView: View {
     @State var grid_state = [[Bool]](repeating: [Bool](repeating: false, count: grid_size), count: grid_size)
     // -1 : not filled, 0 : filled, 1 : contains found
     @State var found_cells: [(Int, Int)] = []
+    
+    fileprivate func next_is(game_name: String) -> Bool {
+        if let next_state = self.training_state.training_flow[self.training_state.view_count].keys.first {
+            return next_state == game_name
+        }
+        return false
+    }
     
     fileprivate func get_entry_str(entry: [(Int, Int)]) -> String {
         var entry_str = ""
@@ -174,6 +184,10 @@ struct WordSearchView: View {
                                         Button(action: {
                                             
                                             self.handle_attempt(i: i, j: j)
+                                            if self.found_words.count == self.words.count {
+                                                self.training_state.view_count += 1
+                                                self.done = true
+                                            }
                                             
                                         }) {
                                             Text(self.grid[i][j])
@@ -188,8 +202,38 @@ struct WordSearchView: View {
                     }
                 }
                 
-                if found_words.count == words.count {
-                    Text("Completed")
+                if self.done {
+
+                    if self.next_is(game_name: "match_translation") {
+                        NavigationLink(destination:
+                
+                            MatchTranslationView(true_word: match_translation_true_word(ts: self.training_state),
+                                                 all_words: match_translation_all_words(ts: self.training_state))
+                        ) { Text("Next game") }.buttonStyle(NormalButtonStyle())
+                        
+                    } else if self.next_is(game_name: "match_word") {
+                        NavigationLink(destination:
+                            
+                            MatchWordsView(words: match_word_words(ts: self.training_state))
+                            
+                        ) { Text("Next game") }.buttonStyle(NormalButtonStyle())
+                    
+                    } else if self.next_is(game_name: "word_search") {
+                        
+                        NavigationLink(destination:
+                            
+                            WordSearchView(grid: word_search_grid(ts: self.training_state),
+                                           words: word_search_words(ts: self.training_state))
+                            
+                        ) { Text("Next game") }.buttonStyle(NormalButtonStyle())
+                        
+                    } else {
+                        NavigationLink(destination:
+                            
+                            FinishTrainView()
+                        ) { Text("Finish") }.buttonStyle(NormalButtonStyle())
+                            
+                    }
                 }
                 
                 Spacer()

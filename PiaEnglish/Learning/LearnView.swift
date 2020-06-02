@@ -73,9 +73,9 @@ struct LearnView: View {
         return ScrollView(.horizontal, showsIndicators: false){
             HStack {
                 
-                time_button(timename: "Short", time: 5)
-                time_button(timename: "Medium", time: 7)
-                time_button(timename: "Long", time: 10)
+                time_button(timename: "Short", time: 1)
+                time_button(timename: "Medium", time: 2)
+                time_button(timename: "Long", time: 3)
                 
             }
             

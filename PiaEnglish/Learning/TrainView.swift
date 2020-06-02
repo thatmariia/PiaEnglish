@@ -27,6 +27,7 @@ struct TrainView: View {
         return game_words
     }
     
+    /*
     fileprivate func get_matchwords_words() -> ([Word], [Word]) {
         let words = Array(get_game_words()[0..<min(5, get_game_words().count)])
         return (words.shuffled(), words.shuffled())
@@ -36,20 +37,34 @@ struct TrainView: View {
         let all_words = get_game_words().shuffled()
         return (all_words[0], Array(all_words[0..<min(4, all_words.count)]))
         
-    }
+    }*/
     
     var body: some View {
+        
         let game_words = get_game_words()
-        let wordsearch = WordSearchGenerator(used_words: [], unused_words: game_words)
+        
+        /*let wordsearch = WordSearchGenerator(used_words: [], unused_words: game_words)
         wordsearch.generate()
         
         let match_translation_words = get_match_translation_words()
         
-        print("TRAINING STATE VIEW COUNT IN TRAIN VIEW = ", training_state.view_count)
+        print("TRAINING STATE VIEW COUNT IN TRAIN VIEW = ", training_state.view_count)*/
         
-        let train_flow = TrainFlow(game_words: game_words, training_time: training_time)
         
-        return VStack { Text("Training...") }
+        return ZStack{
+            
+            ///cards
+            NavigationLink(destination: CardsView(words: get_game_words())) {
+                Text("Go to cards")
+            }
+            
+        }
+            .onAppear {
+                let train_flow = TrainFlow(game_words: game_words, training_time: self.training_time)
+                train_flow.construct()
+                self.training_state.training_flow = train_flow.games
+                print("*_*_* FLOWWW ", self.training_state.training_flow)
+            }
         
         
         /* MARK:: original code

@@ -12,13 +12,14 @@ class TrainFlow {
     
     var game_words: [Word]
     var training_time: Int
+    var games: [[String : [String : Any]]] = []
     
     init(game_words: [Word], training_time: Int) {
         self.game_words = game_words
         self.training_time = training_time
     }
     
-    func construct() -> [[String : [String : Any]]] {
+    func construct(){
         let cards = get_cards()
         let match_translations = get_match_translation()
         let match_words = get_match_words()
@@ -26,9 +27,7 @@ class TrainFlow {
         
         var games = match_translations + match_words + word_searches
         games = games.shuffled()
-        games = cards + games
-        
-        return games
+        self.games = cards + games
     }
     
     func _exhausted(usage: [Int]) -> Bool {
@@ -43,12 +42,15 @@ class TrainFlow {
     }
     
     func get_cards() -> [[String : [String : Any]]] {
-        let cards = ["Cards" : [
-            "words" : self.game_words
-            ]]
-        return [cards, cards]
+        var cards: [[String : [String : Any]]] = []
+        for _ in 0..<1/*self.training_time*/ {
+            let card = ["Cards" : [
+                "words" : self.game_words
+                ]]
+            cards.append(card)
+        }
+        return cards
     }
-    
     
     func get_match_translation() -> [[String : [String : Any]]] {
         var usage = [Int](repeating: 0, count: self.game_words.count)
@@ -90,7 +92,7 @@ class TrainFlow {
             
             /// picking some least used words
             var words: [Word] = []
-            while words.count <= min(8, self.game_words.count) {
+            while words.count < min(8, self.game_words.count) {
                 let i1 = _get_least_exhausted(from: usage)
                 let i2 = Int.random(in: 0..<usage.count)
                 let i = [i1, i2].randomElement()!
@@ -113,7 +115,11 @@ class TrainFlow {
         var allowed_words: [Word] = []
         for word in self.game_words {
             if word.english.count <= grid_size {
-                allowed_words.append(word)
+                let cap_word = Word(id: word.id,
+                                    english: word.english.uppercased(),
+                                    russian: word.russian.uppercased(),
+                                    learned_by: word.learned_by)
+                allowed_words.append(cap_word)
             }
         }
         allowed_words = allowed_words.sorted { (a, b) -> Bool in
