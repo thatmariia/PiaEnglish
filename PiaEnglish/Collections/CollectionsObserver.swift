@@ -16,6 +16,10 @@ class CollectionsObserver : ObservableObject {
     
     init(){
         
+        refresh()
+    }
+    
+    func refresh() {
         let collections = db.collection("collections")
         
         collections.addSnapshotListener { (snap, err) in
@@ -56,12 +60,6 @@ class CollectionsObserver : ObservableObject {
                 }
                 
             }
-            
-            /*
-            for doc in snap!.documents {
-                let collection = get_collection(from: doc)
-                self.collections.append(collection)
-            } */
         }
     }
 }

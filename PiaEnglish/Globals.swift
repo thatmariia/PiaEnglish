@@ -30,12 +30,14 @@ let rus_alphabet = "АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНн
 let eng_alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ -'"
 
 func word_matching(db_word: String, comp_word: String) -> Bool {
-
-    let word_cap = comp_word.prefix(1).uppercased() + comp_word.dropFirst()
-    if db_word.contains(comp_word) ||
-        db_word.contains(comp_word.uppercased()) ||
-        db_word.contains(comp_word.lowercased()) ||
-        db_word.contains(word_cap) {
+    
+    let db_word_copy = db_word.trimmingCharacters(in: .whitespacesAndNewlines)
+    let comp_word_copy = comp_word.trimmingCharacters(in: .whitespacesAndNewlines)
+    
+    let db_lc = db_word_copy.lowercased()
+    let comp_lc = comp_word_copy.lowercased()
+    
+    if db_lc.contains(comp_lc) {
         return true
     }
     
@@ -45,7 +47,8 @@ func word_matching(db_word: String, comp_word: String) -> Bool {
 let username = "piazok"
 
 func format_string(str: String) -> String {
-    return str.prefix(1).uppercased() + str.dropFirst().lowercased()
+    let trimmed_str = str.trimmingCharacters(in: .whitespacesAndNewlines)
+    return trimmed_str.prefix(1).uppercased() + trimmed_str.dropFirst().lowercased()
 }
 
 var default_training_time = 1

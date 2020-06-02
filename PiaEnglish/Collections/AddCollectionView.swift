@@ -10,13 +10,14 @@ import SwiftUI
 
 struct AddCollectionView: View {
     
-    var collections: [Collection]
+    @EnvironmentObject var search_observer: CollectionsObserver
     
     @State var new_collection = ""
     @State var exists = false
+    @State var adding = false
     
     fileprivate func collection_exists() -> Bool {
-        for collection in collections {
+        for collection in search_observer.collections {
             if word_matching(db_word: collection.name, comp_word: new_collection) {
                 return true
             }
@@ -25,32 +26,61 @@ struct AddCollectionView: View {
     }
     
     var body: some View {
-        return ZStack(alignment: .top){
-        PiaBackground().edgesIgnoringSafeArea(.all)
-            
-        VStack{
-            Text("Enter collection name")
-            
-            TextField("add collection", text: $new_collection, onEditingChanged: { (changed) in
-            }) {
-                self.exists = self.collection_exists()
-                if !self.exists {
-                    let collection_commiter = NewCollectionCommiter(collection_name: self.new_collection)
-                    collection_commiter.commit_collection()
-                    
-                }
-            }.alert(isPresented: $exists) { () -> Alert in
-                Alert(title: Text(""), message: Text("Collection already exists"), dismissButton: .cancel())
-            }
+        
+        let placeholder = HStack {
+            Spacer().frame(width: 10)
+            Text("New collection name").foregroundColor(.white)
+            Spacer()
         }
+        
+        return ZStack(alignment: .top){
+            PiaBackground().edgesIgnoringSafeArea(.all)
+            
+            VStack{
+                
+                HStack{
+                    Text("Enter collection name")
+                    Spacer()
+                }
+                
+                ZStack(alignment: .leading) {
+                    if self.new_collection == "" { placeholder }
+                    
+                    TextField("", text: $new_collection, onEditingChanged: {_ in
+                        self.adding = !self.adding
+                    }).textFieldStyle(NormalTextFieldStyle(is_focused: adding))
+                        .accentColor(Color("GradStart"))
+                }
+                
+                Spacer().frame(height: 16)
+                
+                Button(action: {
+                    self.exists = self.collection_exists()
+                    if !self.exists {
+                        let collection_commiter = NewCollectionCommiter(collection_name: self.new_collection)
+                        collection_commiter.commit_collection()
+                        self.search_observer.refresh()
+                        
+                    }
+                }) {
+                    Text("Add")
+                }.buttonStyle(NormalButtonStyle())
+                    .alert(isPresented: $exists) { () -> Alert in
+                        Alert(title: Text(""), message: Text("Collection with this name already exists"), dismissButton: .cancel())
+                }
+                
+                Spacer()
+                
+                
+            }.padding()
         }.navigationBarTitle("New collection")
     }
 }
 
 /*
-struct AddCollectionView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddCollectionView()
-    }
-}
-*/
+ struct AddCollectionView_Previews: PreviewProvider {
+ static var previews: some View {
+ AddCollectionView()
+ }
+ }
+ */

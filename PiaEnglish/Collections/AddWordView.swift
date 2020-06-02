@@ -281,7 +281,6 @@ struct AddWordView: View {
                             Spacer()
                         }
                         
-                      
                         ZStack(alignment: .leading) {
                             if self.new_word.english.isEmpty { placeholder_english }
                             TextField("", text: self.$new_word.english, onEditingChanged: {_ in
@@ -289,9 +288,6 @@ struct AddWordView: View {
                             }).textFieldStyle(NormalTextFieldStyle(is_focused: self.adding_english))
                                 .accentColor(Color("GradStart"))
                         }
-                        
-                        
-                        //TextField("english", text: self.$new_word.english)
                         
                         HStack{
                             Text("Russian:")
@@ -304,7 +300,6 @@ struct AddWordView: View {
                             }).textFieldStyle(NormalTextFieldStyle(is_focused: self.adding_russian))
                                 .accentColor(Color("GradStart"))
                         }
-                        //TextField("russian", text: self.$new_word.russian)
                         
                         self.add_word_button().disabled(!self.word_entered())
                             .alert(isPresented: self.$already_in_collection_db) { () -> Alert in
@@ -324,11 +319,3 @@ struct AddWordView: View {
         }.navigationBarTitle("Add to " + format_string(str: collection_name))
     }
 }
-
-/*
- struct AddWordView_Previews: PreviewProvider {
- static var previews: some View {
- AddWordView()
- }
- }
- */

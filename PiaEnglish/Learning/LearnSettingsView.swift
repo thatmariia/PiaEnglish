@@ -10,11 +10,12 @@ import SwiftUI
 
 struct LearnSettingsView: View {
     @EnvironmentObject var training_state: TrainingState
-    // TODO:: check at least 4 words chosen
+    // TODO:: check at least 1 word is chosen
     
-    @ObservedObject var collections_observer: CollectionsObserver
+    //@ObservedObject var collections_observer: CollectionsObserver
     //@ObservedObject var all_words_observer: AllWordsObserver
     @EnvironmentObject var all_words_observer: AllWordsObserver
+    @EnvironmentObject var collections_observer: CollectionsObserver
     
     @State var chosen_collections: [Collection] = []
     

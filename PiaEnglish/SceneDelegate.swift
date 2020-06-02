@@ -15,6 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var training_state = TrainingState()
     var words_observer = CollectionContentsObserver(english_words: [])
     var all_words_observer = AllWordsObserver()
+    var collections_observer = CollectionsObserver()
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -31,6 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             .environmentObject(training_state)
             .environmentObject(words_observer)
             .environmentObject(all_words_observer)
+            .environmentObject(collections_observer)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

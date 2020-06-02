@@ -11,7 +11,8 @@ import SwiftUI
 struct CollectionsView: View {
     
     //@EnvironmentObject var words_observer: CollectionContentsObserver
-    @ObservedObject var collections_observer: CollectionsObserver
+    //@ObservedObject var collections_observer: CollectionsObserver
+    @EnvironmentObject var collections_observer: CollectionsObserver
     
     // TODO:: add option to delete collection
     
@@ -60,7 +61,7 @@ struct CollectionsView: View {
                             Spacer()
                         }
                         
-                        NavigationLink(destination: AddCollectionView(collections: collections_observer.collections)) {
+                        NavigationLink(destination: AddCollectionView(/*curr_collections: collections_observer.collections*/)) {
                             VStack{
                                 HStack{
                                     Image(systemName: "plus.circle").foregroundColor(.white)
