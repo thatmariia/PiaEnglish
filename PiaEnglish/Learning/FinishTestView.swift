@@ -12,6 +12,10 @@ import SwiftUI
 struct FinishTestView: View {
     @EnvironmentObject var testing_state: TestingState
     
+    fileprivate func get_percetange(of num: Int, out_of denum: Int) -> Double {
+        return round(100 * Double(num) / Double(denum))
+    }
+    
     fileprivate func get_percetange_str(of num: Int, out_of denum: Int) -> String {
         if denum != 0 {
             let percentage = Int(round(100 * Double(num) / Double(denum)))
@@ -73,6 +77,16 @@ struct FinishTestView: View {
                 Spacer()
                 
                 Button(action: {
+                    // toggle leaned state of each word that got 100 percent
+                    for word in self.testing_state.game_words {
+                        let percentage = self.get_percetange(of: self.testing_state.cur_score_word[word]!,
+                                                             out_of: self.testing_state.max_score_word[word]!)
+                        if percentage == 100.0 {
+                            let leaned_toggle = LearnedToggleCommiter(word: word, is_now_learned: true)
+                            leaned_toggle.toggle_learned()
+                        }
+                    }
+                    
                     self.testing_state.now_testing = false
                     self.testing_state.game_words = []
                     self.testing_state.view_count = 0
