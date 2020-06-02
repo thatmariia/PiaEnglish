@@ -19,6 +19,9 @@ struct SpokenMatchTranslationView: View {
     @State var curr_selection = ""
     @State var done = false
     
+    @State var correct_answer = false
+    @State var clicked = false
+    
     fileprivate func half_words(half: Int) -> [Word]{
         if all_words.count == 0 { return [] }
         if half == 1 {
@@ -48,11 +51,21 @@ struct SpokenMatchTranslationView: View {
                 if self.correct_selection() {
                     self.done = true
                 }
+                self.clicked = true
+                if self.testing_state.now_testing {
+                    if self.clicked && self.done {
+                        self.correct_answer = true
+                    }
+                    self.curr_selection = self.true_word.russian
+                    self.done = true
+                }
             }) {
                 Text(format_string(str: word.russian))
             }.buttonStyle(NormalSelectionButtonStyle(is_selected:
-                self.correct_selection() && word.russian == self.true_word.russian))
-            .disabled(correct_selection())
+                
+                (self.correct_selection() && word.russian == self.true_word.russian))
+                )
+                .disabled(correct_selection() || (self.clicked && self.testing_state.now_testing))
             
             Spacer().frame(height: 10)
             
@@ -104,8 +117,15 @@ struct SpokenMatchTranslationView: View {
                             self.training_state.view_count += 1
                             
                         } else if self.testing_state.now_testing{
+                            if self.correct_answer {
+                                self.testing_state.curr_total_score += 1
+                                self.testing_state.cur_score_word[self.true_word]! += 1
+                            }
+                            self.correct_answer = false
+                            self.clicked = false
                             self.testing_state.view_count += 1
                         }
+                        self.done = false
                     }) {
                         Text("Next game")
                     }.buttonStyle(NormalButtonStyle())

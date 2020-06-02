@@ -11,6 +11,13 @@ import SwiftUI
 struct FinishTestView: View {
     @EnvironmentObject var testing_state: TestingState
     var body: some View {
+        
+        print("FINISH TEST \n")
+        print("curr score per word = ", testing_state.cur_score_word)
+        print("max score per word = ", testing_state.max_score_word)
+        print("curr score = ", testing_state.curr_total_score)
+        print("max score = ", testing_state.max_total_score)
+        
         return ZStack(alignment: .top){
             
             PiaBackground().edgesIgnoringSafeArea(.all)
