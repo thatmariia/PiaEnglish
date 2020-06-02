@@ -11,6 +11,7 @@ import SwiftUI
 struct MatchWordsView: View {
     
     @EnvironmentObject var training_state: TrainingState
+    @EnvironmentObject var testing_state: TestingState
     @State var done = false
     
     var words: ([Word], [Word])
@@ -159,6 +160,8 @@ struct MatchWordsView: View {
                         if self.training_state.now_training{
                             self.training_state.view_count += 1
                             
+                        } else if self.testing_state.now_testing{
+                            self.testing_state.view_count += 1
                         }
                     }) {
                         Text("Next game")

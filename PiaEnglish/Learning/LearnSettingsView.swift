@@ -154,7 +154,7 @@ struct LearnSettingsView: View {
                 self.testing_state.now_testing = true
                 
                 self.chosen_training = false
-                self.chosen_training = true
+                self.chosen_testing = true
             }) {
                 Text("Test")
             }.disabled(chosen_collections == [] || chosen_training)
@@ -172,7 +172,7 @@ struct LearnSettingsView: View {
                 
                 
                 self.chosen_training = true
-                self.chosen_training = false
+                self.chosen_testing = false
             }) {
                 Text("Train")
             }.disabled(chosen_collections == [] || !time_selected || chosen_testing)

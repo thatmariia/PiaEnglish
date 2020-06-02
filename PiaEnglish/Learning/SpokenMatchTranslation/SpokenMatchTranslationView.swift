@@ -1,14 +1,14 @@
 //
-//  MatchTranslation.swift
+//  SpokenMatch.swift
 //  PiaEnglish
 //
-//  Created by Mariia Turchina on 01/06/2020.
+//  Created by Mariia Turchina on 02/06/2020.
 //  Copyright © 2020 Mariia Turchina. All rights reserved.
 //
 
 import SwiftUI
 
-struct MatchTranslationView: View {
+struct SpokenMatchTranslationView: View {
     
     @EnvironmentObject var training_state: TrainingState
     @EnvironmentObject var testing_state: TestingState
@@ -35,23 +35,23 @@ struct MatchTranslationView: View {
     }
     
     fileprivate func correct_selection() -> Bool {
-        if curr_selection == true_word.english {
+        if curr_selection == true_word.russian {
             return true
         }
         return false
     }
     
-    fileprivate func eng_words(_ word: Word) -> some View {
+    fileprivate func rus_words(_ word: Word) -> some View {
         return VStack {
             Button(action: {
-                self.curr_selection = word.english
+                self.curr_selection = word.russian
                 if self.correct_selection() {
                     self.done = true
                 }
             }) {
-                Text(format_string(str: word.english))
+                Text(format_string(str: word.russian))
             }.buttonStyle(NormalSelectionButtonStyle(is_selected:
-                self.correct_selection() && word.english == self.true_word.english))
+                self.correct_selection() && word.russian == self.true_word.russian))
             .disabled(correct_selection())
             
             Spacer().frame(height: 10)
@@ -64,9 +64,13 @@ struct MatchTranslationView: View {
         PiaBackground().edgesIgnoringSafeArea(.all)
             VStack{
                 
-                Text("Choose a correct translation for").foregroundColor(.white)
-                Text(format_string(str: true_word.russian))
-                    .font(.title).fontWeight(.bold).foregroundColor(.white)
+                Text("Match the spoken word")
+                Spacer().frame(height: 8)
+                Button(action: {
+                    play_audio_of(word: self.true_word.english)
+                }) {
+                    Image(systemName: "play.fill").foregroundColor(.white).font(.system(size: 40))
+                }
                 
                 Spacer().frame(height: 15)
                 
@@ -75,7 +79,7 @@ struct MatchTranslationView: View {
                     ScrollView(.vertical){
                     VStack {
                         ForEach(half_words(half: 1)) { word in
-                            self.eng_words(word)
+                            self.rus_words(word)
                         }
                     }
                     }
@@ -85,7 +89,7 @@ struct MatchTranslationView: View {
                     ScrollView(.vertical){
                     VStack {
                         ForEach(half_words(half: 2)) { word in
-                            self.eng_words(word)
+                            self.rus_words(word)
                         }
                     }
                     }
@@ -98,6 +102,7 @@ struct MatchTranslationView: View {
                     Button(action: {
                         if self.training_state.now_training{
                             self.training_state.view_count += 1
+                            
                         } else if self.testing_state.now_testing{
                             self.testing_state.view_count += 1
                         }
@@ -107,10 +112,10 @@ struct MatchTranslationView: View {
                 }
                 
                 Spacer().frame(height: 8)
+
             }.padding()
         }.navigationBarTitle("").navigationBarHidden(true)
-        
-        
-        
     }
 }
+
+

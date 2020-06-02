@@ -13,6 +13,7 @@ class GameFlow {
     var game_words: [Word]
     var training_time: Int
     var games: [[String : [String : Any]]] = []
+    var init_usages: [Word: Int] = [:]
     var usages: [Word: Int] = [:]
     var max_score = 0
     
@@ -26,9 +27,9 @@ class GameFlow {
         let match_translations = mt.0
         let mt_usage = mt.1
         
-        let sm = get_spoken_matches()
-        let spoken_matches = sm.0
-        let sm_usage = sm.1
+        let smt = get_spoken_match_translations()
+        let spoken_matches = smt.0
+        let smt_usage = smt.1
         
         var games = match_translations + spoken_matches
         games = games.shuffled()
@@ -36,16 +37,19 @@ class GameFlow {
         
         self.games = games
         
-        let total_usages = _get_total_usages(from: [mt_usage, sm_usage])
+        let total_usages = _get_total_usages(from: [mt_usage, smt_usage])
         self.usages = total_usages.0
-        self.max_score = total_usages.1
+        self.init_usages = total_usages.1
+        self.max_score = total_usages.2
     }
     
-    func _get_total_usages(from usages: [[Int]]) -> ([Word : Int], Int) {
+    func _get_total_usages(from usages: [[Int]]) -> ([Word : Int], [Word : Int], Int) {
+        var init_usages: [Word : Int] = [:]
         var total_usages: [Word : Int] = [:]
         var sum = 0
         
         for i in 0..<self.game_words.count {
+            init_usages[game_words[i]] = 0
             total_usages[game_words[i]] = 0
             
             for usage in usages {
@@ -54,7 +58,7 @@ class GameFlow {
             }
         }
         
-        return (total_usages, sum)
+        return (total_usages, init_usages, sum)
     }
     
     func construct_training() {
@@ -80,6 +84,36 @@ class GameFlow {
     
     func _get_least_exhausted(from usage: [Int]) -> Int{
         return usage.firstIndex(of: usage.min()!)!
+    }
+    
+    func get_spoken_match_translations() -> ([[String : [String : Any]]], [Int]) {
+        var usage = [Int](repeating: 0, count: self.game_words.count)
+        var spoken_matches: [[String : [String : Any]]] = []
+        
+        while !self._exhausted(usage: usage) {
+            /// getting true word
+            let li = _get_least_exhausted(from: usage)
+            let true_word = self.game_words[li]
+            usage[li] += 1
+            
+            /// getting the other 3 words
+            var all_words: [Word] = [true_word]
+            while all_words.count < min(8, self.game_words.count) {
+                let i = Int.random(in: 0..<usage.count)
+                let word = self.game_words[i]
+                if  !all_words.contains(word){
+                    all_words.append(word)
+                    //usage[i] += 1
+                }
+            }
+            
+            let spoken_match = ["spoken_match_translation" : [
+                "true_word" : true_word,
+                "all_words" : all_words
+            ]]
+            spoken_matches.append(spoken_match)
+        }
+        return (spoken_matches, usage)
     }
     
     func get_spoken_matches() -> ([[String : [String : Any]]], [Int]) {
@@ -141,7 +175,6 @@ class GameFlow {
                 let word = self.game_words[i]
                 if  !all_words.contains(word){
                     all_words.append(word)
-                    //usage[i] += 1
                 }
             }
             

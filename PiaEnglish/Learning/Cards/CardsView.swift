@@ -11,6 +11,7 @@ import SwiftUI
 struct CardsView: View {
     
     @EnvironmentObject var training_state: TrainingState
+    @EnvironmentObject var testing_state: TestingState
     
     var words: [Word]
     
@@ -92,6 +93,8 @@ struct CardsView: View {
                             if self.training_state.now_training{
                                 self.training_state.view_count += 1
                                 
+                            } else if self.testing_state.now_testing{
+                                self.testing_state.view_count += 1
                             }
                         }) {
                             Text("Next game")

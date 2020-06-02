@@ -41,3 +41,13 @@ func testing_spoken_match_all_words(ts: TestingState) -> [Word] {
     let dict = ts.testing_flow[ts.view_count]["spoken_match"]!
     return dict["all_words"] as! [Word]
 }
+
+func testing_spoken_match_translation_true_word(ts: TestingState) -> Word {
+    let dict = ts.testing_flow[ts.view_count]["spoken_match_translation"]!
+    return dict["true_word"] as! Word
+}
+
+func testing_spoken_match_translation_all_words(ts: TestingState) -> [Word] {
+    let dict = ts.testing_flow[ts.view_count]["spoken_match_translation"]!
+    return dict["all_words"] as! [Word]
+}

@@ -48,7 +48,7 @@ struct LearnView: View {
                 PiaBackground().edgesIgnoringSafeArea(.all)
                 GeometryReader{geom in
                     
-                    if !self.training_state.now_training {
+                    if !self.training_state.now_training && !self.testing_state.now_testing {
                         
                         LearnSettingsView()
                         
@@ -56,10 +56,11 @@ struct LearnView: View {
                         
                         VStack{
                         
-                            if self.testing_next_is(game_name: "spoken_match") {
+                            if self.testing_next_is(game_name: "spoken_match_translation") {
                                 
-                                SpokenMatch(true_word: testing_spoken_match_true_word(ts: self.testing_state),
-                                            all_words: testing_spoken_match_all_words(ts: self.testing_state))
+                                SpokenMatchTranslationView(true_word: testing_spoken_match_translation_true_word(ts: self.testing_state),
+                                                           all_words: testing_spoken_match_translation_all_words(ts: self.testing_state))
+                                
                             
                             } else if self.testing_next_is(game_name: "match_translation") {
                                     
@@ -75,9 +76,8 @@ struct LearnView: View {
                             test_flow.construct_testing()
                             self.testing_state.testing_flow = test_flow.games
                             
-                            // TODO:: init curr score word to empty [Word: Int] for each game word
                             // TODO:: reseat all this shit in the finish test view
-                            self.testing_state.cur_score_word = [:]// empy
+                            self.testing_state.cur_score_word = test_flow.init_usages
                             self.testing_state.max_score_word = test_flow.usages
                             
                             self.testing_state.max_total_score = test_flow.max_score
@@ -95,7 +95,7 @@ struct LearnView: View {
                             
                             } else if self.training_next_is(game_name: "spoken_match") {
                                 
-                                SpokenMatch(true_word: training_spoken_match_true_word(ts: self.training_state),
+                                SpokenMatchView(true_word: training_spoken_match_true_word(ts: self.training_state),
                                             all_words: training_spoken_match_all_words(ts: self.training_state))
                             
                             } else if self.training_next_is(game_name: "match_translation") {
