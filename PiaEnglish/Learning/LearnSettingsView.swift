@@ -67,7 +67,7 @@ struct LearnSettingsView: View {
             }
             
         }) {
-            Text(self.collections_observer.collections[i].name)
+            Text(format_string(str: self.collections_observer.collections[i].name))
         }.buttonStyle(SelectionButtonStyle(is_active: self.is_selected(collection: self.collections_observer.collections[i])))
     }
     
@@ -115,16 +115,6 @@ struct LearnSettingsView: View {
                 }
             }
         }
-    }
-    
-    fileprivate func next_is(game_name: String) -> Bool {
-        if self.training_state.view_count > self.training_state.training_flow.count-1 {
-            return false
-        }
-        if let next_state = self.training_state.training_flow[self.training_state.view_count].keys.first {
-            return next_state == game_name
-        }
-        return false
     }
     
     fileprivate func generate_LearnView(geom: GeometryProxy) -> some View {

@@ -32,7 +32,6 @@
 		31724DD6247B2B100005A728 /* CollectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31724DD5247B2B100005A728 /* CollectionsView.swift */; };
 		31724DD8247B2E860005A728 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31724DD7247B2E860005A728 /* GoogleService-Info.plist */; };
 		3178AF50247C9D2000ADD92B /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3178AF4F247C9D2000ADD92B /* TestView.swift */; };
-		3178AF52247C9D3000ADD92B /* TrainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3178AF51247C9D3000ADD92B /* TrainView.swift */; };
 		3178AF55247D396500ADD92B /* NewWordCommiter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3178AF54247D396500ADD92B /* NewWordCommiter.swift */; };
 		3178AF57247D448F00ADD92B /* AddWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3178AF56247D448F00ADD92B /* AddWordView.swift */; };
 		3178AF59247D4A0F00ADD92B /* SearchObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3178AF58247D4A0F00ADD92B /* SearchObserver.swift */; };
@@ -83,7 +82,6 @@
 		31724DD5247B2B100005A728 /* CollectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsView.swift; sourceTree = "<group>"; };
 		31724DD7247B2E860005A728 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3178AF4F247C9D2000ADD92B /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
-		3178AF51247C9D3000ADD92B /* TrainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainView.swift; sourceTree = "<group>"; };
 		3178AF54247D396500ADD92B /* NewWordCommiter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWordCommiter.swift; sourceTree = "<group>"; };
 		3178AF56247D448F00ADD92B /* AddWordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordView.swift; sourceTree = "<group>"; };
 		3178AF58247D4A0F00ADD92B /* SearchObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchObserver.swift; sourceTree = "<group>"; };
@@ -232,7 +230,6 @@
 				31724DD3247B2AF70005A728 /* LearnView.swift */,
 				31EEDDAF248601BC0056EBBD /* LearnSettingsView.swift */,
 				3178AF4F247C9D2000ADD92B /* TestView.swift */,
-				3178AF51247C9D3000ADD92B /* TrainView.swift */,
 				31EEDDA92485E6BF0056EBBD /* FinishTrainView.swift */,
 				31023F222485A1F800B96ED9 /* Pronounce */,
 				31023F1F24859A3D00B96ED9 /* MatchTranslation */,
@@ -418,7 +415,6 @@
 				31023F242485B07100B96ED9 /* TrainingState.swift in Sources */,
 				3178AF59247D4A0F00ADD92B /* SearchObserver.swift in Sources */,
 				31A3B87A247BF8C6002C0EC1 /* WordSearchGenerator.swift in Sources */,
-				3178AF52247C9D3000ADD92B /* TrainView.swift in Sources */,
 				3145AD052484326900F7F89A /* NormalSelectionButtonStyle.swift in Sources */,
 				31724DD6247B2B100005A728 /* CollectionsView.swift in Sources */,
 				31023F1B24858AD300B96ED9 /* MatchWordsView.swift in Sources */,
