@@ -25,6 +25,9 @@ struct AddCollectionView: View {
     }
     
     var body: some View {
+        return ZStack(alignment: .top){
+        PiaBackground().edgesIgnoringSafeArea(.all)
+            
         VStack{
             Text("Enter collection name")
             
@@ -39,7 +42,8 @@ struct AddCollectionView: View {
             }.alert(isPresented: $exists) { () -> Alert in
                 Alert(title: Text(""), message: Text("Collection already exists"), dismissButton: .cancel())
             }
-        }.buttonStyle(BigButtonStyle())
+        }
+        }.navigationBarTitle("New collection")
     }
 }
 

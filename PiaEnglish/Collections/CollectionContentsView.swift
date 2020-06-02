@@ -158,14 +158,12 @@ struct CollectionContentsView: View {
                     edit_button()
             )
         }.onAppear {
-            // TODO:: add to english words
-            print("ON APPEAR")
+
             self.words_observer.words = []
             self.words_observer.english_words = []
             self.words_observer.collection_name = self.collection_name
             self.words_observer.start_listening_collection()
             
-            //self.words_observer = CollectionContentsObserver(collection_name: self.collection_name)
             self.update = 5
         }
     }

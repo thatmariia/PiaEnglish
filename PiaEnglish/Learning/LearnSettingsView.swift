@@ -13,7 +13,8 @@ struct LearnSettingsView: View {
     // TODO:: check at least 4 words chosen
     
     @ObservedObject var collections_observer: CollectionsObserver
-    @ObservedObject var all_words_observer: AllWordsObserver
+    //@ObservedObject var all_words_observer: AllWordsObserver
+    @EnvironmentObject var all_words_observer: AllWordsObserver
     
     @State var chosen_collections: [Collection] = []
     

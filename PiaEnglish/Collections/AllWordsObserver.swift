@@ -16,11 +16,12 @@ class AllWordsObserver : ObservableObject {
     //let entered_word: String
     var language = "english"
     
-    init(/*entered_word: String*/) {
-        //self.entered_word = entered_word
-        
-        
-        let query = db.collection("words") // TODO:: change when firebase introduces substring search
+    init() {
+        refresh()
+    }
+    
+    func refresh() {
+        let query = db.collection("words")
         
         self.all_words = []
         query.addSnapshotListener { (snap, err) in
@@ -61,7 +62,6 @@ class AllWordsObserver : ObservableObject {
                 }
             }
         }
-        
     }
 
     

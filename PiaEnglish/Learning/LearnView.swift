@@ -13,7 +13,8 @@ struct LearnView: View {
     // TODO:: check at least 4 words chosen
     
     @ObservedObject var collections_observer: CollectionsObserver
-    @ObservedObject var all_words_observer: AllWordsObserver
+    //@ObservedObject var all_words_observer: AllWordsObserver
+    @EnvironmentObject var all_words_observer: AllWordsObserver
     
 
     
@@ -37,7 +38,7 @@ struct LearnView: View {
                     
                     if !self.training_state.now_training {
                         
-                        LearnSettingsView(collections_observer: CollectionsObserver(), all_words_observer: AllWordsObserver())
+                        LearnSettingsView(collections_observer: CollectionsObserver()/*, all_words_observer: AllWordsObserver()*/)
                         
                     } else if self.training_state.now_training {
                         /// training

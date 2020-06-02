@@ -11,11 +11,12 @@ import SwiftUI
 struct AddWordView: View {
     
     let collection_name: String
-    let collection_words: [Word]
+    @State var collection_words: [Word]
     
     @State var search_word = ""
     @State var now_searching = false
-    @ObservedObject var search_observer = SearchObserver()
+    //@ObservedObject var search_observer = SearchObserver()
+    @EnvironmentObject var search_observer: AllWordsObserver
     
     @State var adding = false
     @State var adding_english = false
@@ -129,6 +130,8 @@ struct AddWordView: View {
                 let word_commiter =  NewWordCommiter(new_word: word, collection: self.collection_name)
                 word_commiter.add_word_to_collection()
                 reset_new_word()
+                collection_words.append(word)
+                search_observer.refresh()
                 return
             }
         }
@@ -146,6 +149,8 @@ struct AddWordView: View {
                     let word_commiter =  NewWordCommiter(new_word: word, collection: self.collection_name)
                     word_commiter.add_word_to_collection()
                     self.search_word = ""
+                    self.collection_words.append(word)
+                    self.search_observer.refresh()
                 } else {
                     self.already_in_collection = true
                 }
@@ -183,7 +188,9 @@ struct AddWordView: View {
                                                     russian: new_word_copy.russian,
                                                     collection: self.collection_name)
                 word_commiter.commit_new_word()
+                self.collection_words.append(new_word_copy)
                 self.reset_new_word()
+                self.search_observer.refresh()
             } else {
                 self.already_in_db_only = true
                 
@@ -205,6 +212,7 @@ struct AddWordView: View {
     }
     
     fileprivate func in_collection_alert() -> Alert {
+        self.search_word = ""
         return Alert(title: Text(""),
                      message: Text("The word is already in this collection"),
                      dismissButton: .cancel())
@@ -234,7 +242,6 @@ struct AddWordView: View {
         return ZStack(alignment: .top){
             
             PiaBackground().edgesIgnoringSafeArea(.all)
-            //ScrollView(.vertical, showsIndicators: true){
             
             GeometryReader{ geom in
                 VStack {
