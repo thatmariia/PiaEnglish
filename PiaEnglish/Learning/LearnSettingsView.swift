@@ -11,7 +11,6 @@ import SwiftUI
 struct LearnSettingsView: View {
     @EnvironmentObject var training_state: TrainingState
     @EnvironmentObject var testing_state: TestingState
-    // TODO:: check at least 1 word is chosen
     
     @EnvironmentObject var all_words_observer: AllWordsObserver
     @EnvironmentObject var collections_observer: CollectionsObserver
@@ -25,6 +24,8 @@ struct LearnSettingsView: View {
     @State var chosen_testing = false
     
     @State var game_words: [Word] = []
+    @State var enough_words_selected = false
+    @State var acrivity_attempted = false
     
     fileprivate func is_selected(collection: Collection) -> Bool{
         if (chosen_collections.contains(collection)) {
@@ -92,9 +93,12 @@ struct LearnSettingsView: View {
         return ScrollView(.horizontal, showsIndicators: false){
             HStack {
                 
-                time_button(timename: "Short", time: 1)
-                time_button(timename: "Medium", time: 2)
-                time_button(timename: "Long", time: 3)
+                time_button(timename: "Very short", time: 1)
+                time_button(timename: "Short", time: 2)
+                time_button(timename: "Medium", time: 3)
+                time_button(timename: "Long", time: 4)
+                time_button(timename: "Very long", time: 5)
+                time_button(timename: "Death row", time: 10)
                 
             }
             
@@ -147,14 +151,20 @@ struct LearnSettingsView: View {
 
             
             Button(action: {
+                self.acrivity_attempted = true
                 self.game_words = []
                 self.get_game_words()
-                self.testing_state.game_words = self.game_words
-                self.training_state.now_training = false
-                self.testing_state.now_testing = true
-                
-                self.chosen_training = false
-                self.chosen_testing = true
+                if self.game_words.count > 0 {
+                    self.enough_words_selected = true
+                    self.testing_state.game_words = self.game_words
+                    self.training_state.now_training = false
+                    self.testing_state.now_testing = true
+                    
+                    self.chosen_training = false
+                    self.chosen_testing = true
+                } else {
+                    self.enough_words_selected = false
+                }
             }) {
                 Text("Test")
             }.disabled(chosen_collections == [] || chosen_training)
@@ -163,22 +173,31 @@ struct LearnSettingsView: View {
             Spacer().frame(height: 15)
             
             Button(action: {
+                self.acrivity_attempted = true
                 self.game_words = []
                 self.get_game_words()
-                self.training_state.game_words = self.game_words
-                self.training_state.training_time = self.chosen_time
-                self.testing_state.now_testing = false
-                self.training_state.now_training = true
-                
-                
-                self.chosen_training = true
-                self.chosen_testing = false
+                if self.game_words.count > 0 {
+                    self.enough_words_selected = true
+                    self.training_state.game_words = self.game_words
+                    self.training_state.training_time = self.chosen_time
+                    self.testing_state.now_testing = false
+                    self.training_state.now_training = true
+                    
+                    self.chosen_training = true
+                    self.chosen_testing = false
+                } else {
+                    self.enough_words_selected = false
+                }
             }) {
                 Text("Train")
             }.disabled(chosen_collections == [] || !time_selected || chosen_testing)
                 .buttonStyle(BigButtonStyle())
             
             Spacer()
+            
+            if !enough_words_selected && acrivity_attempted {
+                Text("No words selected").foregroundColor(.white)
+            }
             
         }
         .padding()

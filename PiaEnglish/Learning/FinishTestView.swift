@@ -77,7 +77,7 @@ struct FinishTestView: View {
                 Spacer()
                 
                 Button(action: {
-                    // toggle leaned state of each word that got 100 percent
+                    /// toggle leaned state of each word that got 100 percent
                     for word in self.testing_state.game_words {
                         let percentage = self.get_percetange(of: self.testing_state.cur_score_word[word]!,
                                                              out_of: self.testing_state.max_score_word[word]!)
