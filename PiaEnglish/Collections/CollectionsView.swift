@@ -14,9 +14,32 @@ struct CollectionsView: View {
     //@ObservedObject var collections_observer: CollectionsObserver
     @EnvironmentObject var collections_observer: CollectionsObserver
     
+    @State var editing = false
+    @State var update = 1
+    
     // TODO:: add option to delete collection
     
+    fileprivate func edit_button() -> some View {
+        return Button(action: {
+            self.editing = !self.editing
+            //self.update += 1
+        }) {
+            Image(systemName: "ellipsis").foregroundColor(.white)
+        }
+    }
+    
+    fileprivate func delete_collection(collection_name: String){
+        let collection_commiter = NewCollectionCommiter(collection_name: collection_name)
+        collection_commiter.remove_collection()
+        
+        collections_observer.collections = []
+        collections_observer.refresh()
+    }
+    
     fileprivate func scroll_collections() -> some View {
+        
+        print("COLLECTIONS: ", collections_observer.collections)
+        
         return VStack{
             
             //List{
@@ -25,6 +48,7 @@ struct CollectionsView: View {
                 
                 VStack{
                     
+                    HStack{
                     
                     NavigationLink(destination:
                         CollectionContentsView(collection_name: collection.name
@@ -33,13 +57,27 @@ struct CollectionsView: View {
                                                                         HStack{
                                                                             Text(format_string(str: collection.name))
                                                                             Spacer()
-                                                                            Image(systemName: "chevron.right").foregroundColor(.white)
+                                                                            if !self.editing{
+                                                                                Image(systemName: "chevron.right").foregroundColor(.white)
+                                                                            }
                                                                         }
-                    }.onTapGesture {
-                        /*print("ON TAP")
-                        self.words_observer.english_words = []
-                        self.words_observer.collection_name = collection.name
-                        self.words_observer.start_listening_collection()*/
+                    }.disabled(self.editing)
+                        
+                        if self.update > 0 {
+                            Text("")
+                        }
+                      
+                        if self.editing {
+                            Button(action: {
+                                self.delete_collection(collection_name: collection.name)
+                                
+                                self.update += 1
+                                if self.update > 10 { self.update = 1}
+                            }) {
+                                Image(systemName: "trash").foregroundColor(.white)
+                            }.buttonStyle(BorderlessButtonStyle())
+                        }
+                        
                     }
                     Divider()
                 }
@@ -59,6 +97,7 @@ struct CollectionsView: View {
                         HStack {
                             Text("Collections").font(.largeTitle).fontWeight(.bold)
                             Spacer()
+                            edit_button()
                         }
                         
                         NavigationLink(destination: AddCollectionView(/*curr_collections: collections_observer.collections*/)) {
@@ -77,12 +116,8 @@ struct CollectionsView: View {
                         scroll_collections()
                     }.padding()
                 }.navigationBarTitle("Collections").navigationBarHidden(true)
+                
             }
-        }.onAppear {
-            /*"ON APPEAR COLL"
-            self.words_observer.collection_name = ""
-            self.words_observer.english_words = []
-            self.words_observer.words = []*/
         }
     }
 }

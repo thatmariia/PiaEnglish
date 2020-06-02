@@ -17,6 +17,15 @@ class NewCollectionCommiter {
         self.collection_name = collection_name
     }
     
+    func remove_collection() {
+        let doc = db.collection("collections").document(collection_name)
+        doc.delete() { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            }
+        }
+    }
+    
     func commit_collection() {
         let new_doc = db.collection("collections").document(collection_name)
         new_doc.setData(["english_words": []]) { (err) in

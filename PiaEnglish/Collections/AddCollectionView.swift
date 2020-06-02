@@ -39,7 +39,7 @@ struct AddCollectionView: View {
             VStack{
                 
                 HStack{
-                    Text("Enter collection name")
+                    Text("Enter collection name:")
                     Spacer()
                 }
                 
@@ -59,15 +59,19 @@ struct AddCollectionView: View {
                     if !self.exists {
                         let collection_commiter = NewCollectionCommiter(collection_name: self.new_collection)
                         collection_commiter.commit_collection()
-                        self.search_observer.refresh()
+                        self.new_collection = ""
+                        /*self.search_observer.collections = []
+                        self.search_observer.refresh()*/
                         
                     }
                 }) {
-                    Text("Add")
+                    Text("Add the collection")
                 }.buttonStyle(NormalButtonStyle())
                     .alert(isPresented: $exists) { () -> Alert in
                         Alert(title: Text(""), message: Text("Collection with this name already exists"), dismissButton: .cancel())
+                    
                 }
+                .disabled(self.new_collection == "")
                 
                 Spacer()
                 

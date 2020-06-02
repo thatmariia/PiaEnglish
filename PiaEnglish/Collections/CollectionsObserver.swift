@@ -34,7 +34,8 @@ class CollectionsObserver : ObservableObject {
                 
                 switch change.type {
                 case .added:
-                    self.collections.append(collection)
+                    if !self.collections.contains(collection){
+                        self.collections.append(collection) }
                     break
                     
                 case .modified:
@@ -46,7 +47,6 @@ class CollectionsObserver : ObservableObject {
                     }
                     
                 case .removed:
-                    //var remove_i = -1
                     for i in 0..<self.collections.count {
                         if doc.documentID == self.collections[i].id {
                             self.collections.remove(at: i)
