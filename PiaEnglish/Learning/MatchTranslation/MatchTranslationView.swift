@@ -18,12 +18,15 @@ struct MatchTranslationView: View {
     @State var curr_selection = ""
     @State var done = false
     
-    fileprivate func next_is(game_name: String) -> Bool {
+    /*fileprivate func next_is(game_name: String) -> Bool {
+        if self.training_state.view_count > self.training_state.training_flow.count-1 {
+            return false
+        }
         if let next_state = self.training_state.training_flow[self.training_state.view_count].keys.first {
             return next_state == game_name
         }
         return false
-    }
+    }*/
     
     fileprivate func half_words(half: Int) -> [Word]{
         if all_words.count == 0 { return [] }
@@ -52,7 +55,6 @@ struct MatchTranslationView: View {
             Button(action: {
                 self.curr_selection = word.english
                 if self.correct_selection() {
-                    self.training_state.view_count += 1
                     self.done = true
                 }
             }) {
@@ -67,7 +69,7 @@ struct MatchTranslationView: View {
     }
     
     var body: some View {
-        return ZStack(alignment: .top){
+        return  ZStack(alignment: .top){
         PiaBackground().edgesIgnoringSafeArea(.all)
             VStack{
                 
@@ -102,27 +104,35 @@ struct MatchTranslationView: View {
                 Spacer()
                 
                 if self.done {
+                    Button(action: {
+                        self.training_state.view_count += 1
+                    }) {
+                        Text("Next game")
+                    }
+                }
+                
+                /*if done {
 
-                    if self.next_is(game_name: "match_translation") {
+                    if next_is(game_name: "match_translation") {
                         NavigationLink(destination:
                 
-                            MatchTranslationView(true_word: match_translation_true_word(ts: self.training_state),
-                                                 all_words: match_translation_all_words(ts: self.training_state))
+                            MatchTranslationView(true_word: match_translation_true_word(ts: training_state),
+                                                 all_words: match_translation_all_words(ts: training_state))
                         ) { Text("Next game") }.buttonStyle(NormalButtonStyle())
                         
-                    } else if self.next_is(game_name: "match_word") {
+                    } else if next_is(game_name: "match_word") {
                         NavigationLink(destination:
                             
-                            MatchWordsView(words: match_word_words(ts: self.training_state))
+                            MatchWordsView(words: match_word_words(ts: training_state))
                             
                         ) { Text("Next game") }.buttonStyle(NormalButtonStyle())
                     
-                    } else if self.next_is(game_name: "word_search") {
+                    } else if next_is(game_name: "word_search") {
                         
                         NavigationLink(destination:
                             
-                            WordSearchView(grid: word_search_grid(ts: self.training_state),
-                                           words: word_search_words(ts: self.training_state))
+                            WordSearchView(grid: word_search_grid(ts: training_state),
+                                           words: word_search_words(ts: training_state))
                             
                         ) { Text("Next game") }.buttonStyle(NormalButtonStyle())
                         
@@ -133,11 +143,12 @@ struct MatchTranslationView: View {
                         ) { Text("Finish") }.buttonStyle(NormalButtonStyle())
                             
                     }
-                }
+                }*/
                 
                 Spacer()
             }.padding()
         }.navigationBarTitle("").navigationBarHidden(true)
+        
         
         
     }

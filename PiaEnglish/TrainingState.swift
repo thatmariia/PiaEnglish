@@ -39,6 +39,11 @@ func word_search_words(ts: TrainingState) -> [Word] {
     return dict["words"] as! [Word]
 }
 
+func cards_words(ts: TrainingState) -> [Word] {
+    let dict = ts.training_flow[ts.view_count]["cards"]!
+    return dict["words"] as! [Word]
+}
+
 /*
 func get_next_view(view_count: Int, training_flow: [[String : [String : Any]]]) -> NavigationLink<some View, some View> {
     if let next_view_name = training_flow[view_count].keys.first {

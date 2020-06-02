@@ -103,7 +103,7 @@ struct LearnView: View {
         return VStack(spacing: 10) {
             
             HStack {
-                Text("Select collections").font(.largeTitle).fontWeight(.bold)
+                Text("Select collections").font(.title).fontWeight(.bold).foregroundColor(.white)
                 Spacer()
             }
             
@@ -113,7 +113,7 @@ struct LearnView: View {
                 Spacer().frame(height: 15)
                 
                 HStack {
-                    Text("Select training time").font(.largeTitle).fontWeight(.bold)
+                    Text("Select training time").font(.title).fontWeight(.bold).foregroundColor(.white)
                     Spacer()
                 }
                 

@@ -44,7 +44,7 @@ class TrainFlow {
     func get_cards() -> [[String : [String : Any]]] {
         var cards: [[String : [String : Any]]] = []
         for _ in 0..<1/*self.training_time*/ {
-            let card = ["Cards" : [
+            let card = ["cards" : [
                 "words" : self.game_words
                 ]]
             cards.append(card)

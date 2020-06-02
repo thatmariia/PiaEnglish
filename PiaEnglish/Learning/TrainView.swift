@@ -16,6 +16,16 @@ struct TrainView: View {
     
     var training_time: Int
     
+    fileprivate func next_is(game_name: String) -> Bool {
+        if self.training_state.view_count > self.training_state.training_flow.count-1 {
+            return false
+        }
+        if let next_state = self.training_state.training_flow[self.training_state.view_count].keys.first {
+            return next_state == game_name
+        }
+        return false
+    }
+    
     fileprivate func get_game_words() -> [Word] {
         var game_words: [Word] = []
         
@@ -27,84 +37,93 @@ struct TrainView: View {
         return game_words
     }
     
-    /*
-    fileprivate func get_matchwords_words() -> ([Word], [Word]) {
-        let words = Array(get_game_words()[0..<min(5, get_game_words().count)])
-        return (words.shuffled(), words.shuffled())
-    }
-    
-    fileprivate func get_match_translation_words() -> (Word, [Word]) {
-        let all_words = get_game_words().shuffled()
-        return (all_words[0], Array(all_words[0..<min(4, all_words.count)]))
-        
-    }*/
-    
     var body: some View {
         
         let game_words = get_game_words()
         
-        /*let wordsearch = WordSearchGenerator(used_words: [], unused_words: game_words)
-        wordsearch.generate()
-        
-        let match_translation_words = get_match_translation_words()
-        
-        print("TRAINING STATE VIEW COUNT IN TRAIN VIEW = ", training_state.view_count)*/
-        
-        
-        return ZStack{
-            
-            ///cards
-            NavigationLink(destination: CardsView(words: get_game_words())) {
-                Text("Go to cards")
-            }
-            
-        }
-            .onAppear {
-                let train_flow = TrainFlow(game_words: game_words, training_time: self.training_time)
-                train_flow.construct()
-                self.training_state.training_flow = train_flow.games
-                print("*_*_* FLOWWW ", self.training_state.training_flow)
-            }
-        
-        
-        /* MARK:: original code
         return ZStack(alignment: .top){
             
             PiaBackground().edgesIgnoringSafeArea(.all)
-            VStack {
-               
-                ///cards
-                NavigationLink(destination: CardsView(words: get_game_words())) {
-                    Text("Go to cards")
+            
+            VStack{
+                
+                if next_is(game_name: "cards") {
+                    CardsView(words: cards_words(ts: training_state))
+                
+                } else if next_is(game_name: "match_translation") {
+                    //NavigationLink(destination:
+                        
+                        MatchTranslationView(true_word: match_translation_true_word(ts: training_state),
+                                             all_words: match_translation_all_words(ts: training_state))
+                    //) { Text("Next game") }.buttonStyle(NormalButtonStyle())
+                    
+                } else if next_is(game_name: "match_word") {
+                    //NavigationLink(destination:
+                        
+                        MatchWordsView(words: match_word_words(ts: training_state))
+                        
+                    //) { Text("Next game") }.buttonStyle(NormalButtonStyle())
+                    
+                } else if next_is(game_name: "word_search") {
+                    
+                    //NavigationLink(destination:
+                        
+                        WordSearchView(grid: word_search_grid(ts: training_state),
+                                       words: word_search_words(ts: training_state))
+                        
+                    //) { Text("Next game") }.buttonStyle(NormalButtonStyle())
+                    
+                } else {
+                    //NavigationLink(destination:
+                        
+                        FinishTrainView()
+                    //) { Text("Finish") }.buttonStyle(NormalButtonStyle())
+                    
                 }
                 
-                /// words matching
-                NavigationLink(destination:
-                MatchWordsView(words: get_matchwords_words())) {
-                    Text("Go to words matching")
-                }
-                
-                /// word tranlating
-                NavigationLink(destination:
-                    MatchTranslationView(true_word: match_translation_words.0,
-                                         all_words: match_translation_words.1)
-                ) {
-                    Text("Go to word translation")
-                }
-                
-                
-                /// wordsearch
-                NavigationLink(destination: WordSearchView(grid: wordsearch.grid,
-                                                           words: wordsearch.cur_grid_words)){
-                                                            Text("Go to word search")
-                }
-               
-               
-                
-                
-            }.padding()
-            }.navigationBarTitle("").navigationBarHidden(true)
-        */
+            }
+            
+            
+            /*
+             if self.next_is(game_name: "match_translation") {
+             NavigationLink(destination:
+             
+             MatchTranslationView(true_word: match_translation_true_word(ts: self.training_state),
+             all_words: match_translation_all_words(ts: self.training_state))
+             ) { Text("Next game") }.buttonStyle(NormalButtonStyle())
+             
+             } else if self.next_is(game_name: "match_word") {
+             NavigationLink(destination:
+             
+             MatchWordsView(words: match_word_words(ts: self.training_state))
+             
+             ) { Text("Next game") }.buttonStyle(NormalButtonStyle())
+             
+             } else if self.next_is(game_name: "word_search") {
+             
+             NavigationLink(destination:
+             
+             WordSearchView(grid: word_search_grid(ts: self.training_state),
+             words: word_search_words(ts: self.training_state))
+             
+             ) { Text("Next game") }.buttonStyle(NormalButtonStyle())
+             
+             } else {
+             NavigationLink(destination:
+             
+             FinishTrainView()
+             ) { Text("Finish") }.buttonStyle(NormalButtonStyle())
+             
+             }*/
+            
+        }
+        .onAppear {
+            let train_flow = TrainFlow(game_words: game_words, training_time: self.training_time)
+            train_flow.construct()
+            self.training_state.training_flow = train_flow.games
+            print("*_*_* FLOWWW ", self.training_state.training_flow)
+        }
+        
         
     }
 }

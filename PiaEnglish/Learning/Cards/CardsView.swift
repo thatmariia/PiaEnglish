@@ -16,17 +16,21 @@ struct CardsView: View {
     
     @State var curr_i = 0
     @State var done = false
+    //@State var finalized = false
     
-    fileprivate func next_is(game_name: String) -> Bool {
+    /*fileprivate func next_is(game_name: String) -> Bool {
+        if self.training_state.view_count > self.training_state.training_flow.count-1 {
+            return false
+        }
         if let next_state = self.training_state.training_flow[self.training_state.view_count].keys.first {
             return next_state == game_name
         }
         return false
-    }
+    }*/
     
     var body: some View {
         print(" CARDS: ", self.words)
-        return ZStack(alignment: .top){
+        return  ZStack(alignment: .top){
             PiaBackground().edgesIgnoringSafeArea(.all)
             
             GeometryReader { geom in
@@ -70,9 +74,9 @@ struct CardsView: View {
                         if (self.curr_i >= self.words.count-1) {
                             if !self.done {
                                 self.done = true
-                                self.training_state.view_count += 1
+                            } else {
+                                self.curr_i = 0
                             }
-                            self.curr_i = 0
                         } else {
                             self.curr_i += 1
                         }
@@ -83,51 +87,14 @@ struct CardsView: View {
                     
                     Spacer()
                     
-                    
                     if self.done {
-
-                        if self.next_is(game_name: "match_translation") {
-                            NavigationLink(destination:
-                    
-                                MatchTranslationView(true_word: match_translation_true_word(ts: self.training_state),
-                                                     all_words: match_translation_all_words(ts: self.training_state))
-                            ) { Text("Next game") }.buttonStyle(NormalButtonStyle())
-                            
-                        } else if self.next_is(game_name: "match_word") {
-                            NavigationLink(destination:
-                                
-                                MatchWordsView(words: match_word_words(ts: self.training_state))
-                                
-                            ) { Text("Next game") }.buttonStyle(NormalButtonStyle())
-                        
-                        } else if self.next_is(game_name: "word_search") {
-                            
-                            NavigationLink(destination:
-                                
-                                WordSearchView(grid: word_search_grid(ts: self.training_state),
-                                               words: word_search_words(ts: self.training_state))
-                                
-                            ) { Text("Next game") }.buttonStyle(NormalButtonStyle())
-                            
-                        } else {
-                            NavigationLink(destination:
-                                
-                                FinishTrainView()
-                            ) { Text("Finish") }.buttonStyle(NormalButtonStyle())
-                                
+                        Button(action: {
+                            self.training_state.view_count += 1
+                        }) {
+                            Text("Next game")
                         }
                     }
                     
-                    
-                    
-                    
-                    
-                    Button(action: {
-                        self.training_state.view_count += 1
-                        print("TRAINING STATE VIEW COUNT IN CARDS = ", self.training_state.view_count)
-                    }) {
-                        Text("ADD VIEW COUNT")
-                    }
                     
                     Spacer()
                 }
@@ -135,6 +102,7 @@ struct CardsView: View {
                 
             }
         }.navigationBarTitle("").navigationBarHidden(true)
+        
     }
 }
 

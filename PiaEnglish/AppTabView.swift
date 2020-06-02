@@ -14,8 +14,8 @@ struct AppTabView: View {
     @ObservedObject var collections_observer = CollectionsObserver()
     
     init() {
-        //UITabBar.appearance().barTintColor = UIColor(named: "GradEnd")
-        UITabBar.appearance().isTranslucent = true
+        UITabBar.appearance().barTintColor = UIColor(named: "GradEnd")
+        //UITabBar.appearance().isTranslucent = true
     }
     
     var body: some View {
