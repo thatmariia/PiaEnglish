@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TrainFlow {
+class GameFlow {
     
     var game_words: [Word]
     var training_time: Int
@@ -19,14 +19,17 @@ class TrainFlow {
         self.training_time = training_time
     }
     
-    func construct(){
+    func construct_training(){
         let cards = get_cards()
         let match_translations = get_match_translation()
         let match_words = get_match_words()
         let word_searches = get_word_search()
+        let spoken_matches = get_spoken_matches()
         
-        var games = match_translations + match_words + word_searches
+        var games = match_translations + match_words + word_searches + spoken_matches
         games = games.shuffled()
+        games = games.shuffled()
+        
         self.games = cards + games
     }
     
@@ -39,6 +42,36 @@ class TrainFlow {
     
     func _get_least_exhausted(from usage: [Int]) -> Int{
         return usage.firstIndex(of: usage.min()!)!
+    }
+    
+    func get_spoken_matches() -> [[String : [String : Any]]] {
+        var usage = [Int](repeating: 0, count: self.game_words.count)
+        var spoken_matches: [[String : [String : Any]]] = []
+        
+        while !self._exhausted(usage: usage) {
+            /// getting true word
+            let li = _get_least_exhausted(from: usage)
+            let true_word = self.game_words[li]
+            usage[li] += 1
+            
+            /// getting the other 3 words
+            var all_words: [Word] = [true_word]
+            while all_words.count < min(8, self.game_words.count) {
+                let i = Int.random(in: 0..<usage.count)
+                let word = self.game_words[i]
+                if  !all_words.contains(word){
+                    all_words.append(word)
+                    //usage[i] += 1
+                }
+            }
+            
+            let spoken_match = ["spoken_match" : [
+                "true_word" : true_word,
+                "all_words" : all_words
+            ]]
+            spoken_matches.append(spoken_match)
+        }
+        return spoken_matches
     }
     
     func get_cards() -> [[String : [String : Any]]] {
@@ -65,7 +98,7 @@ class TrainFlow {
             
             /// getting the other 3 words
             var all_words: [Word] = [true_word]
-            while all_words.count < min(4, self.game_words.count) {
+            while all_words.count < min(6, self.game_words.count) {
                 let i = Int.random(in: 0..<usage.count)
                 let word = self.game_words[i]
                 if  !all_words.contains(word){

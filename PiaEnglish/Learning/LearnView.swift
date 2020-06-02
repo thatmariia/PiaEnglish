@@ -39,7 +39,7 @@ struct LearnView: View {
                     
                     if !self.training_state.now_training {
                         
-                        LearnSettingsView(/*collections_observer: CollectionsObserver(), all_words_observer: AllWordsObserver()*/)
+                        LearnSettingsView()
                         
                     } else if self.training_state.now_training {
                         /// training
@@ -47,43 +47,38 @@ struct LearnView: View {
                         VStack{
                             
                             if self.next_is(game_name: "cards") {
-                                CardsView(words: cards_words(ts: self.training_state))
+                                CardsView(words: training_cards_words(ts: self.training_state))
+                            
+                            } else if self.next_is(game_name: "spoken_match") {
+                                
+                                SpokenMatch(true_word: training_spoken_match_true_word(ts: self.training_state),
+                                            all_words: training_spoken_match_all_words(ts: self.training_state))
                             
                             } else if self.next_is(game_name: "match_translation") {
-                                //NavigationLink(destination:
                                     
-                                MatchTranslationView(true_word: match_translation_true_word(ts: self.training_state),
-                                                     all_words: match_translation_all_words(ts: self.training_state))
-                                //) { Text("Next game") }.buttonStyle(NormalButtonStyle())
+                                MatchTranslationView(true_word: training_match_translation_true_word(ts: self.training_state),
+                                                     all_words: training_match_translation_all_words(ts: self.training_state))
                                 
                             } else if self.next_is(game_name: "match_word") {
-                                //NavigationLink(destination:
                                     
-                                MatchWordsView(words: match_word_words(ts: self.training_state))
+                                MatchWordsView(words: training_match_word_words(ts: self.training_state))
                                     
-                                //) { Text("Next game") }.buttonStyle(NormalButtonStyle())
                                 
                             } else if self.next_is(game_name: "word_search") {
                                 
-                                //NavigationLink(destination:
                                     
-                                WordSearchView(grid: word_search_grid(ts: self.training_state),
-                                               words: word_search_words(ts: self.training_state))
-                                    
-                                //) { Text("Next game") }.buttonStyle(NormalButtonStyle())
+                                WordSearchView(grid: training_word_search_grid(ts: self.training_state),
+                                               words: training_word_search_words(ts: self.training_state))
                                 
                             } else {
-                                //NavigationLink(destination:
                                     
                                     FinishTrainView()
-                                //) { Text("Finish") }.buttonStyle(NormalButtonStyle())
-                                
                                 
                             }
                             
                         }.onAppear {
-                            let train_flow = TrainFlow(game_words: self.training_state.game_words, training_time: self.training_state.training_time)
-                            train_flow.construct()
+                            let train_flow = GameFlow(game_words: self.training_state.game_words, training_time: self.training_state.training_time)
+                            train_flow.construct_training()
                             self.training_state.training_flow = train_flow.games
                             print("*_*_* FLOWWW ", self.training_state.training_flow)
                         }

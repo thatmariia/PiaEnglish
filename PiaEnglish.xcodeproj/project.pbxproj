@@ -50,6 +50,7 @@
 		31EEDDAA2485E6BF0056EBBD /* FinishTrainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EEDDA92485E6BF0056EBBD /* FinishTrainView.swift */; };
 		31EEDDAC2485FCFD0056EBBD /* AllWordsObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EEDDAB2485FCFD0056EBBD /* AllWordsObserver.swift */; };
 		31EEDDB0248601BC0056EBBD /* LearnSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EEDDAF248601BC0056EBBD /* LearnSettingsView.swift */; };
+		31EEDDB42486A38F0056EBBD /* SpokenMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EEDDB32486A38F0056EBBD /* SpokenMatch.swift */; };
 		9E8113770671313CB5D6838D /* Pods_PiaEnglish.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A97C06CEE9CCB95328B0D93A /* Pods_PiaEnglish.framework */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +100,7 @@
 		31EEDDA92485E6BF0056EBBD /* FinishTrainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishTrainView.swift; sourceTree = "<group>"; };
 		31EEDDAB2485FCFD0056EBBD /* AllWordsObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllWordsObserver.swift; sourceTree = "<group>"; };
 		31EEDDAF248601BC0056EBBD /* LearnSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearnSettingsView.swift; sourceTree = "<group>"; };
+		31EEDDB32486A38F0056EBBD /* SpokenMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpokenMatch.swift; sourceTree = "<group>"; };
 		A97C06CEE9CCB95328B0D93A /* Pods_PiaEnglish.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PiaEnglish.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE6CA557D554861F0A9AC847 /* Pods-PiaEnglish.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PiaEnglish.debug.xcconfig"; path = "Target Support Files/Pods-PiaEnglish/Pods-PiaEnglish.debug.xcconfig"; sourceTree = "<group>"; };
 		FE5FB435E6584798805979D7 /* Pods-PiaEnglish.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PiaEnglish.release.xcconfig"; path = "Target Support Files/Pods-PiaEnglish/Pods-PiaEnglish.release.xcconfig"; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 				31EEDDAF248601BC0056EBBD /* LearnSettingsView.swift */,
 				3178AF4F247C9D2000ADD92B /* TestView.swift */,
 				31EEDDA92485E6BF0056EBBD /* FinishTrainView.swift */,
+				31EEDDB52486A3980056EBBD /* SpokenMatch */,
 				31023F222485A1F800B96ED9 /* Pronounce */,
 				31023F1F24859A3D00B96ED9 /* MatchTranslation */,
 				31023F1C24858AD800B96ED9 /* MatchWords */,
@@ -255,6 +258,14 @@
 				31A3B873247B45C6002C0EC1 /* Word.swift */,
 			);
 			path = Collections;
+			sourceTree = "<group>";
+		};
+		31EEDDB52486A3980056EBBD /* SpokenMatch */ = {
+			isa = PBXGroup;
+			children = (
+				31EEDDB32486A38F0056EBBD /* SpokenMatch.swift */,
+			);
+			path = SpokenMatch;
 			sourceTree = "<group>";
 		};
 		500648E45B7257C6C5608273 /* Frameworks */ = {
@@ -415,6 +426,7 @@
 				3145AD052484326900F7F89A /* NormalSelectionButtonStyle.swift in Sources */,
 				31724DD6247B2B100005A728 /* CollectionsView.swift in Sources */,
 				31023F1B24858AD300B96ED9 /* MatchWordsView.swift in Sources */,
+				31EEDDB42486A38F0056EBBD /* SpokenMatch.swift in Sources */,
 				31023F172485837F00B96ED9 /* CardsView.swift in Sources */,
 				31724DD4247B2AF70005A728 /* LearnView.swift in Sources */,
 				31A3B876247B4B63002C0EC1 /* CollectionContentsView.swift in Sources */,
