@@ -13,145 +13,18 @@ struct LearnView: View {
     // TODO:: check at least 4 words chosen
     
     @ObservedObject var collections_observer: CollectionsObserver
+    @ObservedObject var all_words_observer: AllWordsObserver
     
-    @State var chosen_collections: [Collection] = []
+
     
-    @State var time_selected = true
-    @State var chosen_time = default_training_time
-    
-    fileprivate func is_selected(collection: Collection) -> Bool{
-        if (chosen_collections.contains(collection)) {
-            return true
+    fileprivate func next_is(game_name: String) -> Bool {
+        if self.training_state.view_count > self.training_state.training_flow.count-1 {
+            return false
+        }
+        if let next_state = self.training_state.training_flow[self.training_state.view_count].keys.first {
+            return next_state == game_name
         }
         return false
-    }
-    
-    fileprivate func get_engliah_words() -> [String]{
-        // get words associated with chosen collections
-        var english_words: [String] = []
-        for collection in chosen_collections {
-            english_words += collection.english_words
-        }
-        return english_words
-    }
-    
-    fileprivate func collection_button(_ i: Int) -> some View {
-        return Button(action: {
-            
-            let collection = self.collections_observer.collections[i]
-            
-            if (self.chosen_collections.contains(collection)) {
-                if let index = self.chosen_collections.firstIndex(of: collection) {
-                    self.chosen_collections.remove(at: index)
-                }
-            } else {
-                self.chosen_collections.append(collection)
-            }
-            
-        }) {
-            Text(self.collections_observer.collections[i].name)
-        }.buttonStyle(SelectionButtonStyle(is_active: self.is_selected(collection: self.collections_observer.collections[i])))
-    }
-    
-    fileprivate func time_button(timename: String, time: Int) -> some View {
-        return HStack{
-            VStack{
-                
-                Button(action: {
-                    self.time_selected = true
-                    self.chosen_time = time
-                }) {
-                    Text(timename)
-                }.buttonStyle(SelectionButtonStyle(is_active: chosen_time == time))
-                
-            }
-            Spacer().frame(width: 15)
-        }
-    }
-    
-    fileprivate func scroll_times() -> some View {
-        return ScrollView(.horizontal, showsIndicators: false){
-            HStack {
-                
-                time_button(timename: "Short", time: 1)
-                time_button(timename: "Medium", time: 2)
-                time_button(timename: "Long", time: 3)
-                
-            }
-            
-        }
-    }
-    
-    fileprivate func scroll_collections() -> some View {
-        return ScrollView(.horizontal, showsIndicators: false){
-            HStack {
-                ForEach(0..<collections_observer.collections.count, id: \.self) { i in
-                    
-                    HStack{
-                        VStack{
-                            self.collection_button(i)
-                        }
-                        Spacer().frame(width: 15)
-                    }
-                    
-                }
-            }
-        }
-    }
-    
-    fileprivate func generate_LearnView(geom: GeometryProxy) -> some View {
-        return VStack(spacing: 10) {
-            
-            HStack {
-                Text("Select collections").font(.title).fontWeight(.bold).foregroundColor(.white)
-                Spacer()
-            }
-            
-            if (collections_observer.collections.count > 0){
-                scroll_collections()
-                
-                Spacer().frame(height: 15)
-                
-                HStack {
-                    Text("Select training time").font(.title).fontWeight(.bold).foregroundColor(.white)
-                    Spacer()
-                }
-                
-                scroll_times()
-                
-                
-            } else {
-                Text("You have no collections :(")
-            }
-            
-            Spacer()
-            
-            // testing
-            NavigationLink(destination:
-                TestView()
-            ) {
-                Text("Test")
-            }.disabled(chosen_collections == [])
-                .buttonStyle(BigButtonStyle())
-            
-            Spacer().frame(height: 15)
-
-            
-            // training
-            NavigationLink(destination:
-                TrainView(words_observer: CollectionContentsObserver(english_words: get_engliah_words()),
-                          training_time: chosen_time)
-            ){
-                    Text("Train")
-            }.disabled(chosen_collections == [] || !time_selected)
-                .buttonStyle(BigButtonStyle())
-            
-            Spacer()
-            
-        }
-        .padding()
-        .frame(minHeight: geom.size.height)
-        //.background(PiaBackground())
     }
     
     var body: some View {
@@ -161,7 +34,60 @@ struct LearnView: View {
                 
                 PiaBackground().edgesIgnoringSafeArea(.all)
                 GeometryReader{geom in
-                    self.generate_LearnView(geom: geom)
+                    
+                    if !self.training_state.now_training {
+                        
+                        LearnSettingsView(collections_observer: CollectionsObserver(), all_words_observer: AllWordsObserver())
+                        
+                    } else if self.training_state.now_training {
+                        /// training
+                        
+                        VStack{
+                            
+                            if self.next_is(game_name: "cards") {
+                                CardsView(words: cards_words(ts: self.training_state))
+                            
+                            } else if self.next_is(game_name: "match_translation") {
+                                //NavigationLink(destination:
+                                    
+                                MatchTranslationView(true_word: match_translation_true_word(ts: self.training_state),
+                                                     all_words: match_translation_all_words(ts: self.training_state))
+                                //) { Text("Next game") }.buttonStyle(NormalButtonStyle())
+                                
+                            } else if self.next_is(game_name: "match_word") {
+                                //NavigationLink(destination:
+                                    
+                                MatchWordsView(words: match_word_words(ts: self.training_state))
+                                    
+                                //) { Text("Next game") }.buttonStyle(NormalButtonStyle())
+                                
+                            } else if self.next_is(game_name: "word_search") {
+                                
+                                //NavigationLink(destination:
+                                    
+                                WordSearchView(grid: word_search_grid(ts: self.training_state),
+                                               words: word_search_words(ts: self.training_state))
+                                    
+                                //) { Text("Next game") }.buttonStyle(NormalButtonStyle())
+                                
+                            } else {
+                                //NavigationLink(destination:
+                                    
+                                    FinishTrainView()
+                                //) { Text("Finish") }.buttonStyle(NormalButtonStyle())
+                                
+                                
+                            }
+                            
+                        }.onAppear {
+                            let train_flow = TrainFlow(game_words: self.training_state.game_words, training_time: self.training_state.training_time)
+                            train_flow.construct()
+                            self.training_state.training_flow = train_flow.games
+                            print("*_*_* FLOWWW ", self.training_state.training_flow)
+                        }
+                        
+                        
+                    }
                 }
             }.navigationBarTitle("").navigationBarHidden(true)
         }

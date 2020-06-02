@@ -49,6 +49,9 @@
 		31A3B87A247BF8C6002C0EC1 /* WordSearchGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A3B879247BF8C6002C0EC1 /* WordSearchGenerator.swift */; };
 		31A3B87C247C10C9002C0EC1 /* WordSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A3B87B247C10C9002C0EC1 /* WordSearchView.swift */; };
 		31EEDDAA2485E6BF0056EBBD /* FinishTrainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EEDDA92485E6BF0056EBBD /* FinishTrainView.swift */; };
+		31EEDDAC2485FCFD0056EBBD /* AllWordsObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EEDDAB2485FCFD0056EBBD /* AllWordsObserver.swift */; };
+		31EEDDAE2485FF920056EBBD /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EEDDAD2485FF920056EBBD /* View.swift */; };
+		31EEDDB0248601BC0056EBBD /* LearnSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EEDDAF248601BC0056EBBD /* LearnSettingsView.swift */; };
 		9E8113770671313CB5D6838D /* Pods_PiaEnglish.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A97C06CEE9CCB95328B0D93A /* Pods_PiaEnglish.framework */; };
 /* End PBXBuildFile section */
 
@@ -97,6 +100,9 @@
 		31A3B879247BF8C6002C0EC1 /* WordSearchGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSearchGenerator.swift; sourceTree = "<group>"; };
 		31A3B87B247C10C9002C0EC1 /* WordSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSearchView.swift; sourceTree = "<group>"; };
 		31EEDDA92485E6BF0056EBBD /* FinishTrainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishTrainView.swift; sourceTree = "<group>"; };
+		31EEDDAB2485FCFD0056EBBD /* AllWordsObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllWordsObserver.swift; sourceTree = "<group>"; };
+		31EEDDAD2485FF920056EBBD /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		31EEDDAF248601BC0056EBBD /* LearnSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearnSettingsView.swift; sourceTree = "<group>"; };
 		A97C06CEE9CCB95328B0D93A /* Pods_PiaEnglish.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PiaEnglish.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE6CA557D554861F0A9AC847 /* Pods-PiaEnglish.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PiaEnglish.debug.xcconfig"; path = "Target Support Files/Pods-PiaEnglish/Pods-PiaEnglish.debug.xcconfig"; sourceTree = "<group>"; };
 		FE5FB435E6584798805979D7 /* Pods-PiaEnglish.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PiaEnglish.release.xcconfig"; path = "Target Support Files/Pods-PiaEnglish/Pods-PiaEnglish.release.xcconfig"; sourceTree = "<group>"; };
@@ -196,6 +202,7 @@
 				31A3B86A247B3CC3002C0EC1 /* Globals.swift */,
 				3145AD082484355100F7F89A /* KeyboardAdaptive.swift */,
 				31023F232485B07100B96ED9 /* TrainingState.swift */,
+				31EEDDAD2485FF920056EBBD /* View.swift */,
 				31023F252485BC9E00B96ED9 /* TrainFlow.swift */,
 				3145AD0A2484448900F7F89A /* Styles */,
 			);
@@ -223,6 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				31724DD3247B2AF70005A728 /* LearnView.swift */,
+				31EEDDAF248601BC0056EBBD /* LearnSettingsView.swift */,
 				3178AF4F247C9D2000ADD92B /* TestView.swift */,
 				3178AF51247C9D3000ADD92B /* TrainView.swift */,
 				31EEDDA92485E6BF0056EBBD /* FinishTrainView.swift */,
@@ -244,6 +252,7 @@
 				3178AF5E247D947400ADD92B /* LernedToggleCommiter.swift */,
 				3178AF56247D448F00ADD92B /* AddWordView.swift */,
 				3178AF58247D4A0F00ADD92B /* SearchObserver.swift */,
+				31EEDDAB2485FCFD0056EBBD /* AllWordsObserver.swift */,
 				3178AF54247D396500ADD92B /* NewWordCommiter.swift */,
 				3178AF5A247D8E8D00ADD92B /* NewCollectionCommiter.swift */,
 				31A3B86C247B40DE002C0EC1 /* CollectionsObserver.swift */,
@@ -387,6 +396,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31EEDDB0248601BC0056EBBD /* LearnSettingsView.swift in Sources */,
 				3145ACFD2484001200F7F89A /* NormalTextFieldStyle.swift in Sources */,
 				31023F212485A1EF00B96ED9 /* PronounceView.swift in Sources */,
 				31023F1E24859A0700B96ED9 /* MatchTranslationView.swift in Sources */,
@@ -403,6 +413,7 @@
 				3178AF5F247D947400ADD92B /* LernedToggleCommiter.swift in Sources */,
 				3145ACF7248308F800F7F89A /* PiaBackground.swift in Sources */,
 				3145ACFB2483FFBA00F7F89A /* NormalButtonStyle.swift in Sources */,
+				31EEDDAC2485FCFD0056EBBD /* AllWordsObserver.swift in Sources */,
 				3178AF50247C9D2000ADD92B /* TestView.swift in Sources */,
 				31023F242485B07100B96ED9 /* TrainingState.swift in Sources */,
 				3178AF59247D4A0F00ADD92B /* SearchObserver.swift in Sources */,
@@ -418,6 +429,7 @@
 				31A3B86D247B40DE002C0EC1 /* CollectionsObserver.swift in Sources */,
 				3178AF57247D448F00ADD92B /* AddWordView.swift in Sources */,
 				31724DC0247B29AD0005A728 /* PiaEnglish.xcdatamodeld in Sources */,
+				31EEDDAE2485FF920056EBBD /* View.swift in Sources */,
 				3145AD092484355100F7F89A /* KeyboardAdaptive.swift in Sources */,
 				3178AF55247D396500ADD92B /* NewWordCommiter.swift in Sources */,
 				31A3B86B247B3CC3002C0EC1 /* Globals.swift in Sources */,

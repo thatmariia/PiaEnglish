@@ -10,6 +10,9 @@ import Foundation
 import SwiftUI
 
 class TrainingState : ObservableObject {
+    @Published var now_training = false
+    @Published var game_words: [Word] = []
+    @Published var training_time = 0
     @Published var view_count = 0
     @Published var training_flow : [[String : [String : Any]]] = []
 }

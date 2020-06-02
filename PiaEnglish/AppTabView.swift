@@ -22,7 +22,7 @@ struct AppTabView: View {
         ZStack{
                 TabView{
                     
-                    LearnView(collections_observer: self.collections_observer)
+                    LearnView(collections_observer: self.collections_observer, all_words_observer: AllWordsObserver())
                         .tabItem {
                             VStack{
                                 Image(systemName: "book.circle")
