@@ -109,7 +109,7 @@ class GameFlow {
             
             let spoken_match = ["spoken_match_translation" : [
                 "true_word" : true_word,
-                "all_words" : all_words
+                "all_words" : all_words.shuffled()
             ]]
             spoken_matches.append(spoken_match)
         }
@@ -133,13 +133,12 @@ class GameFlow {
                 let word = self.game_words[i]
                 if  !all_words.contains(word){
                     all_words.append(word)
-                    //usage[i] += 1
                 }
             }
             
             let spoken_match = ["spoken_match" : [
                 "true_word" : true_word,
-                "all_words" : all_words
+                "all_words" : all_words.shuffled()
             ]]
             spoken_matches.append(spoken_match)
         }
@@ -180,7 +179,7 @@ class GameFlow {
             
             let match_translation = ["match_translation" : [
                 "true_word" : true_word,
-                "all_words" : all_words
+                "all_words" : all_words.shuffled()
             ]]
             match_translations.append(match_translation)
         }
