@@ -142,7 +142,7 @@ class GameFlow {
             
             /// getting the other 3 words
             var all_words: [Word] = [true_word]
-            while all_words.count < min(8, self.game_words.count) {
+            while all_words.count < min(Int.random(in: 6..<16), self.game_words.count) {
                 let i = Int.random(in: 0..<usage.count)
                 let word = self.game_words[i]
                 if  !all_words.contains(word){
@@ -171,7 +171,7 @@ class GameFlow {
             
             /// getting the other 3 words
             var all_words: [Word] = [true_word]
-            while all_words.count < min(8, self.game_words.count) {
+            while all_words.count < min(Int.random(in: 6..<16), self.game_words.count) {
                 let i = Int.random(in: 0..<usage.count)
                 let word = self.game_words[i]
                 if  !all_words.contains(word){
@@ -212,7 +212,7 @@ class GameFlow {
             
             /// getting the other 3 words
             var all_words: [Word] = [true_word]
-            while all_words.count < min(6, self.game_words.count) {
+            while all_words.count < min(Int.random(in: 4..<10), self.game_words.count) {
                 let i = Int.random(in: 0..<usage.count)
                 let word = self.game_words[i]
                 if  !all_words.contains(word){
@@ -238,7 +238,7 @@ class GameFlow {
             
             /// picking some least used words
             var words: [Word] = []
-            while words.count < min(8, self.game_words.count) {
+            while words.count < min(Int.random(in: 6..<16), self.game_words.count) {
                 let i1 = _get_least_exhausted(from: usage)
                 let i2 = Int.random(in: 0..<usage.count)
                 let i = [i1, i2].randomElement()!
