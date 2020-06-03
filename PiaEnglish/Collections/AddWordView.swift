@@ -271,6 +271,19 @@ struct AddWordView: View {
                     Spacer().frame(height: 8)
                     Button(action: {
                         self.adding = !self.adding
+                        if (self.search_word.count > 0) {
+                            for char in self.search_word {
+                                if eng_allowed.contains(char) && !rus_allowed.contains(char){
+                                    self.new_word.english = self.search_word
+                                    self.new_word.russian = ""
+                                    break
+                                } else if !eng_allowed.contains(char) && rus_allowed.contains(char) {
+                                    self.new_word.russian = self.search_word
+                                    self.new_word.english = ""
+                                    break
+                                }
+                            }
+                        }
                     }) {
                         Text("Add a new word")
                     }.buttonStyle(NormalSelectionButtonStyle(is_selected: self.adding))
