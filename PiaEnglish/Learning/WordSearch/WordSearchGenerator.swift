@@ -51,7 +51,7 @@ class WordSearchGenerator {
         self.grid = self.empty_grid()
         
         let orientations = ["lr", "rl", "ud", "du"] // left-right, up-down
-        let max_tries = Int(pow(Double(grid_size), 2)) * orientations.count
+        let max_tries = Int(pow(Double(grid_size), 2)) * orientations.count*2
         
         self.cur_grid_words = []
         
@@ -61,7 +61,6 @@ class WordSearchGenerator {
             var tries_count = 0
             
             while (!placed) {
-                
                 if (tries_count >= max_tries){ break }
                 tries_count += 1
                 

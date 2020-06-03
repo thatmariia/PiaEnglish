@@ -72,7 +72,12 @@ class GameFlow {
         let word_searches = get_word_search().0
         let spoken_matches = get_spoken_matches().0
         
-        var games = match_translations + match_words + word_searches + spoken_matches
+        var games: [[String : [String : Any]]]
+        if word_searches.count > 0 {
+            games = match_translations + match_words + word_searches + spoken_matches
+        } else {
+            games = match_translations + match_words + spoken_matches
+        }
         games = games.shuffled()
         games = games.shuffled()
         
@@ -255,7 +260,7 @@ class GameFlow {
         /// select all the words that are <= the size of the grid
         var allowed_words: [Word] = []
         for word in self.game_words {
-            if word.english.count <= grid_size {
+            if word.english.count < grid_size {
                 let cap_word = Word(id: word.id,
                                     english: word.english.uppercased(),
                                     russian: word.russian.uppercased(),
@@ -263,6 +268,11 @@ class GameFlow {
                 allowed_words.append(cap_word)
             }
         }
+        
+        if allowed_words.count == 0 {
+            return ([], [])
+        }
+        
         allowed_words = allowed_words.sorted { (a, b) -> Bool in
             return a.english.count > b.english.count
         }
@@ -278,9 +288,11 @@ class GameFlow {
             let wordsearch = WordSearchGenerator(used_words: [], unused_words: using_words)
             wordsearch.generate()
             /// incrementing usages
+            print("GRID WORDS = ", wordsearch.cur_grid_words)
             for grid_word in wordsearch.cur_grid_words {
                 let index = allowed_words.firstIndex(of: grid_word)!
                 usage[index] += 1
+                print("INDEX = ", index)
             }
             /// prioritizing unused words and randomly adding others for the next go
             using_words = wordsearch.unused_words
@@ -295,6 +307,7 @@ class GameFlow {
                 "words" : wordsearch.cur_grid_words
             ]]
             word_searches.append(word_search)
+            print("USAGE = ", usage)
         }
         return (word_searches, usage)
     }
