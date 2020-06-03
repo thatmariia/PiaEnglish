@@ -58,6 +58,7 @@ struct CardsView: View {
                     .stroke(Color.white, lineWidth: 2)
                     )
                     
+                    
                     Spacer()
                     /// show next word card
                     Button(action: {
@@ -65,11 +66,13 @@ struct CardsView: View {
                         if (self.curr_i >= self.words.count-1) {
                             if !self.done {
                                 self.done = true
-                            } else {
-                                self.curr_i = 0
                             }
+                            self.curr_i = 0
+                            play_audio_of(word: self.words[self.curr_i].english)
+                            
                         } else {
                             self.curr_i += 1
+                            play_audio_of(word: self.words[self.curr_i].english)
                         }
                         
                     }) {
@@ -96,6 +99,8 @@ struct CardsView: View {
                 }
                 }.padding()
                 
+            }.onAppear {
+                play_audio_of(word: self.words[self.curr_i].english)
             }
         }.navigationBarTitle("").navigationBarHidden(true)
         
