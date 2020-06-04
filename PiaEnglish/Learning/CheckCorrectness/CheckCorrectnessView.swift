@@ -28,6 +28,9 @@ struct CheckCorrectnessView: View {
             
             VStack{
                 
+                ProgressView()
+
+                
                 Text("Check whether the translation is correct").foregroundColor(.white)
                 Spacer().frame(height: 10)
                 

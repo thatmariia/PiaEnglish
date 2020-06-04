@@ -46,6 +46,8 @@
 		31A3B876247B4B63002C0EC1 /* CollectionContentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A3B875247B4B63002C0EC1 /* CollectionContentsView.swift */; };
 		31A3B87A247BF8C6002C0EC1 /* WordSearchGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A3B879247BF8C6002C0EC1 /* WordSearchGenerator.swift */; };
 		31A3B87C247C10C9002C0EC1 /* WordSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A3B87B247C10C9002C0EC1 /* WordSearchView.swift */; };
+		31C644E52488774F0064515B /* CustomTabItemButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C644E42488774F0064515B /* CustomTabItemButtonStyle.swift */; };
+		31C644E72488861A0064515B /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C644E62488861A0064515B /* ProgressView.swift */; };
 		31EEDDAA2485E6BF0056EBBD /* FinishTrainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EEDDA92485E6BF0056EBBD /* FinishTrainView.swift */; };
 		31EEDDAC2485FCFD0056EBBD /* AllWordsObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EEDDAB2485FCFD0056EBBD /* AllWordsObserver.swift */; };
 		31EEDDB0248601BC0056EBBD /* LearnSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EEDDAF248601BC0056EBBD /* LearnSettingsView.swift */; };
@@ -99,6 +101,8 @@
 		31A3B875247B4B63002C0EC1 /* CollectionContentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionContentsView.swift; sourceTree = "<group>"; };
 		31A3B879247BF8C6002C0EC1 /* WordSearchGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSearchGenerator.swift; sourceTree = "<group>"; };
 		31A3B87B247C10C9002C0EC1 /* WordSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSearchView.swift; sourceTree = "<group>"; };
+		31C644E42488774F0064515B /* CustomTabItemButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabItemButtonStyle.swift; sourceTree = "<group>"; };
+		31C644E62488861A0064515B /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		31EEDDA92485E6BF0056EBBD /* FinishTrainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishTrainView.swift; sourceTree = "<group>"; };
 		31EEDDAB2485FCFD0056EBBD /* AllWordsObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllWordsObserver.swift; sourceTree = "<group>"; };
 		31EEDDAF248601BC0056EBBD /* LearnSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearnSettingsView.swift; sourceTree = "<group>"; };
@@ -160,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				3145ACF4248305A600F7F89A /* BigButtonStyle.swift */,
+				31C644E42488774F0064515B /* CustomTabItemButtonStyle.swift */,
 				3145ACFA2483FFBA00F7F89A /* NormalButtonStyle.swift */,
 				319933CD2484906400D9F6BC /* WordGridButtonStyle.swift */,
 				3145AD042484326900F7F89A /* NormalSelectionButtonStyle.swift */,
@@ -196,6 +201,7 @@
 				31724DBC247B29AD0005A728 /* SceneDelegate.swift */,
 				31724DC1247B29AD0005A728 /* ContentView.swift */,
 				31724DD1247B2A9D0005A728 /* AppTabView.swift */,
+				31C644E62488861A0064515B /* ProgressView.swift */,
 				3178AF53247C9D3C00ADD92B /* Learning */,
 				31A3B870247B43A7002C0EC1 /* Collections */,
 				31724DC3247B29B20005A728 /* Assets.xcassets */,
@@ -443,6 +449,7 @@
 				3178AF5F247D947400ADD92B /* LernedToggleCommiter.swift in Sources */,
 				31EEDDB92486AF9B0056EBBD /* FinishTestView.swift in Sources */,
 				3145ACF7248308F800F7F89A /* PiaBackground.swift in Sources */,
+				31C644E72488861A0064515B /* ProgressView.swift in Sources */,
 				3145ACFB2483FFBA00F7F89A /* NormalButtonStyle.swift in Sources */,
 				31EEDDAC2485FCFD0056EBBD /* AllWordsObserver.swift in Sources */,
 				31023F242485B07100B96ED9 /* TrainingState.swift in Sources */,
@@ -452,6 +459,7 @@
 				31724DD6247B2B100005A728 /* CollectionsView.swift in Sources */,
 				31023F1B24858AD300B96ED9 /* MatchWordsView.swift in Sources */,
 				31EEDDB72486A93A0056EBBD /* TestingState.swift in Sources */,
+				31C644E52488774F0064515B /* CustomTabItemButtonStyle.swift in Sources */,
 				31EEDDB42486A38F0056EBBD /* SpokenMatchView.swift in Sources */,
 				31023F172485837F00B96ED9 /* CardsView.swift in Sources */,
 				31EEDDC02486F79D0056EBBD /* CheckCorrectnessView.swift in Sources */,

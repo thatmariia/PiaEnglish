@@ -133,6 +133,8 @@ struct MatchWordsView: View {
         PiaBackground().edgesIgnoringSafeArea(.all)
             
             VStack{
+                ProgressView()
+                Spacer().frame(height: 15)
                 
                 Text("Find matches").foregroundColor(.white)
                 

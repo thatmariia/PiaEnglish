@@ -23,6 +23,8 @@ struct CardsView: View {
             PiaBackground().edgesIgnoringSafeArea(.all)
             
             VStack{
+                ProgressView()
+                Spacer().frame(height: 15)
             
             GeometryReader { geom in
                 VStack{

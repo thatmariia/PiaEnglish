@@ -10,7 +10,10 @@ import SwiftUI
 
 struct PiaBackground: View {
     var body: some View {
-        return LinearGradient(gradient: Gradient(colors: [Color("GradStart"), Color("GradEnd")]), startPoint: .topLeading, endPoint: .bottomTrailing)
+        /*return LinearGradient(gradient: Gradient(colors: [Color("GradStart"), Color("GradEnd")]), startPoint: .topLeading, endPoint: .bottomTrailing).blur(radius: 10)*/
+        return RadialGradient(gradient: Gradient(colors: [Color("GradCenter"), Color("GradEdges")]),
+                              center: .center, startRadius: 50, endRadius: 500).overlay(Color.white.opacity(0.1))
+        
     }
 }
 

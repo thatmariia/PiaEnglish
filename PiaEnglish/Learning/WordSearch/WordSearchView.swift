@@ -137,6 +137,8 @@ struct WordSearchView: View {
         return  ZStack(alignment: .top){
             PiaBackground().edgesIgnoringSafeArea(.all)
             VStack {
+                ProgressView()
+                Spacer().frame(height: 15)
                 
                 Text("Words to find:").foregroundColor(.white)
                 ScrollView(.horizontal, showsIndicators: false){

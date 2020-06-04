@@ -13,8 +13,11 @@ struct AppTabView: View {
     
     @ObservedObject var collections_observer = CollectionsObserver()
     
+    @EnvironmentObject var testing_state: TestingState
+    @EnvironmentObject var training_state: TrainingState
+    
     init() {
-        UITabBar.appearance().barTintColor = UIColor(named: "GradEnd")
+        UITabBar.appearance().barTintColor = UIColor(named: "GradEdges")
         //UITabBar.appearance().isTranslucent = true
     }
     
@@ -22,7 +25,7 @@ struct AppTabView: View {
         ZStack{
                 TabView{
                     
-                    LearnView(/*collections_observer: self.collections_observer, all_words_observer: AllWordsObserver()*/)
+                    LearnView()
                         .tabItem {
                             VStack{
                                 Image(systemName: "book.circle")
@@ -33,14 +36,14 @@ struct AppTabView: View {
                             
                     }
                     
-                    CollectionsView(/*collections_observer: self.collections_observer*/)
+                    CollectionsView()
                         .tabItem {
                             VStack{
                             Image(systemName: "paperclip.circle")
                                 .font(.system(size: 30, weight: Font.Weight.ultraLight))
                             Text("collections")
                             }
-                    }
+                    }.disabled(testing_state.now_testing || training_state.now_training)
                     
                 }.accentColor(.white)
         }

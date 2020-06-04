@@ -80,6 +80,8 @@ struct SpokenMatchTranslationView: View {
         return  ZStack(alignment: .top){
         PiaBackground().edgesIgnoringSafeArea(.all)
             VStack{
+                ProgressView()
+                Spacer().frame(height: 15)
                 
                 Text("Match the spoken word").foregroundColor(.white)
                 Spacer().frame(height: 8)

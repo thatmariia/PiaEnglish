@@ -84,6 +84,8 @@ struct MatchTranslationView: View {
         return  ZStack(alignment: .top){
             PiaBackground().edgesIgnoringSafeArea(.all)
             VStack{
+                ProgressView()
+                Spacer().frame(height: 15)
                 
                 Text("Choose a correct translation for").foregroundColor(.white)
                 Text(format_string(str: true_word.russian))
