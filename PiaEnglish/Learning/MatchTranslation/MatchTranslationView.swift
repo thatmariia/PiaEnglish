@@ -87,7 +87,7 @@ struct MatchTranslationView: View {
                 ProgressView()
                 Spacer().frame(height: 15)
                 
-                Text("Choose a correct translation for").foregroundColor(.white)
+                Text("Match translation".uppercased()).foregroundColor(.white)
                 Text(format_string(str: true_word.russian))
                     .font(.title).fontWeight(.bold).foregroundColor(.white)
                 

@@ -136,7 +136,7 @@ struct MatchWordsView: View {
                 ProgressView()
                 Spacer().frame(height: 15)
                 
-                Text("Find matches").foregroundColor(.white)
+                Text("Find matches".uppercased()).foregroundColor(.white)
                 
                 Spacer().frame(height: 15)
             

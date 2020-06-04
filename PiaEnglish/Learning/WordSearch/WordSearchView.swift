@@ -140,7 +140,7 @@ struct WordSearchView: View {
                 ProgressView()
                 Spacer().frame(height: 15)
                 
-                Text("Words to find:").foregroundColor(.white)
+                Text("Find words".uppercased()).foregroundColor(.white)
                 ScrollView(.horizontal, showsIndicators: false){
                     HStack{
                         ForEach(words, id: \.self) { word in

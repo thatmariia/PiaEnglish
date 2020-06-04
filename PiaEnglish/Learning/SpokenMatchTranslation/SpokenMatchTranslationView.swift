@@ -83,7 +83,7 @@ struct SpokenMatchTranslationView: View {
                 ProgressView()
                 Spacer().frame(height: 15)
                 
-                Text("Match the spoken word").foregroundColor(.white)
+                Text("Match the spoken word".uppercased()).foregroundColor(.white)
                 Spacer().frame(height: 8)
                 Button(action: {
                     play_audio_of(word: self.true_word.english)

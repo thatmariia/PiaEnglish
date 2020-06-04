@@ -21,69 +21,69 @@ struct CardsView: View {
     var body: some View {
         return  ZStack(alignment: .top){
             PiaBackground().edgesIgnoringSafeArea(.all)
-            
-            VStack{
-                ProgressView()
-                Spacer().frame(height: 15)
-            
             GeometryReader { geom in
                 VStack{
+                    ProgressView()
+                    Spacer().frame(height: 15)
                     
-                    Spacer()
-                    
-                    VStack {
+                    //GeometryReader { geom in
+                    VStack{
                         
                         Spacer()
                         
-                        Text(format_string(str: self.words[self.curr_i].english)).font(.title).fontWeight(.bold)
-                        Divider()
-                        Text(format_string(str:self.words[self.curr_i].russian)).font(.body)
-                            .foregroundColor(Color("GradEnd"))
-                        
-                        Spacer()
-                        
-                        Button(action: {
-                            play_audio_of(word: self.words[self.curr_i].english)
-                        }) {
-                            Image(systemName: "play.fill").foregroundColor(.white).font(.system(size: 40))
+                        VStack {
                             
-                        }
-                        
-                        Spacer()
-                        
-                    }
-                    .foregroundColor(.white)
-                    //.padding()
-                    .frame(width: geom.size.width, height: geom.size.height*2/3, alignment: .center)
-                    .background(Color.white.opacity(0.3)).cornerRadius(40)
-                    .overlay(RoundedRectangle(cornerRadius: 40)
-                    .stroke(Color.white, lineWidth: 2)
-                    )
-                    
-                    
-                    Spacer()
-                    /// show next word card
-                    Button(action: {
-                        
-                        if (self.curr_i >= self.words.count-1) {
-                            if !self.done {
-                                self.done = true
+                            Spacer()
+                            
+                            Text(format_string(str: self.words[self.curr_i].english)).font(.title).fontWeight(.bold)
+                            Divider()
+                            Text(format_string(str:self.words[self.curr_i].russian)).font(.body)
+                                .foregroundColor(Color("GradEnd"))
+                            
+                            Spacer()
+                            
+                            Button(action: {
+                                play_audio_of(word: self.words[self.curr_i].english)
+                            }) {
+                                Image(systemName: "play.fill").foregroundColor(.white).font(.system(size: 40))
+                                
                             }
-                            self.curr_i = 0
-                            play_audio_of(word: self.words[self.curr_i].english)
                             
-                        } else {
-                            self.curr_i += 1
-                            play_audio_of(word: self.words[self.curr_i].english)
+                            Spacer()
+                            
                         }
+                        .foregroundColor(.white)
+                            .padding()
+                            .frame(width: geom.size.width, height: geom.size.height*2/3, alignment: .center)
+                            .background(Color.white.opacity(0.3)).cornerRadius(40)
+                            .overlay(RoundedRectangle(cornerRadius: 40)
+                                .stroke(Color.white, lineWidth: 2)
+                        )
                         
-                    }) {
-                        Text("Next word")
-                    }.buttonStyle(NormalButtonStyle(is_disabled: false))
-                    
-                    Spacer()
-                    
-                    //if self.done {
+                        
+                        Spacer()
+                        /// show next word card
+                        Button(action: {
+                            
+                            if (self.curr_i >= self.words.count-1) {
+                                if !self.done {
+                                    self.done = true
+                                }
+                                self.curr_i = 0
+                                play_audio_of(word: self.words[self.curr_i].english)
+                                
+                            } else {
+                                self.curr_i += 1
+                                play_audio_of(word: self.words[self.curr_i].english)
+                            }
+                            
+                        }) {
+                            Text("Next word")
+                        }.buttonStyle(NormalButtonStyle(is_disabled: false))
+                        
+                        Spacer()
+                        
+                        //if self.done {
                         Button(action: {
                             if self.training_state.now_training{
                                 self.training_state.view_count += 1
@@ -95,15 +95,15 @@ struct CardsView: View {
                             Text("Next game")
                         }.buttonStyle(NormalButtonStyle(is_disabled: !self.done))
                             .disabled(!self.done)
-                    //}
-                    
-                    Spacer().frame(height: 8)
+                        //}
+                        
+                        Spacer().frame(height: 8)
+                    }
+                }.onAppear {
+                    play_audio_of(word: self.words[self.curr_i].english)
                 }
-                }.padding()
                 
-            }.onAppear {
-                play_audio_of(word: self.words[self.curr_i].english)
-            }
+            }.padding()
         }.navigationBarTitle("").navigationBarHidden(true)
         
     }

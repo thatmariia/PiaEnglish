@@ -25,16 +25,18 @@ struct CheckCorrectnessView: View {
     var body: some View {
         return  ZStack(alignment: .top){
             PiaBackground().edgesIgnoringSafeArea(.all)
-            
-            VStack{
-                
-                ProgressView()
-
-                
-                Text("Check whether the translation is correct").foregroundColor(.white)
-                Spacer().frame(height: 10)
-                
-                GeometryReader { geom in
+            GeometryReader { geom in
+                VStack{
+                    
+                    
+                    ProgressView()
+                    Spacer().frame(height: 15)
+                    
+                    
+                    Text("Check if correct".uppercased()).foregroundColor(.white)
+                    Spacer().frame(height: 10)
+                    
+                    //GeometryReader { geom in
                     VStack{
                         
                         Spacer()
@@ -54,63 +56,64 @@ struct CheckCorrectnessView: View {
                         
                         
                     }.foregroundColor(.white)
+                        .padding()
                         .frame(width: geom.size.width, height: geom.size.height/2, alignment: .center)
                         .background(Color.white.opacity(0.3)).cornerRadius(40)
                         .overlay(RoundedRectangle(cornerRadius: 40)
                             .stroke(Color.white, lineWidth: 2)
                     )
-                }
-                
-                Spacer()
-                
-                HStack{
-                
-                    Button(action: {
-                        play_audio_of(word: self.true_word.english)
-                        self.clicked = true
-                        /// is wrong?
-                        if self.true_word.english != self.wrong_word.english {
-                            self.correct_answer = true
-                            self.done = true
-                        }
-                        if self.testing_state.now_testing {
-                            self.done = true
-                        }
-                    }) {
-                        Image(systemName: "multiply").font(.system(size: 40)).fixedSize().frame(width: 60, height: 60)
-                    }
-                    .buttonStyle(NormalSelectionButtonStyle(is_selected:
-                        (correct_answer && self.true_word.english != self.wrong_word.english) ||
-                        (testing_state.now_testing && clicked && self.true_word.english != self.wrong_word.english)
-                    ))
-                        .disabled((correct_answer) || (testing_state.now_testing && clicked))
+                    //}
                     
                     Spacer()
                     
-                    Button(action: {
-                        play_audio_of(word: self.true_word.english)
-                        self.clicked = true
-                        /// is right?
-                        if self.true_word.english == self.wrong_word.english {
-                            self.correct_answer = true
-                            self.done = true
+                    HStack{
+                        
+                        Button(action: {
+                            play_audio_of(word: self.true_word.english)
+                            self.clicked = true
+                            /// is wrong?
+                            if self.true_word.english != self.wrong_word.english {
+                                self.correct_answer = true
+                                self.done = true
+                            }
+                            if self.testing_state.now_testing {
+                                self.done = true
+                            }
+                        }) {
+                            Image(systemName: "multiply").font(.system(size: 40)).fixedSize().frame(width: 60, height: 60)
                         }
-                        if self.testing_state.now_testing {
-                            self.done = true
+                        .buttonStyle(NormalSelectionButtonStyle(is_selected:
+                            (self.correct_answer && self.true_word.english != self.wrong_word.english) ||
+                                (self.testing_state.now_testing && self.clicked && self.true_word.english != self.wrong_word.english)
+                        ))
+                            .disabled((self.correct_answer) || (self.testing_state.now_testing && self.clicked))
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            play_audio_of(word: self.true_word.english)
+                            self.clicked = true
+                            /// is right?
+                            if self.true_word.english == self.wrong_word.english {
+                                self.correct_answer = true
+                                self.done = true
+                            }
+                            if self.testing_state.now_testing {
+                                self.done = true
+                            }
+                        }) {
+                            Image(systemName: "checkmark").font(.system(size: 40)).fixedSize().frame(width: 60, height: 60)
                         }
-                    }) {
-                        Image(systemName: "checkmark").font(.system(size: 40)).fixedSize().frame(width: 60, height: 60)
-                        }
-                    .buttonStyle(NormalSelectionButtonStyle(is_selected:
-                        (correct_answer && self.true_word.english == self.wrong_word.english) ||
-                        (testing_state.now_testing && clicked && self.true_word.english == self.wrong_word.english)
-                    ))
-                        .disabled((correct_answer) || (testing_state.now_testing && clicked))
-                }
-                
-                Spacer()
-                
-                //if done {
+                        .buttonStyle(NormalSelectionButtonStyle(is_selected:
+                            (self.correct_answer && self.true_word.english == self.wrong_word.english) ||
+                                (self.testing_state.now_testing && self.clicked && self.true_word.english == self.wrong_word.english)
+                        ))
+                            .disabled((self.correct_answer) || (self.testing_state.now_testing && self.clicked))
+                    }
+                    
+                    Spacer()
+                    
+                    //if done {
                     Button(action: {
                         if self.training_state.now_training{
                             self.training_state.view_count += 1
@@ -127,15 +130,17 @@ struct CheckCorrectnessView: View {
                         self.done = false
                     }) {
                         Text("Next game")
-                    }.buttonStyle(NormalButtonStyle(is_disabled: !done))
-                        .disabled(!done)
-                //}
-                
-                
-                Spacer().frame(height: 8)
+                    }.buttonStyle(NormalButtonStyle(is_disabled: !self.done))
+                        .disabled(!self.done)
+                    //}
+                    
+                    
+                    Spacer().frame(height: 8)
+                    
+                }
             }.padding()
-                
-            }.navigationBarTitle("").navigationBarHidden(true)
+            
+        }.navigationBarTitle("").navigationBarHidden(true)
     }
 }
 
