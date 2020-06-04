@@ -12,7 +12,7 @@ struct PiaBackground: View {
     var body: some View {
 
         return RadialGradient(gradient: Gradient(colors: [Color("GradCenter"), Color("GradEdges")]),
-                              center: .center, startRadius: 50, endRadius: 400).overlay(Color.white.opacity(0.1))
+                              center: .center, startRadius: 50, endRadius: 300).overlay(Color.white.opacity(0.1))
         
     }
 }
